@@ -1,0 +1,56 @@
+.navbar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  padding: 2rem 5rem;
+}
+
+.navbar__logo {
+  width: 10rem;
+}
+
+.navbar__list {
+  width: 45rem;
+  list-style: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.navbar__item {
+  padding: 0 1rem;
+  font-size: 1.6rem;
+}
+
+.navbar__item:first-child,
+.navbar__item:last-child {
+  border: none;
+}
+
+.navbar__item:last-child {
+  cursor: pointer;
+}
+
+.navbar__item:nth-child(2) {
+  border-left: 2px solid #aaaaaa;
+}
+
+.navbar__item:nth-child(2),
+.navbar__item:nth-child(3),
+.navbar__item:nth-child(4),
+.navbar__item:nth-child(5) {
+  border-right: 2px solid #aaaaaa;
+}
+
+.navbar__item--icon {
+  vertical-align: middle;
+}

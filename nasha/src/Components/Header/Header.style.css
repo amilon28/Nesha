@@ -1,0 +1,72 @@
+.header {
+  background-color: #fdfdfd;
+}
+
+.header__box {
+  height: 60vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.header__intro {
+  text-align: center;
+}
+
+.header__title {
+  font-size: 3.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.header__description {
+  font-size: 1.6rem;
+}
+
+.header__line {
+  width: 20rem;
+  height: 2px;
+  margin: 3rem auto 0;
+  background-color: #d8d8d8;
+}
+
+.header__searchbar {
+  width: 35rem;
+  position: relative;
+  margin-top: 4rem;
+}
+
+.header__searchbar input {
+  width: 100%;
+  height: 5rem;
+  padding: 2rem;
+  direction: rtl;
+  font-family: inherit;
+  font-weight: bold;
+  border-radius: 2rem;
+  border: 1px solid #000;
+}
+
+.header__searchbar input:focus {
+  outline: 0;
+}
+
+.header__icon {
+  position: absolute;
+  top: 10%;
+  left: 2%;
+}
+
+.header__icon img {
+  width: 3.5rem;
+  cursor: pointer;
+}

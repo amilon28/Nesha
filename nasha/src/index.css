@@ -1,0 +1,36 @@
+@font-face {
+  font-family: Parastoo;
+  src: url("./assets/fonts/Parastoo.eot");
+  src: url("./assets/fonts/Parastoo.eot?#iefix") format("embedded-opentype"),
+    url("./assets/fonts/Parastoo.woff2") format("woff2"),
+    url("./assets/fonts/Parastoo.woff") format("woff"),
+    url("./assets/fonts/Parastoo.ttf") format("truetype");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: Parastoo;
+  src: url("./assets/fonts/Parastoo-Bold.eot");
+  src: url("./assets/fonts/Parastoo-Bold.eot?#iefix")
+      format("embedded-opentype"),
+    url("./assets/fonts/Parastoo-Bold.woff2") format("woff2"),
+    url("./assets/fonts/Parastoo-Bold.woff") format("woff"),
+    url("./assets/fonts/Parastoo-Bold.ttf") format("truetype");
+  font-weight: bold;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  height: 100vh;
+  font-family: Parastoo;
+}
