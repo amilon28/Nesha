@@ -1,6 +1,6 @@
-import SearchFieldBig from "../SearchFieldBig/SearchField.component";
-import "../Header/Header.style.css";
+import SearchField from "../SearchField/SearchField.component";
 import Line from "../Line/Line.component";
+import "../Header/Header.style.css";
 
 const HeaderBody = (props) => {
   if (props.type === "1") {
@@ -15,7 +15,7 @@ const HeaderBody = (props) => {
           های شبیه سازی مربوط به آن ها را مشاهده کنید
         </p>
         <Line />
-        <SearchFieldBig />
+        <SearchField size="1" />
       </div>
     );
   } else if (props.type === "2") {
@@ -24,7 +24,15 @@ const HeaderBody = (props) => {
         <h1 className="header__title">
           (نرم افزار های شبیه سازی آزمایشگاه) نشا
         </h1>
-        <SearchFieldBig />
+        <SearchField size="1" />
+      </div>
+    );
+  } else if (props.type === "3") {
+    return (
+      <div className="header__box header__box--sm">
+        <h1 className="header__title header__title--sm">
+          (نرم افزار های شبیه سازی آزمایشگاه) نشا
+        </h1>
       </div>
     );
   }

@@ -25,6 +25,10 @@
   align-items: center;
 }
 
+.header__box--sm {
+  top: 80%;
+}
+
 .header__intro {
   text-align: center;
 }
@@ -32,6 +36,10 @@
 .header__title {
   font-size: 3.5rem;
   margin-bottom: 2.5rem;
+}
+
+.header__title--sm {
+  margin: 0;
 }
 
 .header__description {
@@ -79,4 +87,25 @@
 
 .type-2 {
   height: 50vh;
+}
+
+.type-3 {
+  height: 25vh;
+}
+
+.header__small input {
+  width: 70%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon__small {
+  position: absolute;
+  top: 20%;
+  left: 2%;
+}
+
+.icon__small img {
+  width: 2.5rem;
 }

@@ -7,7 +7,7 @@ const Header = (props) => {
   const classes = "header " + props.className;
   return (
     <header className={classes}>
-      <NavBar type="head" />
+      <NavBar type="head" size={props.size} />
       <HeaderBody type={props.type} />
     </header>
   );

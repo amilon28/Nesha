@@ -1,6 +1,7 @@
 import "./Title.style.css";
 const Title = (props) => {
-  return <h2 className="font">{props.children}</h2>;
+  const classes = "font " + props.className;
+  return <h2 className={classes}>{props.children}</h2>;
 };
 
 export default Title;
