@@ -1,11 +1,14 @@
 import ServicesList from "../ServicesList/ServicesList.component";
+import Container from "../Container/Container.component";
+
 import "./Services.style.css";
+import Title from "../Title/Title.component";
 const Services = () => {
   return (
-    <div className="services">
-      <h2 className="services__title">خدمات ما</h2>
+    <Container>
+      <Title>خدمات ما</Title>
       <ServicesList />
-    </div>
+    </Container>
   );
 };
 

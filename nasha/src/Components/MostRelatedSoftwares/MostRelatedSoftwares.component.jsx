@@ -1,14 +1,14 @@
 import MostRelatedSoftwareList from "../MostRelatedSoftwareList/MostRelatedSoftwareList.component";
+import Container from "../Container/Container.component";
 import "./MostRelatedSoftwares.style.css";
+import Title from "../Title/Title.component";
 
 const MostRelatedSoftware = () => {
   return (
-    <div className="MostRelatedSoftware">
-      <h2 className="MostRelatedSoftware__title">
-        بیشترین نرم افزار ها مربوط به کدام رشته ها هستند ؟
-      </h2>
+    <Container>
+      <Title>بیشترین نرم افزار ها مربوط به کدام رشته ها هستند ؟</Title>
       <MostRelatedSoftwareList />
-    </div>
+    </Container>
   );
 };
 

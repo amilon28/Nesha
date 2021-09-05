@@ -1,9 +1,15 @@
 .header {
-  background-color: #fdfdfd;
+  background-color: #fafafa;
+  height: 100vh;
+  position: relative;
 }
 
 .header__box {
-  height: 60vh;
+  width: 90%;
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
