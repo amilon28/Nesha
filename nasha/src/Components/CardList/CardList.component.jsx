@@ -1,5 +1,4 @@
 import Card from "../Card/Card.component";
-import Container from "../Container/Container.component";
 import "./CardList.style.css";
 
 const CardList = () => {

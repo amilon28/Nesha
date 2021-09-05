@@ -1,6 +1,6 @@
-.container {
+.contactUS {
   border-top: 2px solid #e8e8e8;
-  height: 40rem;
+  height: 550px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -16,10 +16,10 @@
   align-items: center;
 }
 
-.big-height {
-  height: 50rem;
+.contactUS h2 {
+  font-size: 3.5rem;
 }
 
-.contactUs {
-  height: 55rem;
+.contactUS__text {
+  font-size: 1.5rem;
 }

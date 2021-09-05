@@ -1,0 +1,40 @@
+.form__input {
+  direction: rtl;
+  padding: 1.2rem;
+  border-radius: 8px;
+  border: 1px solid #000;
+  font-size: 1.5rem;
+}
+
+.form__input:focus {
+  outline: none;
+}
+
+.form__input--textarea {
+  width: 100%;
+  direction: rtl;
+}
+
+.form__input-containers {
+  margin-top: 1rem;
+}
+
+.form__input-containers input:not(:last-child) {
+  margin-right: 8px;
+}
+
+.form__btn {
+  display: block;
+  background-color: #606060;
+  margin: 1.5rem auto;
+  width: 15rem;
+  font-size: 1.8rem;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  border: 1px solid #000;
+  color: #fff;
+}
+
+.form__btn:hover {
+  cursor: pointer;
+}
