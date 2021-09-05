@@ -8,11 +8,11 @@ const NavList = (props) => {
   if (props.type === "head") {
     return (
       <ul className="navbar__list">
-        <NavItem className={props.className} text="خانه" />
-        <NavItem className={props.className} text="درباره ما" />
-        <NavItem className={props.className} text="اضافه کردن" />
-        <NavItem className={props.className} text="رشته ها" />
-        <NavItem className={props.className} text="آزمایشگاه ها" />
+        <NavItem to="/" className={props.className} text="خانه" />
+        <NavItem to="/search" className={props.className} text="درباره ما" />
+        <NavItem to="/submit" className={props.className} text="اضافه کردن" />
+        <NavItem to="/software" className={props.className} text="رشته ها" />
+        <NavItem to="/labs" className={props.className} text="آزمایشگاه ها" />
         <li className="navbar__item">
           <img src={hamburger} alt="hamburger" className="navbar__item--icon" />
         </li>

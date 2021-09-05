@@ -3,11 +3,12 @@ import HeaderBody from "../HeaderBody/HeaderBody.component";
 
 import "./Header.style.css";
 
-const Header = () => {
+const Header = (props) => {
+  const classes = "header " + props.className;
   return (
-    <header className="header">
+    <header className={classes}>
       <NavBar type="head" />
-      <HeaderBody />
+      <HeaderBody type={props.type} />
     </header>
   );
 };
