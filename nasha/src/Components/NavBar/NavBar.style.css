@@ -13,7 +13,7 @@
 }
 
 .navbar__list {
-  width: 45rem;
+  width: 50rem;
   list-style: none;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -27,8 +27,11 @@
 }
 
 .navbar__item {
-  padding: 0 1rem;
+  padding: 0 1.5rem;
   font-size: 1.6rem;
+  height: 1.5rem;
+  display: flex;
+  align-items: center;
 }
 
 .navbar__item:first-child,
@@ -53,4 +56,19 @@
 
 .navbar__item--icon {
   vertical-align: middle;
+}
+
+.navbar__item--footer:nth-child(2),
+.navbar__item--footer:nth-child(3),
+.navbar__item--footer:nth-child(4) {
+  padding: 0 2.5rem;
+}
+
+.navbar__item--footer:nth-child(5) {
+  border: 0;
+}
+
+a {
+  text-decoration: none;
+  color: #000;
 }

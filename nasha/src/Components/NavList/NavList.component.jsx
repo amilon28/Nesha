@@ -8,11 +8,11 @@ const NavList = (props) => {
   if (props.type === "head") {
     return (
       <ul className="navbar__list">
-        <NavItem text="خانه" />
-        <NavItem text="درباره ما" />
-        <NavItem text="اضافه کردن" />
-        <NavItem text="رشته ها" />
-        <NavItem text="آزمایشگاه ها" />
+        <NavItem className={props.className} text="خانه" />
+        <NavItem className={props.className} text="درباره ما" />
+        <NavItem className={props.className} text="اضافه کردن" />
+        <NavItem className={props.className} text="رشته ها" />
+        <NavItem className={props.className} text="آزمایشگاه ها" />
         <li className="navbar__item">
           <img src={hamburger} alt="hamburger" className="navbar__item--icon" />
         </li>
@@ -21,11 +21,11 @@ const NavList = (props) => {
   } else {
     return (
       <ul className="navbar__list">
-        <NavItem text="خانه" />
-        <NavItem text="درباره ما" />
-        <NavItem text="ورود" />
-        <NavItem text="عضویت" />
-        <NavItem text="افزودن" />
+        <NavItem className={props.className} text="خانه" />
+        <NavItem className={props.className} text="درباره ما" />
+        <NavItem className={props.className} text="ورود" />
+        <NavItem className={props.className} text="عضویت" />
+        <NavItem className={props.className} text="افزودن" />
       </ul>
     );
   }

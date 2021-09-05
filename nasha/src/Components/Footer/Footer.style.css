@@ -1,0 +1,12 @@
+.footer {
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  border-top: 2px solid #d1d1d1;
+}
+
+.footer__copyRight {
+  font-size: 18px;
+}

@@ -1,7 +1,12 @@
 import "../NavBar/NavBar.style.css";
 
 const NavItem = (props) => {
-  return <li className="navbar__item">{props.text}</li>;
+  const classes = "navbar__item " + props.className;
+  return (
+    <li className={classes}>
+      <a href="#">{props.text}</a>
+    </li>
+  );
 };
 
 export default NavItem;
