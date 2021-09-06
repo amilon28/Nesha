@@ -1,0 +1,44 @@
+.gallery-container {
+  width: 500px;
+  height: 350px;
+  border: 8px solid #3e92cc;
+  border-radius: 8px;
+  position: relative;
+}
+
+.gallery {
+  width: 100%;
+  height: 100%;
+  background-image: url("../../assets/img/pic-0.jpg");
+  background-size: cover;
+  background-color: aqua;
+}
+
+.btn {
+  width: 37px;
+  height: 47px;
+  text-decoration: none;
+  position: absolute;
+  top: 50%;
+  background-color: #3e92cc;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.2s;
+}
+
+.btn:hover {
+  background-color: #fff;
+  color: #3e92cc;
+  border: 3px solid #3e92cc;
+}
+
+.btn-left {
+  left: -20px;
+}
+.btn-right {
+  right: -20px;
+}
