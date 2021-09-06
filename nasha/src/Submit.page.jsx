@@ -1,5 +1,5 @@
 import Header from "./Components/Header/Header.component";
-import AddSoftware from "./AddSoftware/AddSoftware.component";
+import AddSoftware from "./Components/AddSoftware/AddSoftware.component";
 
 const Submit = () => {
   return (

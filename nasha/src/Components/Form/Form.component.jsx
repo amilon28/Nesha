@@ -7,7 +7,7 @@ const Form = () => {
         cols="30"
         rows="10"
         placeholder="پیام"
-        className="form__input form__input--textarea"
+        className="form__input--textarea"
       ></textarea>
       <div className="form__input-containers">
         <input className="form__input" type="text" placeholder="عنوان" />

@@ -72,3 +72,9 @@ a {
   text-decoration: none;
   color: #000;
 }
+
+.navbar-with-searchFiled {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}

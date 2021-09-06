@@ -6,7 +6,7 @@ import Title from "./Components/Title/Title.component";
 const Labs = () => {
   return (
     <div>
-      <Header type="3" className="type-3" />
+      <Header type="3" className="type-3" nav="true" />
       <Container>
         <Title>رشته ها</Title>
         <CardList />

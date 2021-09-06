@@ -4,15 +4,29 @@ import NavList from "../NavList/NavList.component";
 
 import navLogo from "../../assets/img/simulation.svg";
 
+import SearchField from "../SearchField/SearchField.component";
+
 import "./NavBar.style.css";
 
-const NavBar = () => {
-  return (
-    <nav className="navbar">
-      <img src={navLogo} alt="simulation" className="navbar__logo" />
-      <NavList type="head" />
-    </nav>
-  );
+const NavBar = (props) => {
+  if (!props.nav) {
+    return (
+      <nav className="navbar">
+        <img src={navLogo} alt="simulation" className="navbar__logo" />
+        <NavList type="head" />
+      </nav>
+    );
+  } else {
+    return (
+      <nav className="navbar">
+        <div className="navbar-with-searchFiled">
+          <img src={navLogo} alt="simulation" className="navbar__logo" />
+          <SearchField />
+        </div>
+        <NavList type="head" />
+      </nav>
+    );
+  }
 };
 
 export default NavBar;

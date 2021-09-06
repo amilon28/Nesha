@@ -1,0 +1,74 @@
+.software__icon {
+  width: 25px;
+}
+
+.software__details {
+  max-width: 1200px;
+  margin: 20px auto 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.softwareNameAndIcon {
+  width: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font-size: 20px;
+}
+
+.softwarelogo {
+  width: 70px;
+}
+
+.softwareLikesAndViews {
+  width: 150px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.likes-views {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.likes-views div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.score {
+  margin-left: 8px;
+  font-size: 15px;
+}
+
+.addSection {
+  font-size: 15px;
+  text-decoration: underline;
+}
+
+.addSection span {
+  color: #0c59cf;
+}
+
+.softwareDescription {
+  max-width: 1200px;
+  margin: 0 auto;
+  margin-top: 40px;
+  border-bottom: 2px solid #000;
+  padding-bottom: 30px;
+}
+
+.softwareDescription h3 {
+  font-size: 18px;
+}
+
+.softwareDescription p {
+  font-size: 15px;
+}

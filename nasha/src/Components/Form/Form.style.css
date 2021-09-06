@@ -13,6 +13,10 @@
 .form__input--textarea {
   width: 100%;
   direction: rtl;
+  padding: 1.2rem;
+  border-radius: 8px;
+  border: 1px solid #000;
+  font-size: 1.5rem;
 }
 
 .form__input-containers {

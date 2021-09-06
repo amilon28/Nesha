@@ -51,6 +51,18 @@
   justify-content: space-between;
 }
 
+.form__input {
+  width: 200px;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #000;
+  direction: rtl;
+}
+
+.form__input--link {
+  direction: ltr;
+}
+
 .form__inputbox--select {
   width: 600px;
 }
@@ -74,14 +86,6 @@
   -ms-flex-direction: column;
   flex-direction: column;
   width: 800px;
-}
-
-.form__input {
-  width: 200px;
-  padding: 8px;
-  border-radius: 8px;
-  border: 1px solid #000;
-  direction: rtl;
 }
 
 .form__input:focus {
