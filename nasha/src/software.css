@@ -72,3 +72,84 @@
 .softwareDescription p {
   font-size: 15px;
 }
+
+.snapshot {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.snapshot-gallery {
+  width: 50%;
+  text-align: center;
+  font-size: 18px;
+}
+
+.snapshotDetails {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 500px;
+}
+
+.snapshotItem,
+.addDate {
+  width: 400px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-around;
+  font-size: 15px;
+}
+
+snapshotItem > :nth-child(2) {
+  background: rgb(71, 230, 111);
+}
+.snapshotInfo {
+  min-height: 300px;
+  width: 50%;
+}
+
+.snapshot__links {
+  width: 250px;
+  font-size: 15px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.snapshot__title {
+  font-size: 18px;
+  width: 200px;
+}
+
+.status {
+  font-size: 18px;
+  width: 300px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.status div {
+  display: flex;
+  align-items: center;
+}
+
+.status label {
+  margin-left: 12px;
+}
+
+.snapshot__pdf {
+  text-align: center;
+  border-bottom: 1px solid #000;
+  padding-bottom: 40px;
+}
+
+.snapshot__pdf h3 {
+  font-size: 18px;
+  margin-bottom: 12px;
+}
+
+.snapshot__pdf iframe {
+  width: 500px;
+  height: 500px;
+}
