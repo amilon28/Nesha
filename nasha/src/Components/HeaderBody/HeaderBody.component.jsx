@@ -15,7 +15,7 @@ const HeaderBody = (props) => {
           های شبیه سازی مربوط به آن ها را مشاهده کنید
         </p>
         <Line />
-        <SearchField size="1" />
+        <SearchField />
       </div>
     );
   } else if (props.type === "2") {
@@ -24,7 +24,7 @@ const HeaderBody = (props) => {
         <h1 className="header__title">
           (نرم افزار های شبیه سازی آزمایشگاه) نشا
         </h1>
-        <SearchField size="1" />
+        <SearchField />
       </div>
     );
   } else if (props.type === "3") {

@@ -1,7 +1,11 @@
+import Header from "./Components/Header/Header.component";
+import AddSoftware from "./AddSoftware/AddSoftware.component";
+
 const Submit = () => {
   return (
     <div>
-      <h2>Submit</h2>
+      <Header type="2" className="type-2" />
+      <AddSoftware />
     </div>
   );
 };
