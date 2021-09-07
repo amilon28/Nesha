@@ -143,6 +143,18 @@
   .header__title {
     font-size: 2.5rem;
   }
+
+  .navbar-with-searchFiled + .navbar__list .navbar__item:not(:last-child) {
+    display: none;
+  }
+
+  .navbar-with-searchFiled + .navbar__list {
+    justify-content: end;
+  }
+
+  .header.type-3 {
+    height: 35vh;
+  }
 }
 
 @media (max-width: 767px) {
@@ -166,7 +178,7 @@
     height: 75vh;
   }
   .header__searchbar {
-    max-width: 30rem;
+    width: auto;
   }
 
   .header__description {
@@ -182,5 +194,9 @@
 
   .type-2 {
     height: 50vh;
+  }
+
+  .type-3 {
+    height: 30vh;
   }
 } ;

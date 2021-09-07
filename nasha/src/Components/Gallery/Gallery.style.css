@@ -42,3 +42,17 @@
 .btn-right {
   right: -20px;
 }
+
+@media (min-width: 767px) and (max-width: 1024px) {
+  .gallery-container {
+    width: 700px;
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 767px) {
+  .gallery-container {
+    width: 250px;
+    margin-bottom: 20px;
+  }
+} ;
