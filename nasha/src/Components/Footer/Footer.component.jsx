@@ -8,7 +8,10 @@ const Footer = () => {
     <footer className="footer">
       <NavList className="navbar__item--footer" />
       <Line className="line--footer" />
-      <p className="footer__copyRight">&copy; All Rights Reserved.</p>
+      <p className="footer__copyRight">
+        1717 Harrison St, San Francisco, CA 94103, USA <br />
+        &copy; HOOH alrights reserved
+      </p>
     </footer>
   );
 };

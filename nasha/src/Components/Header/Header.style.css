@@ -54,7 +54,7 @@
 }
 
 .header__searchbar {
-  width: 35rem;
+  width: 45rem;
   position: relative;
   margin-top: 4rem;
 }
@@ -62,11 +62,11 @@
 .header__searchbar input {
   width: 100%;
   height: 5rem;
-  padding: 2rem;
+  padding: 3rem;
   direction: rtl;
   font-family: inherit;
   font-weight: bold;
-  border-radius: 2rem;
+  border-radius: 3rem;
   border: 1px solid #000;
 }
 
@@ -76,7 +76,7 @@
 
 .header__icon {
   position: absolute;
-  top: 10%;
+  top: 20%;
   left: 2%;
 }
 
@@ -108,4 +108,18 @@
 
 .icon__small img {
   width: 2.5rem;
+}
+
+.reducePadding input {
+  padding: 1rem;
+  width: 25rem;
+  height: 4rem;
+}
+
+.reducePadding .header__icon img {
+  width: 2.5rem;
+}
+
+.reducePadding .header__icon {
+  top: 15%;
 }

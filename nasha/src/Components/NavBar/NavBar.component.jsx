@@ -21,7 +21,7 @@ const NavBar = (props) => {
       <nav className="navbar">
         <div className="navbar-with-searchFiled">
           <img src={navLogo} alt="simulation" className="navbar__logo" />
-          <SearchField />
+          <SearchField main="reducePadding" />
         </div>
         <NavList type="head" />
       </nav>

@@ -6,7 +6,7 @@ import Title from "../Title/Title.component";
 const Services = () => {
   return (
     <Container>
-      <Title>خدمات ما</Title>
+      <Title>خدمات سایت</Title>
       <ServicesList />
     </Container>
   );
