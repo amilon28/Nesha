@@ -6,6 +6,11 @@
   width: 180px;
   margin: 20px auto 0;
 }
+@media (min-width: 768px) and (max-width: 1024px) {
+  .font {
+    font-size: 2rem;
+  }
+}
 
 @media (max-width: 767px) {
   .font {

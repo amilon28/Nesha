@@ -17,6 +17,15 @@
   border-bottom: 2px solid #000;
 }
 
+@media (min-width: 768px) and (max-width: 1024px) {
+  .MostRelatedSoftware__list {
+    width: 100%;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 30rem;
+  }
+}
+
 @media (max-width: 767px) {
   .MostRelatedSoftware__list {
     width: auto;

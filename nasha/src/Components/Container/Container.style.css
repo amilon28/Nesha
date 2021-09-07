@@ -24,6 +24,12 @@
   height: 55rem;
 }
 
+@media (min-width: 768px) and (max-width: 1024px) {
+  .big-height {
+    justify-content: space-evenly;
+  }
+}
+
 @media (max-width: 767px) {
   .container {
     justify-content: space-around;
