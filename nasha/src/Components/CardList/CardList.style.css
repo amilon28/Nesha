@@ -27,3 +27,16 @@
   border-radius: 20px;
   border: 1px solid #000;
 }
+
+@media (max-width: 767px) {
+  .cards {
+    width: 100%;
+    height: auto;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .card {
+    height: 90px;
+    width: 100px;
+  }
+} ;

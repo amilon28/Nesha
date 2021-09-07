@@ -33,3 +33,23 @@
 .services__description p {
   font-size: 1.4rem;
 }
+
+@media (max-width: 767px) {
+  .services__list {
+    width: auto;
+    flex-direction: column;
+    height: 70rem;
+  }
+
+  .services__icon img {
+    width: 4rem;
+  }
+
+  .services__description h4 {
+    font-size: 18px;
+  }
+
+  .services__description p {
+    font-size: 14px;
+  }
+} ;

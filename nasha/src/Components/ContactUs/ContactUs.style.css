@@ -23,3 +23,9 @@
 .contactUS__text {
   font-size: 1.5rem;
 }
+
+@media (max-width: 767px) {
+  .contactUS__text {
+    font-size: 1.3rem;
+  }
+} ;

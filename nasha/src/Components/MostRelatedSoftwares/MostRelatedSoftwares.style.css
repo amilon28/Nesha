@@ -16,3 +16,28 @@
 .MostRelatedSoftware__item span {
   border-bottom: 2px solid #000;
 }
+
+@media (max-width: 767px) {
+  .MostRelatedSoftware__list {
+    width: auto;
+    flex-direction: column;
+    height: 55rem;
+  }
+
+  .form__input-containers {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 15rem;
+    width: 100%;
+  }
+
+  .form__input-containers input {
+    width: 100%;
+  }
+
+  .form__input-containers input:first-child {
+    order: 1;
+  }
+} ;

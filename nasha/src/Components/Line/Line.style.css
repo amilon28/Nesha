@@ -12,3 +12,9 @@
 .line--review {
   margin: 30px 80px;
 }
+
+@media (max-width: 767px) {
+  .line {
+    display: none;
+  }
+} ;

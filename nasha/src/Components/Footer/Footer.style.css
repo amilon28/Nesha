@@ -12,3 +12,13 @@
   text-align: center;
   color: #7a7a7a;
 }
+
+@media (max-width: 767px) {
+  .footer {
+    justify-content: center;
+  }
+
+  .footer .navbar__item--footer {
+    display: none;
+  }
+} ;

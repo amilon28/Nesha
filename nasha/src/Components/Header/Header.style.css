@@ -123,3 +123,39 @@
 .reducePadding .header__icon {
   top: 15%;
 }
+
+/*  Media Queries */
+@media (max-width: 767px) {
+  .navbar {
+    padding: 8px;
+  }
+
+  .navbar__logo {
+    width: 60px;
+  }
+
+  .navbar__item:not(:last-child) {
+    display: none;
+  }
+
+  .navbar__list {
+    width: auto;
+  }
+
+  .header {
+    height: 75vh;
+  }
+  .header__searchbar {
+    max-width: 30rem;
+  }
+
+  .header__description {
+    font-size: 14px;
+    width: 30rem;
+    text-align: center;
+  }
+
+  .header__title {
+    font-size: 20px;
+  }
+} ;

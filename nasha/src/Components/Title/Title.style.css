@@ -6,3 +6,10 @@
   width: 180px;
   margin: 20px auto 0;
 }
+
+@media (max-width: 767px) {
+  .font {
+    font-size: 2rem;
+    text-align: center;
+  }
+} ;

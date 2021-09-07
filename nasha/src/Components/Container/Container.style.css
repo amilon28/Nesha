@@ -1,6 +1,6 @@
 .container {
   border-top: 2px solid #e8e8e8;
-  height: 40rem;
+  min-height: 40rem;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -23,3 +23,14 @@
 .contactUs {
   height: 55rem;
 }
+
+@media (max-width: 767px) {
+  .container {
+    justify-content: space-around;
+    padding-top: 10px;
+  }
+
+  .big-height {
+    height: 50rem;
+  }
+} ;
