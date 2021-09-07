@@ -1,4 +1,4 @@
-import checkMark from "../../assets/img/check-mark-circle.svg";
+import checkMark from "../../assets/img/check-mark.svg";
 import "../Services/Services.style.css";
 const ServicesItem = (props) => {
   return (
