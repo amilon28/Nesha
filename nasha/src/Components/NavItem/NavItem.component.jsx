@@ -2,10 +2,10 @@ import { Link } from "react-router-dom";
 import "../NavBar/NavBar.style.css";
 
 const NavItem = (props) => {
-  const classes = "navbar__item " + props.className;
+  const classes = "navbar__item";
   return (
     <li className={classes}>
-      <Link to={props.to}>{props.text}</Link>
+      <Link to={props.goto}>{props.text}</Link>
     </li>
   );
 };

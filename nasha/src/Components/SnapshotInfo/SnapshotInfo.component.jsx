@@ -37,9 +37,9 @@ const SnapshotInfo = () => {
         <p>Windows</p>
       </SnapshotInfoItem>
       <SnapshotInfoItem title="Labs">
-        <a href="#">lab1</a>
-        <a href="#">lab2</a>
-        <a href="#">lab3</a>
+        <a href="/#">lab1</a>
+        <a href="/#">lab2</a>
+        <a href="/#">lab3</a>
       </SnapshotInfoItem>
       <div className="status">
         <div>

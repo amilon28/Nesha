@@ -5,9 +5,13 @@ const Gallery = () => {
     <div className="snapshot-gallery">
       <h3>Snapshots:</h3>
       <div className="gallery-container">
-        <div class="gallery" id="gallery"></div>
-        <a href="#" class="btn btn-left" id="prev"></a>
-        <a href="#" class="btn btn-right" id="next"></a>
+        <div className="gallery" id="gallery"></div>
+        <a href="#/" className="btn btn-left" id="prev">
+          prev
+        </a>
+        <a href="#/" className="btn btn-right" id="next">
+          next
+        </a>
       </div>
     </div>
   );

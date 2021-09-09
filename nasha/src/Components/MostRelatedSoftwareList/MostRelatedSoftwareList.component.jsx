@@ -1,21 +1,16 @@
 import MostRelatedSoftwareItem from "../MostRelatedSoftwareItem/MostRelatedSoftwareItem.component";
 
 import "../MostRelatedSoftwares/MostRelatedSoftwares.style.css";
-const MostRelatedSoftwareList = () => {
+const MostRelatedSoftwareList = (props) => {
   return (
     <div className="MostRelatedSoftware__list">
-      <MostRelatedSoftwareItem>
-        رشته <span>مهندسی کامپیوتر</span> با ۵۰ آزمایشگاه <br /> و ۱۵۰ نرم افزار
-        شبیه سازی
-      </MostRelatedSoftwareItem>
-      <MostRelatedSoftwareItem>
-        رشته <span>مهندسی برق</span> با ۵۰ آزمایشگاه <br /> و ۱۵۰ نرم افزار شبیه
-        سازی
-      </MostRelatedSoftwareItem>
-      <MostRelatedSoftwareItem>
-        رشته <span>مهندسی مکانیک</span> با ۵۰ آزمایشگاه <br /> و ۱۵۰ نرم افزار
-        شبیه سازی
-      </MostRelatedSoftwareItem>
+      {props.fieldsList.map((field) => (
+        <MostRelatedSoftwareItem key={field.id}>
+          رشته <span className="field__title">{field.name}</span> با{" "}
+          {field.number_of_labs} آزمایشگاه <br /> و {field.number_of_softwares}{" "}
+          نرم افزار شبیه سازی
+        </MostRelatedSoftwareItem>
+      ))}
     </div>
   );
 };

@@ -1,15 +1,19 @@
 import Card from "../Card/Card.component";
 import "./CardList.style.css";
 
-const CardList = () => {
+const CardList = (props) => {
+  console.log(props.softWareList);
   return (
     <div className="cards">
-      <Card text="C++" />
-      <Card text="Java" />
-      <Card text="Xilinx" />
-      <Card text="Python" />
-      <Card text="Ruby" />
-      <Card text="PHP" />
+      {props.softWareList.map((soft) => (
+        <Card
+          title={soft.name}
+          icon={soft.icon_picture}
+          numOfLikes={soft.likes}
+          numOfViews={soft.views}
+          key={soft.id}
+        />
+      ))}
     </div>
   );
 };

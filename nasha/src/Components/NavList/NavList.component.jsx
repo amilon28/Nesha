@@ -8,11 +8,12 @@ const NavList = (props) => {
   if (props.type === "head") {
     return (
       <ul className="navbar__list">
-        <NavItem to="/" className={props.className} text="خانه" />
-        <NavItem to="/search" className={props.className} text="درباره ما" />
-        <NavItem to="/submit" className={props.className} text="اضافه کردن" />
-        <NavItem to="/software" className={props.className} text="رشته ها" />
-        <NavItem to="/labs" className={props.className} text="آزمایشگاه ها" />
+        <NavItem goto="/" text="خانه" />
+        <NavItem goto="/search" text="درباره ما" />
+        <NavItem goto="/submit" text="اضافه کردن" />
+        <NavItem goto="/software" text="رشته ها" />
+        <NavItem goto="/labs" text="آزمایشگاه ها" />
+        {/* <NavItem to="/fields"  text="رشته ها" /> */}
         <li className="navbar__item">
           <img src={hamburger} alt="hamburger" className="navbar__item--icon" />
         </li>
@@ -21,11 +22,11 @@ const NavList = (props) => {
   } else {
     return (
       <ul className="navbar__list">
-        <NavItem className={props.className} text="خانه" />
-        <NavItem className={props.className} text="درباره ما" />
-        <NavItem className={props.className} text="ورود" />
-        <NavItem className={props.className} text="عضویت" />
-        <NavItem className={props.className} text="افزودن" />
+        <NavItem goto="/" text="خانه" />
+        <NavItem goto="/search" text="درباره ما" />
+        <NavItem goto="/submit" text="ورود" />
+        <NavItem goto="/software" text="عضویت" />
+        <NavItem goto="/labs" text="افزودن" />
       </ul>
     );
   }

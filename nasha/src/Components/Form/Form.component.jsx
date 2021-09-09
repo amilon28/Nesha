@@ -2,7 +2,7 @@ import "./Form.style.css";
 
 const Form = () => {
   return (
-    <form action="" class="form">
+    <form action="" className="form">
       <textarea
         cols="30"
         rows="10"

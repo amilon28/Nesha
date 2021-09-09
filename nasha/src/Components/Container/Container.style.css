@@ -1,27 +1,39 @@
 .container {
   border-top: 2px solid #e8e8e8;
-  min-height: 40rem;
-  display: -webkit-box;
-  display: -ms-flexbox;
+  height: auto;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
   flex-direction: column;
-  -webkit-box-pack: space-evenly;
-  -ms-flex-pack: space-evenly;
-  justify-content: space-evenly;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
+  padding: 10px 0 30px;
+  position: relative;
+}
+
+.mostSoftWares {
+  min-height: 40vh;
+  justify-content: space-around;
 }
 
 .big-height {
-  height: 50rem;
+  height: auto;
 }
 
 .contactUs {
   height: 55rem;
+}
+
+.loading-text,
+.error-text {
+  font-size: 50px;
+  padding-top: 50px;
+  height: 20rem;
+}
+
+.loading-text {
+  color: #b96900;
+}
+
+.error-text {
+  color: #720101;
 }
 
 @media (min-width: 768px) and (max-width: 1024px) {
