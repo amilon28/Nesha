@@ -124,6 +124,30 @@
   top: 15%;
 }
 
+.listOfDatas {
+  list-style: none;
+  background: #201f1fb6;
+  position: absolute;
+  right: 5%;
+  width: 400px;
+  direction: rtl;
+  color: #fff6f6;
+  font-size: 18px;
+  height: 200px;
+  overflow-y: scroll;
+  padding-right: 10px;
+}
+
+.listOfDatas li {
+  margin-bottom: 5px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.listOfDatas li:hover {
+  background-color: #00b7ff;
+}
+
 /*  Media Queries */
 @media (min-width: 768px) and (max-width: 1024px) {
   .header {

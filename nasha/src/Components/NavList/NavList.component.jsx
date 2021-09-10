@@ -9,10 +9,10 @@ const NavList = (props) => {
     return (
       <ul className="navbar__list">
         <NavItem goto="/" text="خانه" />
-        <NavItem goto="/search" text="درباره ما" />
+        <NavItem goto="/search" text="جستجوی بیشتر" />
         <NavItem goto="/submit" text="اضافه کردن" />
-        <NavItem goto="/software" text="رشته ها" />
-        <NavItem goto="/labs" text="آزمایشگاه ها" />
+        <NavItem goto="/Field" text="رشته ها" />
+        <NavItem goto="/Lab" text="آزمایشگاه ها" />
         {/* <NavItem to="/fields"  text="رشته ها" /> */}
         <li className="navbar__item">
           <img src={hamburger} alt="hamburger" className="navbar__item--icon" />

@@ -1,50 +1,81 @@
 import React, { useState } from "react";
-// import { useHistory } from "react-router-dom";
-
+import { useHistory } from "react-router-dom";
 import "../Header/Header.style.css";
 import searchIcon from "../../assets/img/search-icon.svg";
+
 const SearchField = (props) => {
-  const mainClass = "header__searchbar " + props.main;
-  const iconClass = "header__icon " + props.icon;
-
+  const [obj, setObj] = useState({});
   const [searchValue, setSearchValue] = useState("");
-  // const user = useHistory();
+  const [result, setResult] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
+  const goto = useHistory();
 
-  const changeHandler = (e) => {
-    setSearchValue(e.target.value);
+  const clickSearchIconHandler = (e) => {
+    if (!searchValue || !(e.key === "Enter")) return;
+    goto.push("/search");
   };
 
-  const keyDownHandler = async (e) => {
-    console.log(e.target.value);
-    if (!searchValue) return;
-    if (e.key === "Enter") {
-      const response = await fetch(
-        `http://hassan1245.pythonanywhere.com/Nesha/v1/search?search=${searchValue}`
-      );
-      const data = await response.json();
-      console.log(data);
-      if (!data.overall_total) {
-        alert(
-          "There is no Lab / Software / Fields for your Search value, Try another one"
-        );
-      } else {
-        console.log(data);
-      }
+  const clickOnItemHandler = (e, obj) => {
+    console.log(obj);
+    setSearchValue(e.target.textContent);
+    if ("number_of_labs" in obj && "number_of_softwares" in obj) {
+      goto.push("/Field");
+    } else if ("number_of_softwares" in obj) {
+      goto.push("/Lab");
     }
   };
 
+  const fetchDatasAboutSearchValue = async () => {
+    try {
+      const response = await fetch(
+        `https://hassan1245.pythonanywhere.com/Nesha/v1/search?search=${searchValue}`
+      );
+
+      if (!response.ok) throw Error("Something Went Wrong...");
+
+      const data = await response.json();
+
+      setResult(data.results);
+
+      [...result.Software, ...result.Field, ...result.Lab].map((el) =>
+        console.log(el.name)
+      );
+    } catch (err) {
+      console.log(err.message);
+    }
+    setIsLoading(false);
+  };
+
+  const changeHandler = (e) => {
+    setSearchValue(e.target.value);
+    fetchDatasAboutSearchValue();
+  };
+
+  const mainClass = "header__searchbar " + props.main;
+  const iconClass = "header__icon " + props.icon;
   return (
     <div className={mainClass}>
       <input
+        autoFocus
         type="text"
         placeholder="جستجو"
         value={searchValue}
         onChange={changeHandler}
-        onKeyDown={keyDownHandler}
+        onKeyDown={clickSearchIconHandler}
       />
-      <span className={iconClass}>
+      <span className={iconClass} onClick={clickSearchIconHandler}>
         <img src={searchIcon} alt="search-icon" />
       </span>
+
+      {!isLoading && (
+        <div>
+          <ul className="listOfDatas">
+            {[...result.Software, ...result.Field, ...result.Lab].map((el) => (
+              <li onClick={(e) => clickOnItemHandler(e, el)}>{el.name}</li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 };

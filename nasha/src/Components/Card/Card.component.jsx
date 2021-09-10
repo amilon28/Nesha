@@ -15,11 +15,11 @@ const Card = (props) => {
         <div className="card__title">{props.title}</div>
         <div className="card__item">
           <img src={heart} alt="likes" />
-          <sapn>{props.numOfLikes}</sapn>
+          <span>{props.numOfLikes}</span>
         </div>
         <div className="card__item">
           <img src={view} alt="views" />
-          <sapn>{props.numOfViews}</sapn>
+          <span>{props.numOfViews}</span>
         </div>
       </div>
     </div>

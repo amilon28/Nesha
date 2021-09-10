@@ -9,7 +9,6 @@ const Labs = () => {
       <Header type="3" className="type-3" nav="true" />
       <Container>
         <Title>آزمایشگاه ها</Title>
-        <CardList />
       </Container>
     </div>
   );

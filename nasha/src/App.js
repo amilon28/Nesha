@@ -10,8 +10,8 @@ function App() {
   return (
     <div>
       <Route exact path="/" component={Home} />
-      <Route exact path="/labs" component={Labs} />
-      <Route exact path="/fields" component={Fields} />
+      <Route exact path="/Lab" component={Labs} />
+      <Route exact path="/Field" component={Fields} />
       <Route exact path="/search" component={Search} />
       <Route exact path="/software" component={Software} />
       <Route exact path="/submit" component={Submit} />
@@ -20,3 +20,5 @@ function App() {
 }
 
 export default App;
+
+// Submit : add page
