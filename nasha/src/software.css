@@ -84,20 +84,16 @@
   font-size: 18px;
 }
 
-.snapshotDetails {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 500px;
-}
-
-.snapshotItem,
 .addDate {
-  width: 400px;
+  width: auto;
   margin-bottom: 10px;
   display: flex;
-  justify-content: space-around;
-  font-size: 15px;
+  justify-content: space-evenly;
+  font-size: 18px;
+}
+
+.addDate .title {
+  border-bottom: 2px solid #000;
 }
 
 snapshotItem > :nth-child(2) {
@@ -108,32 +104,20 @@ snapshotItem > :nth-child(2) {
   width: 50%;
 }
 
-.snapshot__links {
-  width: 250px;
-  font-size: 15px;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
-
-.snapshot__links a:nth-child(2),
+/* .snapshot__links a:nth-child(2),
 .snapshot__links p:nth-child(2) {
   border-left: 1px solid #000;
   border-right: 1px solid #000;
   padding: 0 10px;
-}
-
-.snapshot__title {
-  font-size: 18px;
-  width: 200px;
-}
+} */
 
 .status {
   font-size: 18px;
-  width: 300px;
+  width: auto;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
   align-items: center;
+  margin-top: 25px;
 }
 
 .status div {
@@ -143,22 +127,6 @@ snapshotItem > :nth-child(2) {
 
 .status label {
   margin-left: 12px;
-}
-
-.snapshot__pdf {
-  text-align: center;
-  border-bottom: 1px solid #000;
-  padding-bottom: 40px;
-}
-
-.snapshot__pdf h3 {
-  font-size: 18px;
-  margin-bottom: 12px;
-}
-
-.snapshot__pdf iframe {
-  width: 500px;
-  height: 500px;
 }
 
 .review {
@@ -207,6 +175,73 @@ snapshotItem > :nth-child(2) {
   justify-content: space-around;
   align-items: center;
   font-size: 18px;
+}
+
+/* ---- nwe styles ---- */
+.snapshotInfoItem {
+  border-bottom: 2px dotted #000;
+}
+
+.snapshotItem {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  padding: 10px 0;
+}
+
+.snapshot__links {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: auto;
+  font-size: 15px;
+  min-height: 10rem;
+  text-align: center;
+}
+
+.snapshot__links a {
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.snapshot__links a:hover {
+  transform: scale(1.1);
+}
+
+.snapshot__title {
+  font-size: 18px;
+  width: auto;
+  text-align: center;
+}
+
+.snapshotInfo {
+  height: 100%;
+  width: 50%;
+}
+
+.snapshot__pdf {
+  text-align: center;
+  border-bottom: 1px solid #000;
+  padding-bottom: 40px;
+  margin-top: 50px;
+}
+
+.snapshot__pdf h3 {
+  font-size: 18px;
+  margin-bottom: 12px;
+}
+
+.snapshot__pdf iframe {
+  width: auto;
+  height: auto;
+}
+
+.snapshotDetails {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: auto;
+  padding-top: 20px;
 }
 
 @media (min-width: 768px) and (max-width: 1024px) {

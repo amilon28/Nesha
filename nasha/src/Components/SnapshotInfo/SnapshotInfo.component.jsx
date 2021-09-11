@@ -1,54 +1,51 @@
 import AddedData from "../AddedData/AddedData.component";
 import SnapshotInfoItem from "../SnapshotInfoItem/SnapshotInfoItem.component";
 
-const SnapshotInfo = () => {
+const SnapshotInfo = (props) => {
   return (
     <div className="snapshotInfo">
-      <AddedData />
+      <AddedData date={props.date} />
       <SnapshotInfoItem title="URLs">
-        <a href="https://www.instagram.com/">Instagram</a>
-        <a href="https://difwear.com/product/s1982">dif</a>
-        <a href="https://mail.google.com/mail/u/0/#inbox/FMfcgzGljlhhlfWFqRqtVpFdZrVBQZMT">
-          mail
-        </a>
+        <a href={props.url}>props.url</a>
       </SnapshotInfoItem>
       <SnapshotInfoItem title="Course URLs">
-        <a href="https://www.instagram.com/">Instagram</a>
-        <a href="https://difwear.com/product/s1982">dif</a>
-        <a href="https://mail.google.com/mail/u/0/#inbox/FMfcgzGljlhhlfWFqRqtVpFdZrVBQZMT">
-          mail
-        </a>
+        {props.courseLinks.length > 0 &&
+          props.courseLinks.map((el) => {
+            return <a href={el.url}>{el.url}</a>;
+          })}
       </SnapshotInfoItem>
       <SnapshotInfoItem title="Review URLs">
-        <a href="https://www.instagram.com/">Instagram</a>
-        <a href="https://difwear.com/product/s1982">dif</a>
-        <a href="https://mail.google.com/mail/u/0/#inbox/FMfcgzGljlhhlfWFqRqtVpFdZrVBQZMT">
-          mail
-        </a>
+        {props.reviewlinks.length > 0 &&
+          props.reviewlinks.map((el) => {
+            return <a href={el.url}>{el.url}</a>;
+          })}
       </SnapshotInfoItem>
       <SnapshotInfoItem title="Platforms">
-        <p>Linux</p>
-        <p>Mac</p>
-        <p>Windows</p>
+        {props.platforms.length > 0 &&
+          props.platforms.map((el) => {
+            return <p>{el.name}</p>;
+          })}
       </SnapshotInfoItem>
       <SnapshotInfoItem title="License">
-        <p>Linux</p>
-        <p>Mac</p>
-        <p>Windows</p>
+        {props.licenses.length > 0 &&
+          props.licenses.map((el) => {
+            return <p>{el.name}</p>;
+          })}
       </SnapshotInfoItem>
       <SnapshotInfoItem title="Labs">
-        <a href="/#">lab1</a>
-        <a href="/#">lab2</a>
-        <a href="/#">lab3</a>
+        {props.labs.length > 0 &&
+          props.labs.map((el) => {
+            return <p>{el.name}</p>;
+          })}
       </SnapshotInfoItem>
       <div className="status">
         <div>
-          <input type="radio" name="status" id="on" />
-          <label htmlFor="on">آنلاین</label>
+          <input type="checkbox" id="off" />
+          <label htmlFor="off">آفلاین</label>
         </div>
         <div>
-          <input type="radio" name="status" id="off" />
-          <label htmlFor="off">آفلاین</label>
+          <input type="checkbox" id="on" />
+          <label htmlFor="on">آنلاین</label>
         </div>
       </div>
     </div>

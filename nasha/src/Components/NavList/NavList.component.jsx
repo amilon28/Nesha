@@ -11,8 +11,8 @@ const NavList = (props) => {
         <NavItem goto="/" text="خانه" />
         <NavItem goto="/search" text="جستجوی بیشتر" />
         <NavItem goto="/submit" text="اضافه کردن" />
-        <NavItem goto="/Field" text="رشته ها" />
-        <NavItem goto="/Lab" text="آزمایشگاه ها" />
+        <NavItem goto="/field-search" text="رشته ها" />
+        <NavItem goto="/lab-search" text="آزمایشگاه ها" />
         {/* <NavItem to="/fields"  text="رشته ها" /> */}
         <li className="navbar__item">
           <img src={hamburger} alt="hamburger" className="navbar__item--icon" />
@@ -23,10 +23,10 @@ const NavList = (props) => {
     return (
       <ul className="navbar__list">
         <NavItem goto="/" text="خانه" />
-        <NavItem goto="/search" text="درباره ما" />
-        <NavItem goto="/submit" text="ورود" />
-        <NavItem goto="/software" text="عضویت" />
-        <NavItem goto="/labs" text="افزودن" />
+        <NavItem goto="/" text="درباره ما" />
+        <NavItem goto="/software" text="ورود" />
+        <NavItem goto="/" text="عضویت" />
+        <NavItem goto="/" text="افزودن" />
       </ul>
     );
   }

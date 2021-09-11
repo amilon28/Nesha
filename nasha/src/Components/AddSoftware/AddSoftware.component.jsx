@@ -99,42 +99,57 @@ const AddSoftware = () => {
             </div>
           </div>
           <div className="form__softwar">
-            <div className="form__inputbox form__inputbox--select">
-              <div className="form__hint">
-                <img
-                  className="form__hint-icon"
-                  src={plusCircle}
-                  alt="plus-sign"
-                />
-                <p>اگر آزمایشگاه مورد نظر شما وجود ندارد آن را اضافه کنید</p>
+            <div className="form-grid">
+              <div className="form__add-text ">
+                اگر رشته مورد نظر شما وجود ندارد آن را اضافه کنید
               </div>
-              <select name="" id="" className="form__select">
-                <option value="" selected disabled hidden>
-                  Select
-                </option>
-              </select>
-              <label for="" className="form__label">
-                : آزمایشگاه نرم افزار
-              </label>
-            </div>
-            <div className="form__inputbox form__inputbox--select">
-              <div className="form__hint">
-                <img
-                  className="form__hint-icon"
-                  src={plusCircle}
-                  alt="plus-sign"
-                />
-                <p>اگر رشته مورد نظر شما وجود ندارد آن را اضافه کنید</p>
+              <div className="form__add-text">
+                اگر آزمایشگاه مورد نظر شما وجود ندارد آن را اضافه کنید
               </div>
-              <select name="" id="" className="form__select">
-                <option value="" selected disabled hidden>
-                  Select
-                </option>
-              </select>
-              <label for="" className="form__label">
-                : رشته نرم افزار
-              </label>
+              <div className="form__item">
+                <label className="form__label"> آزمایشگاه نرم افزار:</label>
+                <select className="form__select">
+                  <option value="">25</option>
+                  <option value="">25</option>
+                  <option value="">25</option>
+                  <option value="">25</option>
+                  <option value="">25</option>
+                </select>
+              </div>
+              <div className="form__item">
+                <label className="form__label"> رشته نرم افزار: </label>
+                <select className="form__select">
+                  <option value="">25</option>
+                  <option value="">25</option>
+                  <option value="">25</option>
+                  <option value="">25</option>
+                  <option value="">25</option>
+                </select>
+              </div>
+              <div className="form__item">
+                <label className="form__label"> آزمایشگاه نرم افزار:</label>
+                <select className="form__select">
+                  <option value="">25</option>
+                  <option value="">25</option>
+                  <option value="">25</option>
+                  <option value="">25</option>
+                  <option value="">25</option>
+                </select>
+              </div>
+              <div className="form__item">
+                <label className="form__label"> رشته نرم افزار: </label>
+                <select className="form__select">
+                  <option value="">25</option>
+                  <option value="">25</option>
+                  <option value="">25</option>
+                  <option value="">25</option>
+                  <option value="">25</option>
+                </select>
+              </div>
             </div>
+
+            {/* --------------------------------------------------------- */}
+
             <div className="form__inputbox form__inputbox--select">
               <div className="form__hint">
                 <img

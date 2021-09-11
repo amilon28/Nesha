@@ -204,7 +204,29 @@ input[type="file"] + label:hover {
 .form__hint-icon:hover {
   cursor: pointer;
 }
+/* form grid */
+.form-grid {
+  width: 50%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 20px;
+  row-gap: 20px;
+  direction: rtl;
+  margin-bottom: 70px;
+  margin-top: 25px;
+}
 
+.form__add-text {
+  font-size: 15px;
+  margin-bottom: 15px;
+  direction: ltr;
+}
+
+.form__item {
+  display: flex;
+  justify-content: space-between;
+}
+/* ------------- */
 @media (min-width: 768px) and (max-width: 1024px) {
   .form__inputbox--link {
     width: 100%;

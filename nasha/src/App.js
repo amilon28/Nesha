@@ -6,15 +6,29 @@ import Search from "./Search.page";
 import Software from "./Software.page";
 import Submit from "./Submit.page";
 import Fields from "./Fields.page";
+import FieldSearch from "./FieldSearch.page";
+
 import { SubjectContext } from "../src/store/SubjectContext";
+import LabSearch from "./LabSearch.page";
 
 function App() {
   const [target, setTarget] = useState("");
+  const [subject, setSubject] = useState("");
+  const [labSubject, setLabSubject] = useState("");
   const [isEnterToFieldPage, setIsEnterToFieldPage] = useState(false);
   return (
     <div>
       <SubjectContext.Provider
-        value={{ target, setTarget, isEnterToFieldPage, setIsEnterToFieldPage }}
+        value={{
+          target,
+          setTarget,
+          isEnterToFieldPage,
+          setIsEnterToFieldPage,
+          subject,
+          setSubject,
+          labSubject,
+          setLabSubject,
+        }}
       >
         <Route exact path="/" component={Home} />
         <Route exact path="/Lab" component={Labs} />
@@ -22,6 +36,8 @@ function App() {
         <Route exact path="/search" component={Search} />
         <Route exact path="/software" component={Software} />
         <Route exact path="/submit" component={Submit} />
+        <Route exact path="/field-search" component={FieldSearch} />
+        <Route exact path="/lab-search" component={LabSearch} />
       </SubjectContext.Provider>
     </div>
   );

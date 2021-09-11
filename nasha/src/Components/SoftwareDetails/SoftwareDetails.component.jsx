@@ -4,7 +4,10 @@ import SoftwareNameAndIcon from "../SoftwareNameAndIcon/SoftwareNameAndIcon.comp
 const SoftwareDetails = (props) => {
   return (
     <div className="software__details">
-      <SoftwareNameAndIcon softwareName={props.softwareName} />
+      <SoftwareNameAndIcon
+        softwareName={props.softwareName}
+        softwareIcon={props.softwareIcon}
+      />
       <SoftwareStatics like={props.like} view={props.view} />
     </div>
   );
