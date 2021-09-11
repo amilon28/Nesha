@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import "../Header/Header.style.css";
 import searchIcon from "../../assets/img/search-icon.svg";
+import { SubjectContext } from "../../store/SubjectContext";
 
 const SearchField = (props) => {
-  const [obj, setObj] = useState({});
+  const { setTarget, setIsEnterToFieldPage } = useContext(SubjectContext);
   const [searchValue, setSearchValue] = useState("");
   const [result, setResult] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -19,6 +20,8 @@ const SearchField = (props) => {
     console.log(obj);
     setSearchValue(e.target.textContent);
     if ("number_of_labs" in obj && "number_of_softwares" in obj) {
+      setTarget(obj);
+      setIsEnterToFieldPage(true);
       goto.push("/Field");
     } else if ("number_of_softwares" in obj) {
       goto.push("/Lab");
@@ -71,7 +74,12 @@ const SearchField = (props) => {
         <div>
           <ul className="listOfDatas">
             {[...result.Software, ...result.Field, ...result.Lab].map((el) => (
-              <li onClick={(e) => clickOnItemHandler(e, el)}>{el.name}</li>
+              <li
+                key={Math.random()}
+                onClick={(e) => clickOnItemHandler(e, el)}
+              >
+                {el.name}
+              </li>
             ))}
           </ul>
         </div>

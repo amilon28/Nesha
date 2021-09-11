@@ -36,7 +36,11 @@ const Form = () => {
     }
   };
   return (
-    <form className="form" onSubmit={addUserCommentHandler}>
+    <form
+      action="https://hassan1245.pythonanywhere.com"
+      className="form"
+      onSubmit={addUserCommentHandler}
+    >
       <textarea
         required
         cols="30"
