@@ -9,25 +9,8 @@ const Fields = () => {
   const { target, isEnterToFieldPage } = useContext(SubjectContext);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [result, setResult] = useState([]);
-
-  const fetchLabsHandler = async () => {
-    try {
-      const response = await fetch(
-        `https://hassan1245.pythonanywhere.com/Nesha/v1/fields/${target.id}`
-      );
-      if (!response.ok) throw Error("Something went Wrong...");
-      const data = await response.json();
-      setResult(data.lab_ids);
-      console.log(result);
-    } catch (err) {
-      setError(err.message);
-    }
-    setIsLoading(false);
-  };
-
+  console.log("target in field page", target);
   const fetchLab = async (labId) => {
-    console.log("im here in fetch");
     try {
       const response = await fetch(
         `https://hassan1245.pythonanywhere.com/Nesha/v1/labs/${labId}`
@@ -42,10 +25,11 @@ const Fields = () => {
     } catch (err) {
       setError(err.message);
     }
+    setIsLoading(false);
   };
 
   useEffect(() => {
-    if (isEnterToFieldPage) fetchLabsHandler();
+    if (isEnterToFieldPage) fetchLab();
   }, []);
 
   return (
@@ -55,9 +39,9 @@ const Fields = () => {
         <Title>رشته ها</Title>
         {isLoading && <p className="loading-text">Loading...</p>}
         {!isLoading && error && <p className="error-text">{error}</p>}
-        {!isLoading && result.length > 0 && (
+        {!isLoading && target.length > 0 && (
           <div className="smallCardList">
-            {result.forEach((lab) => fetchLab(lab.lab_id))}
+            {target.forEach((lab) => fetchLab(lab.lab_id))}
           </div>
         )}
       </Container>

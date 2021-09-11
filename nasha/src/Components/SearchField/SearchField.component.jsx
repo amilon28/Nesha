@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import "../Header/Header.style.css";
 import searchIcon from "../../assets/img/search-icon.svg";
@@ -9,18 +9,38 @@ const SearchField = (props) => {
   const [searchValue, setSearchValue] = useState("");
   const [result, setResult] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const [labs, setLabs] = useState([]);
   const goto = useHistory();
+
+  const fetchLabs = async (obj) => {
+    console.log("obj", obj);
+    console.log("obj.id", obj.id); //! obj.id = 1
+    const id = obj.id;
+    try {
+      const response = await fetch(
+        `https://hassan1245.pythonanywhere.com/Nesha/v1/fields/${id}`
+      );
+
+      if (!response.ok) throw Error("Something Went Wrong...");
+
+      const data = await response.json();
+      console.log("data", data);
+      setLabs(data.lab_ids);
+    } catch (err) {
+      console.log(err.message);
+    }
+    setIsLoading(false);
+  };
 
   const clickSearchIconHandler = (e) => {
     if (!searchValue || !(e.key === "Enter")) return;
     goto.push("/search");
   };
 
-  const clickOnItemHandler = (e, obj) => {
-    console.log(obj);
+  const clickOnItemHandler = async (e, obj) => {
     setSearchValue(e.target.textContent);
     if ("number_of_labs" in obj && "number_of_softwares" in obj) {
-      setTarget(obj);
+      fetchLabs(obj);
       setIsEnterToFieldPage(true);
       goto.push("/Field");
     } else if ("number_of_softwares" in obj) {
@@ -39,10 +59,7 @@ const SearchField = (props) => {
       const data = await response.json();
 
       setResult(data.results);
-
-      [...result.Software, ...result.Field, ...result.Lab].map((el) =>
-        console.log(el.name)
-      );
+      console.log(result);
     } catch (err) {
       console.log(err.message);
     }
@@ -53,6 +70,10 @@ const SearchField = (props) => {
     setSearchValue(e.target.value);
     fetchDatasAboutSearchValue();
   };
+
+  useEffect(() => {
+    setTarget(labs);
+  }, [labs]);
 
   const mainClass = "header__searchbar " + props.main;
   const iconClass = "header__icon " + props.icon;
