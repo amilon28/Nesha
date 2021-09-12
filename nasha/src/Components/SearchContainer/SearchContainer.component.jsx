@@ -4,11 +4,11 @@ import RightBar from "../RightBar/RightBar.component";
 
 import "./SearchContainer.style.css";
 
-const SearchContainer = () => {
+const SearchContainer = (props) => {
   return (
     <div className="searchcontainer">
       <LeftBar />
-      <MiddleBar />
+      <MiddleBar softwares={props.softwares} />
       <RightBar />
     </div>
   );

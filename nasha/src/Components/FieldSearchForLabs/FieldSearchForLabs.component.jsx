@@ -9,7 +9,7 @@ function FieldSearchForLabs() {
   const [searchValue, setSearchValue] = useState();
   const [result, setResult] = useState();
   const [isLoading, setIsLoading] = useState(false);
-  const [isClick, setIsClick] = useState(false);
+
   const goto = useHistory();
   //----------------
   const fetchFields = async () => {
@@ -30,7 +30,7 @@ function FieldSearchForLabs() {
   const getData = () => {
     setIsLoading(true);
     fetchFields();
-    setIsClick(true);
+    // setIsClick(true);
   };
 
   const getSoftwares = async (labId) => {
@@ -85,7 +85,7 @@ function FieldSearchForLabs() {
         </div>
       )}
 
-      {/* {!isLoading && !result && isClick && (
+      {/* {!isLoading && result?.res && isClick && (
         <p className="error-text">No Labs Find!</p>
       )} */}
     </div>

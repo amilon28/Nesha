@@ -1,11 +1,11 @@
 import Feature from "../Feature/Feature.component";
 
-const FeatureList = () => {
+const FeatureList = (props) => {
   return (
     <div className="featureList">
-      <Feature title="views" amount="56" />
-      <Feature title="likes" amount="64" />
-      <Feature title="courses" amount="4" />
+      <Feature title="views" amount={props.views} />
+      <Feature title="likes" amount={props.likes} />
+      <Feature title="Date" amount={props.date} />
     </div>
   );
 };

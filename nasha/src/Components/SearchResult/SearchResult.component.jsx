@@ -3,11 +3,11 @@ import SearchContainer from "../SearchContainer/SearchContainer.component";
 
 import "./SearchResult.style.css";
 
-const SearchResult = () => {
+const SearchResult = (props) => {
   return (
     <div className="searchResult">
       <Title>نتایج جستجو</Title>
-      <SearchContainer />
+      <SearchContainer softwares={props.softwares}/>
     </div>
   );
 };
