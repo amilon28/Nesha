@@ -17,6 +17,11 @@
   height: auto;
 }
 
+.services-part {
+  min-height: 35rem;
+  justify-content: space-around;
+}
+
 .contactUs {
   height: auto;
 }

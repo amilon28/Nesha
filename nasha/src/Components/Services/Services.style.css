@@ -9,16 +9,15 @@
 }
 
 .services__item {
-  width: 30rem;
-  word-wrap: break-word;
-  word-break: break-all;
+  width: 35rem;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  direction: rtl;
 }
 
 .services__icon {
-  margin-right: 1.5rem;
+  margin-left: 1.5rem;
 }
 
 .services__icon img {
@@ -27,7 +26,8 @@
 
 .services__description h4 {
   font-size: 2rem;
-  font-weight: normal;
+  font-weight: bold;
+  /* margin-bottom: 3px; */
 }
 
 .services__description p {

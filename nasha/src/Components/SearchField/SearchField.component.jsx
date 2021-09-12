@@ -10,7 +10,6 @@ const SearchField = (props) => {
   const [searchValue, setSearchValue] = useState("");
   const [result, setResult] = useState({});
   const [isLoading, setIsLoading] = useState(true);
-  const [isListOpen, setIsListOpen] = useState();
   const goto = useHistory();
 
   const clickSearchIconHandler = (e) => {

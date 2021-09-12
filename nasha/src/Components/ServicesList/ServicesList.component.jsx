@@ -4,22 +4,16 @@ const ServicesList = () => {
   return (
     <div className="services__list">
       <ServicesItem
-        title="افزودن نرم افزار"
-        text=" Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nam
-                officiis in similique doloremque reprehenderit excepturi maiores
-                explicabo ipsam odit illum?"
+        title="بخش نرم‌افزارها"
+        text=" در بخش جستجو در نرم‌افزارها (لینک) با استفاده از فیلترهای پیشرفته می‌توانید نرم‌افزار مورد نظرتان را پیدا کنید. در صورت پیدا نکردن نرم افزار مورد نظر، با ایجاد حساب کاربری می‌توانید اطلاعات آزمایشگاه دلخواهتان را با ما به اشتراک بگذارید تا ما آن را به لیست نرم‌افزارها اضافه کنیم."
       />
       <ServicesItem
-        title="تعداد کثیری از رشته ها"
-        text=" Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nam
-                officiis in similique doloremque reprehenderit excepturi maiores
-                explicabo ipsam odit illum?"
+        title="بخش رشته‌ها و آزمایشگاه‌ها"
+        text=" نرم‌افزارهای مربوط به آزمایشگاه‌های بسیاری در این وبسایت پوشش داده شده است. با جستجو در بخش رشته‌ها(لینک) می‌توانید آزمایشگاه‌های مربوط به رشته مورد نظر و در بخش آزمایشگاه‌ها(لینک)، نرم‌افزارهای مربوط به آن رشته را پیدا کنید."
       />
       <ServicesItem
-        title="بازخورد کاربران"
-        text=" Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nam
-                officiis in similique doloremque reprehenderit excepturi maiores
-                explicabo ipsam odit illum?"
+        title="نشا چه کاری انجام می‌دهد"
+        text=" پیدا کردن نرم‌افزارهای آزمایشگاهی و قابلیت ثبت نظرات، پیشنهادات، مطالب مرتبط با هر نرم‌افزار و افزودن نرم‌افزار جدید خدماتی است که نشا ارائه می‌دهد.  "
       />
     </div>
   );
