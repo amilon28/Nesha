@@ -12,6 +12,7 @@ import "./software.css";
 const Software = () => {
   const { softDetaile } = useContext(SubjectContext);
   const [softwareDetaile, setsoftwareDetaile] = useState(softDetaile);
+  console.log(softwareDetaile);
   return (
     <div className="software">
       <Header type="3" className="type-3" />
@@ -38,7 +39,7 @@ const Software = () => {
           softwareDetaile.snapshot5,
         ]}
       />
-      <Reviews />
+      <Reviews soft_id={softDetaile.id} />
     </div>
   );
 };

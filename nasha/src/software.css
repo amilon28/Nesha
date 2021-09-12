@@ -90,11 +90,14 @@
 }
 
 .addDate {
-  width: auto;
   margin-bottom: 10px;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   font-size: 18px;
+  user-select: none;
+  background-color: #f0f0f0;
+  border-radius: 10px;
+  padding: 10px;
 }
 
 .addDate .title {
@@ -156,14 +159,14 @@ snapshotItem > :nth-child(2) {
 }
 
 .review__date {
-  width: 200px;
-  height: 120px;
+  min-height: 150px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
   background-color: #7ab1f0;
   border-radius: 8px;
+  padding: 10px;
 }
 
 .review__date h3 {
@@ -207,6 +210,7 @@ snapshotItem > :nth-child(2) {
 .snapshot__links a {
   font-weight: bold;
   transition: 0.3s;
+  color: #0c59cf;
 }
 
 .snapshot__links a:hover {
@@ -247,6 +251,37 @@ snapshotItem > :nth-child(2) {
   align-items: center;
   height: auto;
   padding-top: 20px;
+}
+
+.slider {
+  width: 50%;
+  background: #ee8c8c;
+}
+
+.slides .slick-prev,
+.slides .slick-next {
+  position: absolute;
+  top: 50%;
+  z-index: 1;
+}
+
+.slides {
+  position: relative;
+}
+
+.slides .slick-prev,
+.slides .slick-next {
+  position: absolute;
+  top: 50%;
+  z-index: 1;
+}
+
+.slides .slick-prev {
+  left: 5%;
+}
+
+.slides .slick-next {
+  right: 5%;
 }
 
 @media (min-width: 768px) and (max-width: 1024px) {

@@ -5,11 +5,13 @@ import { SubjectContext } from "../../store/SubjectContext";
 import "../Header/Header.style.css";
 
 const SearchField = (props) => {
-  const { setTarget, setSubject, setLabSubject } = useContext(SubjectContext);
+  const { setTarget, setSubject, setLabSubject, softDetaile, setSoftDetaile } =
+    useContext(SubjectContext);
   const [searchValue, setSearchValue] = useState("");
   const [result, setResult] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [isListOpen, setIsListOpen] = useState();
+  const [searchLocation, setSearchLocation] = useState();
   const goto = useHistory();
 
   // const fetchLabs = async (obj) => {
@@ -17,57 +19,71 @@ const SearchField = (props) => {
   //   console.log("obj.id", obj.id); //! obj.id = 1
   //   const id = obj.id;
   // };
-
+  // console.log("goto.location.pathname", goto.location.pathname);
+  if (goto.location.pathname === "/") {
+  }
   const clickSearchIconHandler = (e) => {
-    if (!searchValue || !(e.key === "Enter")) return;
-    goto.push("/search");
+    if (goto.location.pathname === "/") {
+      if (!searchValue) return;
+      goto.push("/search");
+    }
+  };
+
+  const keyDownHandler = (e) => {
+    if (goto.location.pathname === "/") {
+      if (!(e.key === "Enter") || !searchValue) return;
+      goto.push("/search");
+    }
   };
 
   const clickOnItemHandler = async (e, obj) => {
-    setSearchValue(e.target.textContent);
-    // setTitle(obj.name);
+    if (goto.location.pathname === "/") {
+      setSearchValue(e.target.textContent);
+      // setTitle(obj.name);
 
-    // Fields in home page
-    if ("number_of_labs" in obj && "number_of_softwares" in obj) {
-      const response = await fetch(
-        `https://hassan1245.pythonanywhere.com/Nesha/v1/fields/${obj.id}`
-      );
-      if (!response.ok) throw Error("Something Went Wrong...");
-      const data = await response.json();
-      setTarget(data.labs);
-      setSubject(obj.name);
+      // Fields in home page
+      if ("number_of_labs" in obj && "number_of_softwares" in obj) {
+        const response = await fetch(
+          `https://hassan1245.pythonanywhere.com/Nesha/v1/fields/${obj.id}`
+        );
+        if (!response.ok) throw Error("Something Went Wrong...");
+        const data = await response.json();
+        setTarget(data.labs);
+        setSubject(obj.name);
 
-      goto.push("/Field");
-    }
-    // Labs in home page
-    else if ("number_of_softwares" in obj) {
-      const response = await fetch(
-        `https://hassan1245.pythonanywhere.com/Nesha/v1/labs/${obj.id}`
-      );
-      if (!response.ok) throw Error("Something Went Wrong...");
-      const data = await response.json();
-      setTarget(data.softwares);
-      setLabSubject(obj.name);
-      goto.push("/Lab");
-    }
-    // software in home page
-    else {
-      goto.push("/software");
+        goto.push("/Field");
+      }
+      // Labs in home page
+      else if ("number_of_softwares" in obj) {
+        const response = await fetch(
+          `https://hassan1245.pythonanywhere.com/Nesha/v1/labs/${obj.id}`
+        );
+        if (!response.ok) throw Error("Something Went Wrong...");
+        const data = await response.json();
+        setTarget(data.softwares);
+        setLabSubject(obj.name);
+        goto.push("/Lab");
+      }
+      // software in home page
+      else {
+        const response = await fetch(
+          `https://hassan1245.pythonanywhere.com/Nesha/v1/search?search=${searchValue}`
+        );
+        if (!response.ok) throw Error("Something Went Wrong...");
+        const data = await response.json();
+        console.log("data for software push", data);
+        setSoftDetaile(data.results.Software[0]);
+
+        goto.push("/software");
+      }
     }
   };
 
   const fetchDatasAboutSearchValue = async () => {
     try {
-      // if (currentLocation.pathname === "/") {
       const response = await fetch(
         `https://hassan1245.pythonanywhere.com/Nesha/v1/search?search=${searchValue}`
       );
-
-      // if (currentLocation.pathname === "/Field") {
-      //   response = await fetch(
-      //     `https://hassan1245.pythonanywhere.com/Nesha/v1/field_search?search=${searchValue}`
-      //   );
-      // }
 
       if (!response.ok) throw Error("Something Went Wrong...");
 
@@ -82,13 +98,37 @@ const SearchField = (props) => {
     setIsListOpen(false);
   };
 
+  const fetchDatasAboutField = async () => {
+    try {
+      const response = await fetch(
+        `https://hassan1245.pythonanywhere.com/Nesha/v1/field_search?search=${searchValue}`
+      );
+
+      if (!response.ok) throw Error("Something Went Wrong...");
+
+      const data = await response.json();
+
+      setResult(data.results);
+      console.log(result);
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+
   // const hideList = () => {
   //   setIsListOpen(true);
   // };
 
   const changeHandler = (e) => {
     setSearchValue(e.target.value);
-    fetchDatasAboutSearchValue();
+    if (goto.location.pathname === "/") {
+      fetchDatasAboutSearchValue();
+      setSearchLocation("home");
+    }
+    if (goto.location.pathname === "/field-search") {
+      fetchDatasAboutField();
+      setSearchLocation("field-search");
+    }
   };
 
   // useEffect(() => {
@@ -106,7 +146,7 @@ const SearchField = (props) => {
         placeholder="جستجو"
         value={searchValue}
         onChange={changeHandler}
-        onKeyDown={clickSearchIconHandler}
+        onKeyDown={keyDownHandler}
         // onBlur={hideList}
       />
       <span className={iconClass} onClick={clickSearchIconHandler}>
@@ -116,14 +156,26 @@ const SearchField = (props) => {
       {!isLoading && (
         <div>
           <ul className={`listOfDatas ${isListOpen ? "hide" : ""}`}>
-            {[...result.Software, ...result.Field, ...result.Lab].map((el) => (
-              <li
-                key={Math.random()}
-                onClick={(e) => clickOnItemHandler(e, el)}
-              >
-                {el.name}
-              </li>
-            ))}
+            {searchLocation === "home" &&
+              [...result.Software, ...result.Field, ...result.Lab].map((el) => (
+                <li
+                  key={Math.random()}
+                  onClick={(e) => clickOnItemHandler(e, el)}
+                >
+                  {el.name}
+                </li>
+              ))}
+            {searchLocation === "field-search" &&
+              result.map((res) => {
+                return (
+                  <li
+                    key={Math.random()}
+                    onClick={(e) => clickOnItemHandler(e, res)}
+                  >
+                    {res.name}
+                  </li>
+                );
+              })}
           </ul>
         </div>
       )}

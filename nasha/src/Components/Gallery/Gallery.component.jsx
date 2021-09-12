@@ -5,19 +5,23 @@ import noImg from "../../assets/img/no-image-icon.png";
 import "./Gallery.style.css";
 
 const Gallery = (props) => {
+  const urlImg = "https://hassan1245.pythonanywhere.com";
   const [bgImg, setbgImg] = useState("");
-
+  let [counter, setCounter] = useState(0);
+  let t = 0;
   const pictuers = [...props.snapShots];
-  let counter = 0;
+  console.log(pictuers);
 
   const goPrev = function () {
-    counter--;
+    t--;
+    setCounter(t);
     if (counter < 0) counter = pictuers.length - 1;
     setbgImg(pictuers[counter]);
   };
 
   const goNext = function () {
-    counter++;
+    t++;
+    setCounter(t);
     if (counter > pictuers.length - 1) counter = 0;
     setbgImg(pictuers[counter]);
   };
@@ -31,7 +35,11 @@ const Gallery = (props) => {
           id="gallery"
           style={{
             backgroundImage: `url(${
-              bgImg ? `https://hassan1245.pythonanywhere.com/${bgImg}` : noImg
+              bgImg
+                ? bgImg.includes(urlImg)
+                  ? bgImg
+                  : `https://hassan1245.pythonanywhere.com/${bgImg}`
+                : noImg
             })`,
           }}
         ></div>

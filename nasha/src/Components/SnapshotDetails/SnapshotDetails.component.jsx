@@ -1,9 +1,11 @@
 import Gallery from "../Gallery/Gallery.component";
 import SnapshotInfo from "../SnapshotInfo/SnapshotInfo.component";
+import SimpleSlider from "../Slider/Slider.component";
 
 const SnapshotDetails = (props) => {
   return (
     <div className="snapshotDetails">
+      {/* <SimpleSlider snapShots={props.snapShots} /> */}
       <Gallery snapShots={props.snapShots} />
       <SnapshotInfo
         date={props.date}
