@@ -26,7 +26,7 @@ const NavList = (props) => {
         <NavItem goto="/" text="درباره ما" />
         <NavItem goto="/software" text="ورود" />
         <NavItem goto="/" text="عضویت" />
-        <NavItem goto="/" text="افزودن" />
+        <NavItem goto="/search" text="افزودن" />
       </ul>
     );
   }
