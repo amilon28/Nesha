@@ -1,7 +1,7 @@
 import Header from "./Components/Header/Header.component";
 import Title from "./Components/Title/Title.component";
 import Container from "./Components/Container/Container.component";
-import SearchField from "./Components/SearchField/SearchField.component";
+import FieldSearchForLabs from "./Components/FieldSearchForLabs/FieldSearchForLabs.component";
 
 const LabSearch = () => {
   return (
@@ -9,7 +9,7 @@ const LabSearch = () => {
       <Header type="3" className="type-3" />
       <Container>
         <Title>آزمایشگاه ها</Title>
-        <SearchField />
+        <FieldSearchForLabs />
       </Container>
     </div>
   );

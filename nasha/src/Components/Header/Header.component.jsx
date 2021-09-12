@@ -8,7 +8,7 @@ const Header = (props) => {
   return (
     <header className={classes}>
       <NavBar nav={props.nav} />
-      <HeaderBody type={props.type} />
+      <HeaderBody type={props.type}  />
     </header>
   );
 };

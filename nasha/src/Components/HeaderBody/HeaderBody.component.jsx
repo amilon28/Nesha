@@ -15,7 +15,7 @@ const HeaderBody = (props) => {
           های شبیه سازی مربوط به آن ها را مشاهده کنید
         </p>
         <Line />
-        <SearchField />
+        <SearchField tag="home" />
       </div>
     );
   } else if (props.type === "2") {
