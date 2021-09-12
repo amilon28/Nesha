@@ -7,7 +7,7 @@ const SearchResult = (props) => {
   return (
     <div className="searchResult">
       <Title>نتایج جستجو</Title>
-      <SearchContainer softwares={props.softwares}/>
+      <SearchContainer softwares={props.softwares} />
     </div>
   );
 };

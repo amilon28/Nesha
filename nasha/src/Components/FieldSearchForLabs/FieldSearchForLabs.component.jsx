@@ -53,9 +53,9 @@ function FieldSearchForLabs() {
           type="text"
           placeholder="جستجو"
           value={searchValue}
-          onChange={changeHandler}
+          onChange={(e) => changeHandler(e)}
         />
-        <span className="header__icon" onClick={getData}>
+        <span className="header__icon" onClick={() => getData()}>
           <img src={searchIcon} alt="search-icon" />
         </span>
       </div>
@@ -65,6 +65,7 @@ function FieldSearchForLabs() {
             result.map((res) => {
               return (
                 <div
+                  key={Math.random()}
                   className="lab__card field__card"
                   onClick={() => getSoftwares(res.id)}
                 >

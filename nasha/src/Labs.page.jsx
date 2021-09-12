@@ -39,17 +39,12 @@ const Labs = () => {
             target.map((soft) => {
               return (
                 <div
+                  key={Math.random()}
                   className="soft__card"
                   onClick={() => fetchSoftwareInfo(soft)}
                 >
                   <div className="soft__icon">
-                    <img
-                      src={
-                        `https://hassan1245.pythonanywhere.com/media/` +
-                        soft.icon_picture
-                      }
-                      alt="softIcon"
-                    />
+                    <img src={soft.icon_picture} alt="softIcon" />
                   </div>
                   <div className="soft__name">{soft.name}</div>
                   <div className="soft__likes">

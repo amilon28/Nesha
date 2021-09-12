@@ -6,10 +6,7 @@ const Card = (props) => {
   return (
     <div className="card">
       <div className="card__img">
-        <img
-          src={"https://hassan1245.pythonanywhere.com" + props.icon}
-          alt="Program Icon"
-        />
+        <img src={props.icon} alt="Program Icon" />
       </div>
       <div className="card__infos">
         <div className="card__title">{props.title}</div>

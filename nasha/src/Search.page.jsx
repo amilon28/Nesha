@@ -5,12 +5,11 @@ import { SubjectContext } from "./store/SubjectContext";
 
 const Search = () => {
   const { softwareList } = useContext(SubjectContext);
-  const [softList, setSoftList] = useState();
-  setSoftList(softwareList);
+
   return (
     <div>
       <Header type="2" className="type-2" size="1" />
-      <SearchResult softwares={softList} />
+      <SearchResult softwares={softwareList} />
     </div>
   );
 };

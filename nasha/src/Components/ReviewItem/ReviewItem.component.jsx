@@ -3,7 +3,7 @@ import ReviewDate from "../ReviewDate/ReviewDate.component";
 
 const ReviewItem = (props) => {
   return (
-    <div>
+    <div key={Math.random()}>
       <div className="review__item">
         <ReviewDate
           username={props.username}

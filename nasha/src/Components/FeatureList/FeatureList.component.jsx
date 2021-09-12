@@ -3,9 +3,12 @@ import Feature from "../Feature/Feature.component";
 const FeatureList = (props) => {
   return (
     <div className="featureList">
-      <Feature title="views" amount={props.views} />
-      <Feature title="likes" amount={props.likes} />
-      <Feature title="Date" amount={props.date} />
+      <Feature
+        title="views"
+        views={props.views}
+        likes={props.likes}
+        date={props.date}
+      />
     </div>
   );
 };

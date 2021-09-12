@@ -5,7 +5,6 @@ import noImg from "../../assets/img/no-image-icon.png";
 import "./Gallery.style.css";
 
 const Gallery = (props) => {
-  const urlImg = "https://hassan1245.pythonanywhere.com";
   const [bgImg, setbgImg] = useState("");
   let [counter, setCounter] = useState(0);
   let t = 0;
@@ -34,19 +33,23 @@ const Gallery = (props) => {
           className="gallery"
           id="gallery"
           style={{
-            backgroundImage: `url(${
-              bgImg
-                ? bgImg.includes(urlImg)
-                  ? bgImg
-                  : `https://hassan1245.pythonanywhere.com/${bgImg}`
-                : noImg
-            })`,
+            backgroundImage: `url(${bgImg ? bgImg : noImg})`,
           }}
         ></div>
-        <a href="#/" className="btn btn-left" id="prev" onClick={goPrev}>
+        <a
+          href="#/"
+          className="btn btn-left"
+          id="prev"
+          onClick={() => goPrev()}
+        >
           <img src={leftArrow} alt="left-arrow" />
         </a>
-        <a href="#/" className="btn btn-right" id="next" onClick={goNext}>
+        <a
+          href="#/"
+          className="btn btn-right"
+          id="next"
+          onClick={() => goNext()}
+        >
           <img src={rightArrow} alt="right-arrow" />
         </a>
       </div>

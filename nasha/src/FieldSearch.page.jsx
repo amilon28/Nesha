@@ -5,7 +5,6 @@ import Container from "./Components/Container/Container.component";
 import FieldSearchForFieldPage from "./Components/FieldSearchForFieldPage/FieldSearchForFieldPage.component";
 
 const FieldSearch = () => {
-  const [response, setResponse] = useState({});
 
   return (
     <div>

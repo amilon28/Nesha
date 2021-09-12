@@ -5,13 +5,12 @@ import { SubjectContext } from "../../store/SubjectContext";
 import "../Header/Header.style.css";
 
 const SearchField = (props) => {
-  const { setTarget, setSubject, setLabSubject, softDetaile, setSoftDetaile } =
+  const { setTarget, setSubject, setLabSubject, setSoftDetaile } =
     useContext(SubjectContext);
   const [searchValue, setSearchValue] = useState("");
   const [result, setResult] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [isListOpen, setIsListOpen] = useState();
-  const [searchLocation, setSearchLocation] = useState();
   const goto = useHistory();
 
   const clickSearchIconHandler = (e) => {
@@ -66,31 +65,20 @@ const SearchField = (props) => {
   };
 
   const fetchDatasAboutSearchValue = async () => {
-    console.log("home...");
     try {
       const response = await fetch(
         `https://hassan1245.pythonanywhere.com/Nesha/v1/search?search=${searchValue}`
       );
-
       if (!response.ok) throw Error("Something Went Wrong...");
-
       const data = await response.json();
-
       setResult(data.results);
       console.log(result);
     } catch (err) {
       console.log(err.message);
     }
     setIsLoading(false);
-    setIsListOpen(false);
-
-    // setIsLoading(false);
     // setIsListOpen(false);
   };
-
-  // const hideList = () => {
-  //   setIsListOpen(true);
-  // };
 
   const changeHandler = (e) => {
     setSearchValue(e.target.value);
@@ -108,15 +96,14 @@ const SearchField = (props) => {
         value={searchValue}
         onChange={changeHandler}
         onKeyDown={keyDownHandler}
-        // onBlur={hideList}
       />
-      <span className={iconClass} onClick={clickSearchIconHandler}>
+      <span className={iconClass} onClick={(e) => clickSearchIconHandler(e)}>
         <img src={searchIcon} alt="search-icon" />
       </span>
 
       {!isLoading && (
         <div>
-          <ul className={`listOfDatas ${isListOpen ? "hide" : ""}`}>
+          <ul className="listOfDatas">
             {[...result.Software, ...result.Field, ...result.Lab].map((el) => (
               <li
                 key={Math.random()}

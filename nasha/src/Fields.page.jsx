@@ -58,6 +58,7 @@ const Fields = () => {
             <div className="sm-card">
               {response.map((lab) => (
                 <div
+                  key={Math.random()}
                   onClick={() => fetchcorrespondingSoftwareHandler(lab)}
                   className="lab__name"
                 >
