@@ -8,16 +8,19 @@ import { SubjectContext } from "./store/SubjectContext";
 import heart from "./assets/img/heart.svg";
 
 const Labs = () => {
-  const { target, setTarget, labSubject } = useContext(SubjectContext);
+  const { target, setTarget, labSubject, setSoftDetaile } =
+    useContext(SubjectContext);
+  console.log("target im Lab:", target);
   const goto = useHistory();
   const fetchSoftwareInfo = async (software) => {
+    console.log("passed Soft:", software);
     const response = await fetch(
       `https://hassan1245.pythonanywhere.com/Nesha/v1/softwares/${software.id}`
     );
 
     const data = await response.json();
 
-    setTarget(data);
+    setSoftDetaile(data);
     goto.push("/software");
   };
 
@@ -31,6 +34,7 @@ const Labs = () => {
           <p className="error-text">{`No Software Found :(`}</p>
         )}
         <div className="soft__cards">
+          {console.log("target im Lab in div:", target)}
           {target &&
             target.map((soft) => {
               return (

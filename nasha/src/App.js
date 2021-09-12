@@ -16,6 +16,7 @@ function App() {
   const [subject, setSubject] = useState("");
   const [labSubject, setLabSubject] = useState("");
   const [isEnterToFieldPage, setIsEnterToFieldPage] = useState(false);
+  const [softDetaile, setSoftDetaile] = useState();
   return (
     <div>
       <SubjectContext.Provider
@@ -28,6 +29,8 @@ function App() {
           setSubject,
           labSubject,
           setLabSubject,
+          softDetaile,
+          setSoftDetaile,
         }}
       >
         <Route exact path="/" component={Home} />

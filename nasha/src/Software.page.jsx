@@ -10,8 +10,8 @@ import { SubjectContext } from "./store/SubjectContext";
 import "./software.css";
 
 const Software = () => {
-  const { target } = useContext(SubjectContext);
-  const [softwareDetaile, setsoftwareDetaile] = useState(target);
+  const { softDetaile } = useContext(SubjectContext);
+  const [softwareDetaile, setsoftwareDetaile] = useState(softDetaile);
   return (
     <div className="software">
       <Header type="3" className="type-3" />

@@ -10,11 +10,16 @@
 }
 
 .softwareNameAndIcon {
-  width: 300px;
+  width: 200px;
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   font-size: 20px;
+}
+
+.softwareName {
+  text-transform: uppercase;
+  font-weight: 700;
 }
 
 .softwarelogo {
