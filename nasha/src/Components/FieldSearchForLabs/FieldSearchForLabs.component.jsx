@@ -60,7 +60,7 @@ function FieldSearchForLabs() {
       console.log("Data in field search for lab page", data);
       setSoftDetaile(data.softwares);
       setSubject(item.name);
-      goto.push("/software");
+      goto.push("/Lab");
     } catch (error) {
       console.log(error.message);
     }
