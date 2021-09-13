@@ -7,7 +7,7 @@ const HeaderBody = (props) => {
     return (
       <div className="header__box">
         <h1 className="header__title">
-          (نرم افزار های شبیه سازی آزمایشگاه) نشا
+          (نرم افزار های شبیه سازی آزمایشگاه) نِشا
         </h1>
 
         <p className="header__description">
@@ -22,7 +22,7 @@ const HeaderBody = (props) => {
     return (
       <div className="header__box">
         <h1 className="header__title">
-          (نرم افزار های شبیه سازی آزمایشگاه) نشا
+          (نرم افزار های شبیه سازی آزمایشگاه) نِشا
         </h1>
         <SearchField />
       </div>
@@ -31,7 +31,7 @@ const HeaderBody = (props) => {
     return (
       <div className="header__box header__box--sm">
         <h1 className="header__title header__title--sm">
-          (نرم افزار های شبیه سازی آزمایشگاه) نشا
+          (نرم افزار های شبیه سازی آزمایشگاه) نِشا
         </h1>
       </div>
     );

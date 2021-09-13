@@ -30,6 +30,12 @@
   /* margin-bottom: 3px; */
 }
 
+.word-link {
+  color: #2e83f1;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
 .services__description p {
   font-size: 1.4rem;
 }

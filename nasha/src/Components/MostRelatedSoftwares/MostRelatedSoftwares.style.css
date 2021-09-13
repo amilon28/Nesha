@@ -14,11 +14,13 @@
   padding: 10px;
   border-radius: 10px;
   user-select: none;
+  cursor: pointer;
   transition: 0.3s;
 }
 
 .MostRelatedSoftware__item:hover {
   background-color: #eedd45;
+  transform: translateY(-2px);
 }
 
 .MostRelatedSoftware__item span {
