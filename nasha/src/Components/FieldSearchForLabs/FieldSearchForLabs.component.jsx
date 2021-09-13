@@ -5,7 +5,8 @@ import searchIcon from "../../assets/img/search-icon.svg";
 import "../Header/Header.style.css";
 
 function FieldSearchForLabs() {
-  const { setSoftDetaile, setSubject } = useContext(SubjectContext);
+  const { setSoftDetaile, setSubject, setTarget, setLabSubject } =
+    useContext(SubjectContext);
   const [searchValue, setSearchValue] = useState();
   const [result, setResult] = useState();
   const [isLoading, setIsLoading] = useState(true);
@@ -58,8 +59,8 @@ function FieldSearchForLabs() {
       if (!response.ok) throw Error("Somethin went wromg...");
       const data = await response.json();
       console.log("Data in field search for lab page", data);
-      setSoftDetaile(data.softwares);
-      setSubject(item.name);
+      setTarget(data.softwares);
+      setLabSubject(item.name);
       goto.push("/Lab");
     } catch (error) {
       console.log(error.message);

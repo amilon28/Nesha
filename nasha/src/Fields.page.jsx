@@ -7,7 +7,7 @@ import Title from "./Components/Title/Title.component";
 import { SubjectContext } from "./store/SubjectContext";
 
 const Fields = () => {
-  const { target, setTarget, subject, setLabSubject, labList } =
+  const { target, setTarget, subject, setLabSubject, labList, setSoftDetaile } =
     useContext(SubjectContext);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
