@@ -180,7 +180,7 @@
 }
 
 .lab__card {
-  height: 150px;
+  height: auto;
 }
 
 .field__card:hover {

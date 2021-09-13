@@ -4,7 +4,6 @@ import { SubjectContext } from "../../store/SubjectContext";
 import "../Header/Header.style.css";
 
 function FieldSearchForFieldPage(props) {
-  const { fieldsResponse, setFieldsResponse } = useContext(SubjectContext);
   const [searchValue, setSearchValue] = useState();
   const [result, setResult] = useState();
   const [isLoading, setIsLoading] = useState(true);
@@ -32,18 +31,15 @@ function FieldSearchForFieldPage(props) {
   // };
 
   // Get all fields
-  const fetchAllLabs = async () => {
+  const fetchAllFields = async () => {
     try {
       const response = await fetch(
-        "https://hassan1245.pythonanywhere.com/Nesha/v1/fields/"
+        "https://hassan1245.pythonanywhere.com/Nesha/v1/field_search"
       );
       if (!response.ok) throw Error("SomeThing Is Not Right !");
       const data = await response.json();
       console.log(data);
       setResult(data);
-      setFieldsResponse(data);
-      props.setPrev(false);
-      console.log(result);
     } catch (error) {
       setErr(error.message);
     }
@@ -51,30 +47,9 @@ function FieldSearchForFieldPage(props) {
   };
 
   // Get next page fields
-
-  const fetchNextFieldPage = async () => {
-    const response = await fetch(result.next);
-    if (!response.ok) throw Error("SomeThing Is Not Right !");
-    const data = await response.json();
-    console.log(data);
-    setFieldsResponse(data);
-    setResult(data);
-    props.setNext(false);
-    console.log(result);
-  };
-
-  if (props.nextBtnClicked) {
-    fetchNextFieldPage();
-  }
-
-  if (props.prevBtnClicked) {
-    fetchAllLabs();
-  }
-
   useEffect(() => {
-    fetchAllLabs();
+    fetchAllFields();
   }, []);
-
   //----------------
   return (
     <div className="fields__container">
@@ -114,22 +89,29 @@ function FieldSearchForFieldPage(props) {
       {isLoading && <p className="loading-text">Loading...</p>}
       {!isLoading && !err && (
         <div className="field__cards">
-          {result.results &&
-            result.results.map((res) => {
-              return (
-                <div className="field__card" key={Math.random()}>
-                  <div className="field__name">{res.name}</div>
-                  <div className="field__nol">
-                    <span>تعداد آزمایشگاه : </span>
-                    <span>{res.number_of_labs}</span>
+          {result &&
+            result
+              .filter(function (field) {
+                if (!searchValue) return field;
+                else if (field.name.includes(searchValue)) {
+                  return field;
+                }
+              })
+              .map((res) => {
+                return (
+                  <div className="field__card" key={Math.random()}>
+                    <div className="field__name">{res.name}</div>
+                    <div className="field__nol">
+                      <span>تعداد آزمایشگاه : </span>
+                      <span>{res.number_of_labs}</span>
+                    </div>
+                    <div className="field__nos">
+                      <span>تعداد نرم افزار : </span>
+                      <span>{res.number_of_softwares}</span>
+                    </div>
                   </div>
-                  <div className="field__nos">
-                    <span>تعداد نرم افزار : </span>
-                    <span>{res.number_of_softwares}</span>
-                  </div>
-                </div>
-              );
-            })}
+                );
+              })}
         </div>
       )}
     </div>

@@ -19,8 +19,8 @@ function App() {
   const [isEnterToFieldPage, setIsEnterToFieldPage] = useState(false);
   const [softDetaile, setSoftDetaile] = useState();
   const [softwareList, setSoftwareList] = useState();
-  const [token, setToken] = useState("");
-  const [fieldsResponse, setFieldsResponse] = useState("");
+  // const [token, setToken] = useState("");
+  const [finalResponse, setFinalResponse] = useState("");
   return (
     <div>
       <SubjectContext.Provider
@@ -37,8 +37,8 @@ function App() {
           setSoftDetaile,
           softwareList,
           setSoftwareList,
-          fieldsResponse,
-          setFieldsResponse,
+          finalResponse,
+          setFinalResponse,
         }}
       >
         <Route exact path="/" component={Home} />
