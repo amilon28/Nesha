@@ -52,12 +52,12 @@ const SearchField = (props) => {
     // software in home page
     else {
       const response = await fetch(
-        `https://hassan1245.pythonanywhere.com/Nesha/v1/search?search=${searchValue}`
+        `https://hassan1245.pythonanywhere.com/Nesha/v1/softwares/${obj.id}`
       );
       if (!response.ok) throw Error("Something Went Wrong...");
       const data = await response.json();
       console.log("data for software push", data);
-      setSoftDetaile(data.results.Software[0]);
+      setSoftDetaile(data);
 
       goto.push("/software");
     }
