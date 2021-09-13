@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Route } from "react-router-dom";
+import { SubjectContext } from "../src/store/SubjectContext";
 import Home from "./Home.page";
 import Labs from "./Labs.page";
 import Search from "./Search.page";
@@ -7,9 +8,9 @@ import Software from "./Software.page";
 import Submit from "./Submit.page";
 import Fields from "./Fields.page";
 import FieldSearch from "./FieldSearch.page";
-
-import { SubjectContext } from "../src/store/SubjectContext";
 import LabSearch from "./LabSearch.page";
+import LogIn from "./Components/logIn/LogIn.component";
+import Signup from "./Components/Signup/Signup.component";
 
 function App() {
   const [target, setTarget] = useState("");
@@ -18,6 +19,7 @@ function App() {
   const [isEnterToFieldPage, setIsEnterToFieldPage] = useState(false);
   const [softDetaile, setSoftDetaile] = useState();
   const [softwareList, setSoftwareList] = useState();
+  const [token, setToken] = useState("");
   return (
     <div>
       <SubjectContext.Provider
@@ -44,6 +46,8 @@ function App() {
         <Route exact path="/submit" component={Submit} />
         <Route exact path="/field-search" component={FieldSearch} />
         <Route exact path="/lab-search" component={LabSearch} />
+        <Route exact path="/log-in" component={LogIn} />
+        <Route exact path="/sign-up" component={Signup} />
       </SubjectContext.Provider>
     </div>
   );

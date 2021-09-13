@@ -24,8 +24,8 @@ const NavList = (props) => {
       <ul className="navbar__list">
         <NavItem goto="/" text="خانه" />
         <NavItem goto="/" text="درباره ما" />
-        <NavItem goto="/software" text="ورود" />
-        <NavItem goto="/" text="عضویت" />
+        <NavItem goto="/log-in" text="ورود" />
+        <NavItem goto="/sign-up" text="عضویت" />
         <NavItem goto="/search" text="افزودن" />
       </ul>
     );
