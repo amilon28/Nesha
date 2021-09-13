@@ -22,6 +22,10 @@
   padding: 10px 15px;
 }
 
+.sign-up {
+  height: 50rem;
+}
+
 .login-form h2 {
   font-size: 40px;
 }
