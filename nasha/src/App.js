@@ -20,7 +20,7 @@ function App() {
   const [softDetaile, setSoftDetaile] = useState();
   const [softwareList, setSoftwareList] = useState();
   // const [token, setToken] = useState("");
-  const [finalResponse, setFinalResponse] = useState("");
+  const [labList, setLabList] = useState("");
   return (
     <div>
       <SubjectContext.Provider
@@ -37,8 +37,8 @@ function App() {
           setSoftDetaile,
           softwareList,
           setSoftwareList,
-          finalResponse,
-          setFinalResponse,
+          labList,
+          setLabList,
         }}
       >
         <Route exact path="/" component={Home} />

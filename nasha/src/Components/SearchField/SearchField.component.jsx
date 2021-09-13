@@ -5,7 +5,7 @@ import { SubjectContext } from "../../store/SubjectContext";
 import "../Header/Header.style.css";
 
 const SearchField = (props) => {
-  const { setTarget, setSubject, setLabSubject, setSoftDetaile } =
+  const { setTarget, setSubject, setLabSubject, setSoftDetaile, setLabList } =
     useContext(SubjectContext);
   const [searchValue, setSearchValue] = useState("");
   const [result, setResult] = useState({});
@@ -33,7 +33,8 @@ const SearchField = (props) => {
       );
       if (!response.ok) throw Error("Something Went Wrong...");
       const data = await response.json();
-      setTarget(data.labs);
+      // setTarget(data.labs);
+      setLabList(data.labs);
       setSubject(obj.name);
 
       goto.push("/Field");

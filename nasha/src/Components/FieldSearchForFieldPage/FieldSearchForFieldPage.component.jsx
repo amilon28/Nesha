@@ -1,13 +1,16 @@
 import React, { useState, useEffect, useContext } from "react";
+import { useHistory } from "react-router";
 import searchIcon from "../../assets/img/search-icon.svg";
 import { SubjectContext } from "../../store/SubjectContext";
 import "../Header/Header.style.css";
 
 function FieldSearchForFieldPage(props) {
+  const { setLabList, labList, setSubject } = useContext(SubjectContext);
   const [searchValue, setSearchValue] = useState();
   const [result, setResult] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [err, setErr] = useState(false);
+  const goto = useHistory();
   //----------------
   // Field search Functionality
   // const fetchFields = async () => {
@@ -29,6 +32,25 @@ function FieldSearchForFieldPage(props) {
   //   setIsLoading(true);
   //   fetchFields();
   // };
+
+  // get data about clicked item
+  const clickOnItemHandler = async (item) => {
+    console.log("item", item);
+    try {
+      const response = await fetch(
+        `https://hassan1245.pythonanywhere.com/Nesha/v1/fields/${item.id}`
+      );
+      if (!response.ok) throw Error("Somethin went wromg...");
+      const data = await response.json();
+      console.log("Data in field search for field page", data);
+      setLabList(data.labs);
+      console.log("lab in field search for field page", labList);
+      setSubject(item.name);
+      goto.push("/Field");
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
   // Get all fields
   const fetchAllFields = async () => {
@@ -99,7 +121,11 @@ function FieldSearchForFieldPage(props) {
               })
               .map((res) => {
                 return (
-                  <div className="field__card" key={Math.random()}>
+                  <div
+                    className="field__card"
+                    key={Math.random()}
+                    onClick={() => clickOnItemHandler(res)}
+                  >
                     <div className="field__name">{res.name}</div>
                     <div className="field__nol">
                       <span>تعداد آزمایشگاه : </span>

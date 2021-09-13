@@ -7,7 +7,7 @@ import Title from "./Components/Title/Title.component";
 import { SubjectContext } from "./store/SubjectContext";
 
 const Fields = () => {
-  const { target, setTarget, subject, setLabSubject } =
+  const { target, setTarget, subject, setLabSubject, labList } =
     useContext(SubjectContext);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -28,7 +28,7 @@ const Fields = () => {
     // //   <div className="lab__name">{data.lab_name}</div>
     // // </div>
     // // ;
-    setResponse(target);
+    setResponse(labList);
   };
 
   const fetchcorrespondingSoftwareHandler = async (lab) => {

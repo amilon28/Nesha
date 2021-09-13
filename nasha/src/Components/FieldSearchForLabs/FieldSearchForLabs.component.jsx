@@ -5,11 +5,10 @@ import searchIcon from "../../assets/img/search-icon.svg";
 import "../Header/Header.style.css";
 
 function FieldSearchForLabs() {
-  const { setSoftwareList } = useContext(SubjectContext);
+  const { setSoftDetaile, setSubject } = useContext(SubjectContext);
   const [searchValue, setSearchValue] = useState();
   const [result, setResult] = useState();
   const [isLoading, setIsLoading] = useState(true);
-  const [allLabs, setAllLabs] = useState("");
   const goto = useHistory();
   //----------------
   // const fetchFields = async () => {
@@ -49,6 +48,23 @@ function FieldSearchForLabs() {
   //   setSoftwareList(data.softwares);
   //   goto.push("/search");
   // };
+  // ---------- get software for target lab --------------
+  const clickOnItemHandler = async (item) => {
+    console.log("item", item);
+    try {
+      const response = await fetch(
+        `https://hassan1245.pythonanywhere.com/Nesha/v1/labs/${item.id}`
+      );
+      if (!response.ok) throw Error("Somethin went wromg...");
+      const data = await response.json();
+      console.log("Data in field search for lab page", data);
+      setSoftDetaile(data.softwares);
+      setSubject(item.name);
+      goto.push("/Field");
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
   //-------- get all Labs --------------
   const fetchAllLabs = async () => {
@@ -98,7 +114,11 @@ function FieldSearchForLabs() {
             })
             .map((res) => {
               return (
-                <div className="field__card" key={Math.random()}>
+                <div
+                  className="field__card"
+                  key={Math.random()}
+                  onClick={() => clickOnItemHandler(res)}
+                >
                   <div className="field__name">{res.name}</div>
                   <div className="field__nos">
                     <span>تعداد نرم افزار : </span>
