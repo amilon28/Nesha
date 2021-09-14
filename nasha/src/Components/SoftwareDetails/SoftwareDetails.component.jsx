@@ -8,7 +8,7 @@ const SoftwareDetails = (props) => {
         softwareName={props.softwareName}
         softwareIcon={props.softwareIcon}
       />
-      <SoftwareStatics like={props.like} view={props.view} />
+      <SoftwareStatics like={props.like} view={props.view} id={props.id} />
     </div>
   );
 };

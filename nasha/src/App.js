@@ -11,24 +11,31 @@ import FieldSearch from "./FieldSearch.page";
 import LabSearch from "./LabSearch.page";
 import LogIn from "./Components/logIn/LogIn.component";
 import Signup from "./Components/Signup/Signup.component";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
+import Auth from "./Components/Auth/Auth";
+import { BrowserRouter, Redirect, Switch } from "react-router-dom";
 
 function App() {
+  const [numOfLikes, setNumOfLikes] = useState(0);
   const [target, setTarget] = useState("");
   const [subject, setSubject] = useState("");
   const [labSubject, setLabSubject] = useState("");
-  const [isEnterToFieldPage, setIsEnterToFieldPage] = useState(false);
+  const [softSearchTerm, setSoftSearchTerm] = useState(false);
   const [softDetaile, setSoftDetaile] = useState();
   const [softwareList, setSoftwareList] = useState();
   // const [token, setToken] = useState("");
   const [labList, setLabList] = useState("");
+  // ------------------------------------------------
+
   return (
-    <div>
+    <>
       <SubjectContext.Provider
         value={{
           target,
           setTarget,
-          isEnterToFieldPage,
-          setIsEnterToFieldPage,
+          softSearchTerm,
+          setSoftSearchTerm,
           subject,
           setSubject,
           labSubject,
@@ -39,22 +46,60 @@ function App() {
           setSoftwareList,
           labList,
           setLabList,
+          numOfLikes,
+          setNumOfLikes,
         }}
       >
-        <Route exact path="/" component={Home} />
-        <Route exact path="/Lab" component={Labs} />
-        <Route exact path="/Field" component={Fields} />
-        <Route exact path="/search" component={Search} />
-        <Route exact path="/software" component={Software} />
-        <Route exact path="/submit" component={Submit} />
-        <Route exact path="/field-search" component={FieldSearch} />
-        <Route exact path="/lab-search" component={LabSearch} />
-        <Route exact path="/log-in" component={LogIn} />
-        <Route exact path="/sign-up" component={Signup} />
+        <BrowserRouter>
+          <PublicRoute path={"/login"} component={Auth} />
+          <PrivateRoute
+            path={"/"}
+            render={() => {
+              return (
+                <Switch>
+                  <Route exact path="/" component={Home} />
+                  <Route exact path="/Lab" component={Labs} />
+                  <Route exact path="/Field" component={Fields} />
+                  <Route exact path="/search" component={Search} />
+                  <Route exact path="/software" component={Software} />
+                  <Route exact path="/submit" component={Submit} />
+                  <Route exact path="/field-search" component={FieldSearch} />
+                  <Route exact path="/lab-search" component={LabSearch} />
+                </Switch>
+              );
+            }}
+          />
+        </BrowserRouter>
       </SubjectContext.Provider>
-    </div>
+    </>
   );
 }
+
+const isLogin = () => !!localStorage.getItem("token");
+
+const PublicRoute = ({ component: Component, ...props }) => {
+  return (
+    <Route
+      {...props}
+      render={(props) => {
+        if (isLogin()) return <Redirect to={"/"} />;
+        else return <Component {...props} />;
+      }}
+    />
+  );
+};
+
+const PrivateRoute = ({ render, ...props }) => {
+  return (
+    <Route
+      {...props}
+      render={(props) => {
+        if (isLogin()) return render(props);
+        else return <Redirect to={"/login"} />;
+      }}
+    />
+  );
+};
 
 export default App;
 

@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { useHistory } from "react-router";
 import { SubjectContext } from "../../store/SubjectContext";
+import { toast } from "react-toastify";
 import "./LogIn.css";
 
 const LogIn = () => {
@@ -13,7 +14,6 @@ const LogIn = () => {
   const submitHandler = async (e) => {
     e.preventDefault(e);
 
-    let item = { username, pass };
     try {
       const response = await fetch(
         "https://hassan1245.pythonanywhere.com/accounts/login/",
@@ -33,8 +33,11 @@ const LogIn = () => {
       console.log(data);
       const userToken = await data.json();
       console.log(userToken);
-      localStorage.setItem("loginToken", userToken.token);
+      localStorage.setItem("userToken", userToken.token);
       // setToken(data.token);
+      toast.success("شما با موفقیت وارد شدید", {
+        className: "alert",
+      });
       goto.push("/");
     } catch (error) {
       console.log(error.message);

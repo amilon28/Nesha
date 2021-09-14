@@ -1,4 +1,5 @@
 import SearchField from "../SearchField/SearchField.component";
+import SoftWareSearchField from "../SoftWareSearchField/SoftWareSearchField.component";
 import Line from "../Line/Line.component";
 import "../Header/Header.style.css";
 
@@ -24,7 +25,7 @@ const HeaderBody = (props) => {
         <h1 className="header__title">
           (نرم افزار های شبیه سازی آزمایشگاه) نِشا
         </h1>
-        <SearchField />
+        <SoftWareSearchField />
       </div>
     );
   } else if (props.type === "3") {

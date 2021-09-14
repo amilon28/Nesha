@@ -1,14 +1,25 @@
-import CheckItem from "../CheckItem/CheckItem.component";
 
 const CheckList = (props) => {
   return (
     <div className="checkList">
       <div className="onOff">
-        <CheckItem label="آفلاین" />
-        <CheckItem label="آنلاین" />
+        <div className="checkitem">
+          <input type="checkbox" id="item" className="checkitem__input" />
+          <label htmlFor="item">آنلاین</label>
+        </div>
+        <div className="checkitem">
+          <input type="checkbox" id="item" className="checkitem__input" />
+          <label htmlFor="item">آفلاین</label>
+        </div>
       </div>
-      <CheckItem label="آموزه برای آن موجود باشد" />
-      <CheckItem label="نقد برای آن موجود باشد" />
+      <div className="checkitem">
+        <input type="checkbox" id="item" className="checkitem__input" />
+        <label htmlFor="item">آموزه برای آن موجود باشد</label>
+      </div>
+      <div className="checkitem">
+        <input type="checkbox" id="item" className="checkitem__input" />
+        <label htmlFor="item">نقد برای آن موجود باشد</label>
+      </div>
     </div>
   );
 };

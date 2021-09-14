@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { useHistory } from "react-router";
 import { SubjectContext } from "../../store/SubjectContext";
+import { toast } from "react-toastify";
 import "../logIn/LogIn.css";
 
 const Signup = () => {
@@ -36,12 +37,15 @@ const Signup = () => {
           }),
         }
       );
-      const data = await response;
+      const data = await response.json();
+      console.log("data in sign up", data);
 
-      const userToken = await data.json();
-      console.log(userToken);
-      localStorage.setItem("SignupToken", userToken.token);
-      // setToken(data.token);
+      const userToken = data.token;
+      console.log("userToken signup", userToken);
+      localStorage.setItem("signupToken", userToken);
+      toast.success("شما با موفقیت ثبت نام شدید", {
+        className: "alert",
+      });
       goto.push("/");
     } catch (error) {
       console.log(error.message);

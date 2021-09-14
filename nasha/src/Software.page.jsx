@@ -17,29 +17,30 @@ const Software = () => {
     <div className="software">
       <Header type="3" className="type-3" />
       <SoftwareDetails
-        softwareName={softwareDetaile.name}
-        softwareIcon={softwareDetaile.icon_picture}
-        like={softwareDetaile.likes}
-        view={softwareDetaile.views}
+        softwareName={softwareDetaile?.name}
+        softwareIcon={softwareDetaile?.icon_picture}
+        like={softwareDetaile?.likes}
+        view={softwareDetaile?.views}
+        id={softwareDetaile?.id}
       />
-      <SoftwareDescription description={softwareDetaile.description} />
+      <SoftwareDescription description={softwareDetaile?.description} />
       <Snapshot
-        url={softwareDetaile.url}
-        licenses={softwareDetaile.licenses}
-        date={softwareDetaile.date_submitted}
-        courseLinks={softwareDetaile.course_links}
-        reviewlinks={softwareDetaile.review_links}
-        platforms={softwareDetaile.platforms}
-        labs={softwareDetaile.labs}
+        url={softwareDetaile?.url}
+        licenses={softwareDetaile?.licenses}
+        date={softwareDetaile?.date_submitted}
+        courseLinks={softwareDetaile?.course_links}
+        reviewlinks={softwareDetaile?.review_links}
+        platforms={softwareDetaile?.platforms}
+        labs={softwareDetaile?.labs}
         snapShots={[
-          softwareDetaile.snapshot1,
-          softwareDetaile.snapshot2,
-          softwareDetaile.snapshot3,
-          softwareDetaile.snapshot4,
-          softwareDetaile.snapshot5,
+          softwareDetaile?.snapshot1,
+          softwareDetaile?.snapshot2,
+          softwareDetaile?.snapshot3,
+          softwareDetaile?.snapshot4,
+          softwareDetaile?.snapshot5,
         ]}
       />
-      <Reviews soft_id={softDetaile.id} />
+      <Reviews soft_id={softwareDetaile?.id} />
     </div>
   );
 };

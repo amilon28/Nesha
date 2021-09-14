@@ -2,13 +2,14 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
-import { BrowserRouter } from "react-router-dom";
+// import { ThemeProvider } from "@material-ui/styles";
+import Theme from "./Components/Theme";
 
 ReactDOM.render(
+  // <ThemeProvider theme={Theme}>
   <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <App />
   </React.StrictMode>,
+  // </ThemeProvider>,
   document.getElementById("root")
 );
