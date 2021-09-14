@@ -15,13 +15,24 @@ const RightBar = () => {
   const [paltforms, setPlat] = useState();
   const [licenses, setLicenses] = useState();
 
-  const searchAboutSoftware = async () => {
+  const searchAboutSoftware = async (e) => {
+    e.preventDefault();
     const response = await fetch(
-      `https://hassan1245.pythonanywhere.com/Nesha/v1/software_search/?licenses_name=${license}&platforms_name=${platform}&review_links_url=${reviewLink}&course_links_url=${courseLink}&offline_or_online=${status}&lab_id=${labID}&search=${softSearchTerm}&ordering=-${like}&ordering=-${view}&ordering=-${date}&page=1`
+      `https://hassan1245.pythonanywhere.com/Nesha/v1/software_search/?licenses_name=${
+        license ? license : ""
+      }&platforms_name=${platform ? platform : ""}&review_links_url=${
+        reviewLink ? reviewLink : ""
+      }&course_links_url=${courseLink ? courseLink : ""}&offline_or_online=${
+        status ? status : ""
+      }&lab_id=${labID ? labID : ""}&search=${
+        softSearchTerm ? softSearchTerm : ""
+      }&ordering=-${like ? like : ""}&ordering=-${view ? view : ""}&ordering=-${
+        date ? date : ""
+      }&page=1`
     );
 
     const data = await response.json();
-    console.log(data);
+    console.log("Soft Details Info:", data);
   };
 
   const fetchPlatforms = async () => {
@@ -48,7 +59,11 @@ const RightBar = () => {
   });
   return (
     <div className="right">
-      <form action="#" className="form-right">
+      <form
+        action="#"
+        className="form-right"
+        onSubmit={(e) => searchAboutSoftware(e)}
+      >
         {/*  */}
         <div className="selectbox">
           <div className="selectbox__title">:نوع پلتفرم</div>
@@ -153,12 +168,7 @@ const RightBar = () => {
             <label>تاریخ افزودن</label>
           </div>
         </div>
-        <input
-          type="submit"
-          value="تایید"
-          className="form-btn"
-          onClick={() => searchAboutSoftware()}
-        />
+        <input type="submit" value="تایید" className="form-btn" />
       </form>
     </div>
   );

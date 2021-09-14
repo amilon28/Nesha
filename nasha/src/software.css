@@ -1,5 +1,6 @@
 .software__icon {
   width: 25px;
+  cursor: pointer;
 }
 
 .software__details {

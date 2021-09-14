@@ -16,8 +16,7 @@ const Snapshot = (props) => {
         labs={props.labs}
       />
       <div className="snapshot__pdf">
-        <h3>pdf file:</h3>
-        <iframe src={7} frameborder="0" title="pdf"></iframe>
+        <iframe src={props.pdf} frameborder="0" title="pdf"></iframe>
       </div>
     </div>
   );

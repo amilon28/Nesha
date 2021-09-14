@@ -21,7 +21,7 @@ function App() {
   const [target, setTarget] = useState("");
   const [subject, setSubject] = useState("");
   const [labSubject, setLabSubject] = useState("");
-  const [softSearchTerm, setSoftSearchTerm] = useState(false);
+  const [softSearchTerm, setSoftSearchTerm] = useState("");
   const [softDetaile, setSoftDetaile] = useState();
   const [softwareList, setSoftwareList] = useState();
   // const [token, setToken] = useState("");

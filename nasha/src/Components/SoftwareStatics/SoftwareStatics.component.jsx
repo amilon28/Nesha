@@ -1,12 +1,14 @@
 import heart from "../../assets/img/heart.svg";
 import view from "../../assets/img/view.svg";
 import { Link } from "react-router-dom";
-import { useContext } from "react/cjs/react.development";
+import { useContext, useState } from "react/cjs/react.development";
 import { SubjectContext } from "../../store/SubjectContext";
 
 const SoftwareStatics = (props) => {
   console.log("Props id", props.id);
   const { numOfLikes, setNumOfLikes } = useContext(SubjectContext);
+  const [softwareLikes, setSoftwareLikes] = useState(props.like);
+  const [isLike, setIsLike] = useState(false);
   const handleLikes = async () => {
     const response = await fetch(
       `https://hassan1245.pythonanywhere.com/Nesha/v1/likes/?software=${props.id}`,
@@ -15,26 +17,25 @@ const SoftwareStatics = (props) => {
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
-          Authorization: localStorage.getItem("userToken"),
+          Authorization: localStorage.getItem("token"),
         },
       }
     );
     const data = await response.json();
+    console.log("Like data", data);
     if (!data) return;
-    setNumOfLikes(numOfLikes + 1);
+    if (!localStorage.getItem("token") && !isLike) {
+      setSoftwareLikes(numOfLikes + 1);
+      setIsLike(true);
+    }
   };
   return (
     <div>
       <div className="softwareLikesAndViews">
         <div className="likes-views">
-          <div>
-            <img
-              className="software__icon"
-              src={heart}
-              alt="heart"
-              onClick={() => handleLikes()}
-            />
-            <span className="score">{numOfLikes}</span>
+          <div onClick={() => handleLikes()}>
+            <img className="software__icon" src={heart} alt="heart" />
+            <span className="score">{softwareLikes}</span>
           </div>
           <div>
             <img className="software__icon" src={view} alt="heart" />

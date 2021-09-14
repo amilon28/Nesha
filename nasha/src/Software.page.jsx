@@ -39,6 +39,7 @@ const Software = () => {
           softwareDetaile?.snapshot4,
           softwareDetaile?.snapshot5,
         ]}
+        pdf={softwareDetaile?.pdf_file}
       />
       <Reviews soft_id={softwareDetaile?.id} />
     </div>
