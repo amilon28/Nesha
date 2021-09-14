@@ -2,6 +2,11 @@
   font-size: 3.5rem;
 }
 
+.reviews-title {
+  width: 80%;
+  margin: 0 auto;
+}
+
 .center {
   width: 180px;
   margin: 20px auto 0;

@@ -234,16 +234,14 @@ snapshotItem > :nth-child(2) {
   border-bottom: 1px solid #000;
   padding-bottom: 40px;
   margin-top: 50px;
+  width: 55%;
+  height: 40rem;
+  margin: 50px auto 70px;
 }
 
 .snapshot__pdf h3 {
   font-size: 18px;
   margin-bottom: 12px;
-}
-
-.snapshot__pdf iframe {
-  width: auto;
-  height: auto;
 }
 
 .snapshotDetails {
@@ -252,6 +250,10 @@ snapshotItem > :nth-child(2) {
   align-items: center;
   height: auto;
   padding-top: 20px;
+}
+
+.child_review {
+  background-color: teal;
 }
 
 @media (min-width: 768px) and (max-width: 1024px) {

@@ -26,6 +26,7 @@ function App() {
   const [softwareList, setSoftwareList] = useState();
   // const [token, setToken] = useState("");
   const [labList, setLabList] = useState("");
+  const [isLogin, setIsLogin] = useState(false);
   // ------------------------------------------------
 
   return (
@@ -48,58 +49,51 @@ function App() {
           setLabList,
           numOfLikes,
           setNumOfLikes,
+          isLogin,
+          setIsLogin,
         }}
       >
         <BrowserRouter>
-          <PublicRoute path={"/login"} component={Auth} />
-          <PrivateRoute
-            path={"/"}
-            render={() => {
-              return (
-                <Switch>
-                  <Route exact path="/" component={Home} />
-                  <Route exact path="/Lab" component={Labs} />
-                  <Route exact path="/Field" component={Fields} />
-                  <Route exact path="/search" component={Search} />
-                  <Route exact path="/software" component={Software} />
-                  <Route exact path="/submit" component={Submit} />
-                  <Route exact path="/field-search" component={FieldSearch} />
-                  <Route exact path="/lab-search" component={LabSearch} />
-                </Switch>
-              );
-            }}
-          />
+          <Route exact path="/" component={Home} />
+          <Route path={"/login"} component={Auth} />
+          <Route exact path="/Lab" component={Labs} />
+          <Route exact path="/Field" component={Fields} />
+          <Route exact path="/search" component={Search} />
+          <Route exact path="/software" component={Software} />
+          <Route exact path="/Add" component={Submit} />
+          <Route exact path="/field-search" component={FieldSearch} />
+          <Route exact path="/lab-search" component={LabSearch} />
         </BrowserRouter>
       </SubjectContext.Provider>
     </>
   );
 }
 
-const isLogin = () => !!localStorage.getItem("token");
+// const isLogin = () => !!localStorage.getItem("token");
 
-const PublicRoute = ({ component: Component, ...props }) => {
-  return (
-    <Route
-      {...props}
-      render={(props) => {
-        if (isLogin()) return <Redirect to={"/"} />;
-        else return <Component {...props} />;
-      }}
-    />
-  );
-};
+// const PublicRoute = ({ component: Component, ...props }) => {
+//   return (
+//     <Route
+//       {...props}
+//       render={(props) => {
+//         if (isLogin()) return <Redirect to={"/"} />;
+//         else return <Component {...props} />;
+//       }}
+//     />
+//   );
+// };
 
-const PrivateRoute = ({ render, ...props }) => {
-  return (
-    <Route
-      {...props}
-      render={(props) => {
-        if (isLogin()) return render(props);
-        else return <Redirect to={"/login"} />;
-      }}
-    />
-  );
-};
+// const PrivateRoute = ({ render, ...props }) => {
+//   return (
+//     <Route
+//       {...props}
+//       render={(props) => {
+//         if (isLogin()) return render(props);
+//         else return <Redirect to={"/login"} />;
+//       }}
+//     />
+//   );
+// };
 
 export default App;
 

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SoftwareDetails from "./Components/SoftwareDetails/SoftwareDetails.component";
 import SoftwareDescription from "./Components/SoftwareDescription/SoftwareDescription.component";
 import Header from "./Components/Header/Header.component";
@@ -7,11 +7,27 @@ import Reviews from "./Components/Reviews/Reviews.component";
 import { useContext } from "react/cjs/react.development";
 import { SubjectContext } from "./store/SubjectContext";
 
+import Title from "./Components/Title/Title.component";
+
 import "./software.css";
 
 const Software = () => {
   const { softDetaile } = useContext(SubjectContext);
   const [softwareDetaile, setsoftwareDetaile] = useState(softDetaile);
+  const [comments, setComments] = useState([]);
+
+  const fetchComments = async () => {
+    const response = await fetch(
+      `https://hassan1245.pythonanywhere.com/Nesha/v1/${softDetaile?.id}/children/?page=1`
+    );
+
+    const data = await response.json();
+    setComments(data.results);
+  };
+
+  useEffect(() => {
+    fetchComments();
+  }, []);
   console.log(softwareDetaile);
   return (
     <div className="software">
@@ -41,7 +57,10 @@ const Software = () => {
         ]}
         pdf={softwareDetaile?.pdf_file}
       />
-      <Reviews soft_id={softwareDetaile?.id} />
+      <>
+        <Title className="reviews-title">Reviews</Title>
+        <Reviews soft_id={softwareDetaile?.id} comments={comments} />
+      </>
     </div>
   );
 };

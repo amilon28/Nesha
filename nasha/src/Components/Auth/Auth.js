@@ -47,11 +47,9 @@ const Auth = () => {
           }),
         }
       );
-      const data = await response;
-
-      const userToken = await data.json();
-      console.log(userToken);
-      localStorage.setItem("token", userToken.token);
+      const data = await response.json();
+      console.log("data", data);
+      localStorage.setItem("token", data.token);
       toast.success("شما با موفقیت ثبت نام شدید", {
         className: "alert",
       });
@@ -79,11 +77,9 @@ const Auth = () => {
           }),
         }
       );
-      const data = await response;
+      const data = await response.json();
       console.log(data);
-      const userToken = await data.json();
-      console.log(userToken);
-      localStorage.setItem("token", userToken.token);
+      localStorage.setItem("token", data.token);
       // setToken(data.token);
       toast.success("شما با موفقیت وارد شدید", {
         className: "alert",

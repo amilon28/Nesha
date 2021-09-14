@@ -1,9 +1,33 @@
+import { useEffect } from "react";
+import { useContext, useState } from "react/cjs/react.development";
 import plusCircle from "../../assets/img/plus-circle.svg";
 import programIcon from "../../assets/img/program-icon.svg";
+import { SubjectContext } from "../../store/SubjectContext";
 
 import "./AddSoftware.style.css";
 
 const AddSoftware = () => {
+  const { isLogin } = useContext(SubjectContext);
+  const [allLabs, setAllLabs] = useState([]);
+
+  const fetchAllLabs = async () => {
+    const response = await fetch(
+      "https://hassan1245.pythonanywhere.com/Nesha/v1/lab_search"
+    );
+
+    const data = await response.json();
+    setAllLabs(data);
+    console.log("all labs data", data);
+  };
+
+  useEffect(() => {
+    if (!isLogin) {
+      alert("you must Signup/LogIn for using this page");
+      return;
+    }
+    fetchAllLabs();
+  }, []);
+
   return (
     <section className="addSoftware">
       <div className="addSoftware__textbox">
@@ -109,43 +133,16 @@ const AddSoftware = () => {
               <div className="form__item">
                 <label className="form__label"> آزمایشگاه نرم افزار:</label>
                 <select className="form__select">
-                  <option value="">25</option>
-                  <option value="">25</option>
-                  <option value="">25</option>
-                  <option value="">25</option>
-                  <option value="">25</option>
+                  <option value="" disabled selected hidden>
+                    Select
+                  </option>
+
+                  {allLabs?.map((lab) => {
+                    return <option value={lab.name}>{lab.name}</option>;
+                  })}
                 </select>
               </div>
-              <div className="form__item">
-                <label className="form__label"> رشته نرم افزار: </label>
-                <select className="form__select">
-                  <option value="">25</option>
-                  <option value="">25</option>
-                  <option value="">25</option>
-                  <option value="">25</option>
-                  <option value="">25</option>
-                </select>
-              </div>
-              <div className="form__item">
-                <label className="form__label"> آزمایشگاه نرم افزار:</label>
-                <select className="form__select">
-                  <option value="">25</option>
-                  <option value="">25</option>
-                  <option value="">25</option>
-                  <option value="">25</option>
-                  <option value="">25</option>
-                </select>
-              </div>
-              <div className="form__item">
-                <label className="form__label"> رشته نرم افزار: </label>
-                <select className="form__select">
-                  <option value="">25</option>
-                  <option value="">25</option>
-                  <option value="">25</option>
-                  <option value="">25</option>
-                  <option value="">25</option>
-                </select>
-              </div>
+              <div className="form__result-items"></div>
             </div>
 
             {/* --------------------------------------------------------- */}
@@ -198,14 +195,46 @@ const AddSoftware = () => {
                 : انتخاب فایل pdf نرم افزار
               </p>
             </div>
-            <div className="form__inputbox">
+            <div className="form__inputbox form__inputbox--file">
               <input
                 className="form__file-input form__input"
                 type="file"
                 placeholder="Name"
-                id="snapshot"
+                id="snapshot1"
               />
-              <label for="select-fire">انتخاب فایل</label>
+              <label for="snapshot1">5   فایل</label>
+
+              <input
+                className="form__file-input form__input"
+                type="file"
+                placeholder="Name"
+                id="snapshot2"
+              />
+              <label for="snapshot2">4 فایل</label>
+
+              <input
+                className="form__file-input form__input"
+                type="file"
+                placeholder="Name"
+                id="snapshot3"
+              />
+              <label for="snapshot3">3 فایل</label>
+
+              <input
+                className="form__file-input form__input"
+                type="file"
+                placeholder="Name"
+                id="snapshot4"
+              />
+              <label for="snapshot4">2 فایل</label>
+
+              <input
+                className="form__file-input form__input"
+                type="file"
+                placeholder="Name"
+                id="snapshot5"
+              />
+              <label for="snapshot5">1 فایل</label>
 
               <p for="snapshot" className="form__label">
                 : انتخاب اسنپ شات های نرم افزار

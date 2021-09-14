@@ -16,7 +16,16 @@ const Snapshot = (props) => {
         labs={props.labs}
       />
       <div className="snapshot__pdf">
-        <iframe src={props.pdf} frameborder="0" title="pdf"></iframe>
+        <embed
+          src={props.pdf}
+          type="application/pdf"
+          frameborder="0"
+          title="pdf"
+          frameBorder="0"
+          scrolling="auto"
+          height="100%"
+          width="100%"
+        ></embed>
       </div>
     </div>
   );

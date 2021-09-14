@@ -1,39 +1,18 @@
-import React, { useState, useEffect } from "react";
-import Title from "../Title/Title.component";
-import ReviewItem from "../ReviewItem/ReviewItem.component";
+import Line from "../Line/Line.component";
+import Review from "./Review.component";
 
 const Reviews = (props) => {
-  const [comment, setComment] = useState();
-
-  const fetchUsersComment = async () => {
-    try {
-      const response = await fetch(
-        `https://hassan1245.pythonanywhere.com/Nesha/v1/${props.soft_id}/comments/?page=1`
-      );
-
-      if (!response.ok) throw Error("Something went wrong");
-
-      const data = await response.json();
-      setComment(data.results);
-    } catch (err) {
-      console.log(err.message);
-    }
-  };
-
-  useEffect(() => {
-    fetchUsersComment();
-  }, []);
+  console.log("List of comments", props.comments);
+  const classes = "review " + props.className;
   return (
-    <div className="review">
-      <Title>Reviews</Title>
-      {comment &&
-        comment.map((c) => (
-          <ReviewItem
-            username={c.username}
-            text={c.text}
-            date={c.date_submitted}
-            like={c.likes}
-          />
+    <div className={classes}>
+      {props.comments &&
+        props.comments.map((c, index) => (
+          <div key={index}>
+            <Review comment={c.comment} />
+            {/* chlid comment */}
+            <Line className="line--review" />
+          </div>
         ))}
     </div>
   );

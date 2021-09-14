@@ -1,6 +1,6 @@
 import Line from "../Line/Line.component";
 import ReviewDate from "../ReviewDate/ReviewDate.component";
-
+import Reviews from "./ReviewItem.component";
 const ReviewItem = (props) => {
   return (
     <div key={Math.random()}>
@@ -11,6 +11,7 @@ const ReviewItem = (props) => {
           like={props.like}
         />
         <p className="review__text">{props.text}</p>
+        <Reviews comments={Comment.children} />
       </div>
       <Line className="line--review" />
     </div>

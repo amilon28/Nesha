@@ -4,7 +4,7 @@ import AddSoftware from "./Components/AddSoftware/AddSoftware.component";
 const Submit = () => {
   return (
     <div>
-      <Header type="2" className="type-2" />
+      <Header type="3" className="type-3" />
       <AddSoftware />
     </div>
   );
