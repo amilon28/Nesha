@@ -5,8 +5,38 @@
   padding: 10px;
 }
 
+.field__result {
+  font-size: 15px;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+.result__Fields {
+  background-color: #eee;
+  padding: 4px;
+  border-radius: 8px;
+}
+
 .labs {
   direction: rtl;
+}
+
+.inputBoxes {
+  margin-bottom: 15px;
+}
+
+.inputBoxes input {
+  border-radius: 5px;
+  border: 0;
+  padding: 8px;
+  border: 1px solid #000;
+  margin-right: 8px;
+}
+
+.inputBoxes input:focus {
+  outline: 0;
+  border-color: #017dcf;
+  border-width: 3px;
 }
 
 .result__Fields input:focus {
@@ -76,10 +106,6 @@
 
 .form__input--link {
   direction: ltr;
-}
-
-.form__inputbox--select {
-  width: 600px;
 }
 
 .form__inputbox--check {
@@ -200,8 +226,11 @@ input[type="file"] + label:hover {
   width: 100px;
   padding: 8px 10px;
   border-radius: 4px;
-  border-radius: 1px solid #000;
+  border: 0;
   font-weight: bold;
+  background-color: #017dcf;
+  color: #fff;
+  cursor: pointer;
 }
 
 .form__hint {
@@ -244,33 +273,82 @@ input[type="file"] + label:hover {
 
 .form__item {
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
 }
 
-.form__item:nth-child(2n + 1):before {
+.helper {
+  width: 70%;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.hint-text {
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.hint-text::before {
   content: url("../../assets/img/plus-circle.svg");
   cursor: pointer;
+}
+
+.searching {
+  font-weight: bold;
 }
 
 .form__result__container {
   width: 100%;
   display: flex;
   flex-direction: row-reverse;
-  justify-content: space-between;
-  margin-bottom: 50px;
+
+  margin: 50px 0;
+  align-items: center;
 }
 
 .form__soft--lab {
   position: relative;
 }
 
-.form__soft--lab::after {
-  content: url("../../assets//img/plus-circle.svg");
-  position: absolute;
-  top: 10%;
-  right: -10%;
-  cursor: pointer;
+.form__inputbox--select {
+  width: 1400px;
+  display: flex;
+  flex-direction: row;
 }
+
+.paltforms__checboxes {
+  display: flex;
+  flex: 1;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.paltforms__checboxes div {
+  display: flex;
+  align-items: center;
+}
+.paltforms__checboxes div label {
+  margin-right: 2px;
+}
+
+input[type="text"],
+input[type="email"] {
+  transition: 0.2s;
+}
+input[type="text"]:focus,
+input[type="email"]:focus,
+textarea:focus {
+  border-color: #017dcf;
+  border-width: 3px;
+}
+
+textarea:focus {
+  outline: 0;
+}
+
 /* ------------- */
 @media (min-width: 768px) and (max-width: 1024px) {
   .form__inputbox--link {

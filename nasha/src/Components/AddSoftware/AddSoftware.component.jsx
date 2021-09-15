@@ -1,16 +1,31 @@
+import React from "react";
 import { useEffect } from "react";
 import { useContext, useState } from "react/cjs/react.development";
 import plusCircle from "../../assets/img/plus-circle.svg";
 import programIcon from "../../assets/img/program-icon.svg";
 import { SubjectContext } from "../../store/SubjectContext";
+import $ from "jquery";
 
 import "./AddSoftware.style.css";
 
 const AddSoftware = () => {
-  const { isLogin, setIsLogin, isEdit, softawreNameEditSection } =
-    useContext(SubjectContext);
+  const {
+    isLogin,
+    setIsLogin,
+    isEdit,
+    softawreNameEditSection,
+    idLab,
+    setIdLab,
+  } = useContext(SubjectContext);
   const [allLabs, setAllLabs] = useState([]);
-  const [res, setRes] = useState([]);
+  const [platforms, setPlatforms] = useState([]);
+  const [licenses, setLicenses] = useState([]);
+  const [targetFields, setTargetFields] = useState();
+  const [labId, setLabId] = useState();
+  const [isLoading, setIsLoading] = useState(false);
+  const [isOpenBox, setIsOpenBox] = useState(false);
+  const [isLicenseOpenBox, setIsLicenseOpenBox] = useState(false);
+  const [isPlatformOpenBox, setIsPlatformOpenBox] = useState(false);
 
   const fetchAllLabs = async () => {
     const response = await fetch(
@@ -21,23 +36,59 @@ const AddSoftware = () => {
     setAllLabs(data);
     console.log("all labs data", data);
   };
-  const clickOnLabsHandler = async (lab) => {
+
+  const fetchAllPlatforms = async () => {
     const response = await fetch(
-      "https://hassan1245.pythonanywhere.com/Nesha/v1/lab_search/"
+      "https://hassan1245.pythonanywhere.com/Nesha/v1/platform_search/"
     );
 
     const data = await response.json();
-    setAllLabs(data);
+    setPlatforms(data);
+    console.log("all labs data", data);
   };
 
+  const fetchAllLicenses = async () => {
+    const response = await fetch(
+      "https://hassan1245.pythonanywhere.com/Nesha/v1/licenses/"
+    );
+
+    const data = await response.json();
+    setLicenses(data.results);
+    console.log("all labs data", data);
+  };
+
+  // --------------------------------------------
+
+  const fetchFields = async () => {
+    console.log("labID", labId);
+    const response = await fetch(
+      `https://hassan1245.pythonanywhere.com/Nesha/v1/labs/${labId}`
+    );
+
+    const data = await response.json();
+    console.log("response of fields", data.fields);
+    setTargetFields(data.fields);
+    setIsLoading(false);
+    console.log("targetFields", targetFields);
+  };
+
+  // setIsLogin(!!localStorage.getItem("token"));
+  // if (!isLogin) {
+  //   alert("you must Signup/LogIn for using this page");
+  //   return;
+  // }
   useEffect(() => {
-    setIsLogin(!!localStorage.getItem("token"));
-    if (!isLogin) {
-      alert("you must Signup/LogIn for using this page");
-      return;
-    }
     fetchAllLabs();
+    fetchAllPlatforms();
+    fetchAllLicenses();
   }, []);
+
+  useEffect(() => {
+    fetchFields();
+    setIsLoading(true);
+    setIsOpenBox(false);
+    console.log("this");
+  }, [labId]);
 
   return (
     <section className="addSoftware">
@@ -137,27 +188,33 @@ const AddSoftware = () => {
             </div>
           </div>
           <div className="form__softwar">
-            <div className="form-grid">
+            {/* <div className="form-grid">
               <div className="form__add-text ">
                 اگر رشته مورد نظر شما وجود ندارد آن را اضافه کنید
               </div>
               <div className="form__add-text">
                 اگر آزمایشگاه مورد نظر شما وجود ندارد آن را اضافه کنید
               </div>
-            </div>
+            </div> */}
             {/* ******************************************* */}
             <div className="form__result__container">
               <div className="form__soft--lab">
-                <select className="form__select">
+                <select
+                  className="form__select"
+                  onChange={(e) =>
+                    setLabId($("select option:checked").attr("data-id"))
+                  }
+                >
                   <option value="" disabled selected hidden>
                     Select
                   </option>
-                  {allLabs?.map((lab) => {
+                  {allLabs?.map((lab, index) => {
                     return (
                       <option
+                        key={index}
                         value={lab.name}
-                        onClick={(e) => clickOnLabsHandler(lab)}
                         className="labs"
+                        data-id={lab.id}
                       >
                         {lab.name}
                       </option>
@@ -166,17 +223,33 @@ const AddSoftware = () => {
                 </select>
                 <label className="form__label">: آزمایشگاه نرم افزار</label>
               </div>
-              {
+              <div className="helper">
                 <div className="result__Fields">
-                  {}
-                  <input type="text" />
-                  <input type="text" />
-                  <input type="text" />
-                  <input type="text" />
-                  <input type="text" />
+                  {isLoading && <p className="searching">....در حال جستجو</p>}
+                  {!isLoading &&
+                    targetFields?.map((field, index) => (
+                      <span key={index} className="field__result">
+                        {field.name}&nbsp;&nbsp;&nbsp;&nbsp;
+                      </span>
+                    ))}
                 </div>
-              }
+                {!isLoading && targetFields?.length > 0 && (
+                  <p className="hint-text" onClick={() => setIsOpenBox(true)}>
+                    اگر رشته مورد نظر شما وجود ندارد آن را اضافه کنید
+                  </p>
+                )}
+              </div>
             </div>
+            {/* --------------------------------------------------------- */}
+            {isOpenBox && !isLoading && (
+              <div className="inputBoxes">
+                <input type="text" />
+                <input type="text" />
+                <input type="text" />
+                <input type="text" />
+                <input type="text" />
+              </div>
+            )}
             {/* --------------------------------------------------------- */}
 
             <div className="form__inputbox form__inputbox--select">
@@ -185,36 +258,68 @@ const AddSoftware = () => {
                   className="form__hint-icon"
                   src={plusCircle}
                   alt="plus-sign"
+                  onClick={() => setIsLicenseOpenBox(true)}
                 />
-                <p>اگر پلتفرم مورد نظر شما وجود ندارد آن را اضافه کنید</p>
+                <p>اگر لایسنس مورد نظر شما وجود ندارد آن را اضافه کنید</p>
               </div>
-              <select name="" id="" className="form__select">
-                <option value="" selected disabled hidden>
-                  Select
-                </option>
-              </select>
+              <div className="paltforms__checboxes">
+                {licenses?.map((l) => (
+                  <div>
+                    <label htmlFor="">{l.name}</label>
+                    <input type="checkbox" />
+                  </div>
+                ))}
+              </div>
               <label for="" className="form__label">
-                : پلتفرم نرم افزار
+                : لایسنس نرم افزار
               </label>
             </div>
+            {/* ----------- Licenses ---------------*/}
+            {isLicenseOpenBox && (
+              <div className="inputBoxes">
+                <input type="text" />
+                <input type="text" />
+                <input type="text" />
+                <input type="text" />
+                <input type="text" />
+              </div>
+            )}
+            {/* ------------------------------------ */}
             <div className="form__inputbox form__inputbox--select">
               <div className="form__hint">
                 <img
                   className="form__hint-icon"
                   src={plusCircle}
                   alt="plus-sign"
+                  onClick={() => {
+                    setIsPlatformOpenBox(true);
+                  }}
                 />
-                <p>اگر لایسنس مورد نظر شما وجود ندارد آن را اضافه کنید</p>
+                <p>اگر پلتفرم مورد نظر شما وجود ندارد آن را اضافه کنید</p>
               </div>
-              <select name="" id="" className="form__select">
-                <option value="" selected disabled hidden>
-                  Select
-                </option>
-              </select>
+              <div className="paltforms__checboxes">
+                {platforms?.map((p) => (
+                  <div>
+                    <label htmlFor="">{p.name}</label>
+                    <input type="checkbox" />
+                  </div>
+                ))}
+              </div>
               <label for="" className="form__label">
-                : لایسنس نرم افزار
+                : پلتفرم نرم افزار
               </label>
             </div>
+            {/* ----------- Licenses ---------------*/}
+            {isPlatformOpenBox && (
+              <div className="inputBoxes">
+                <input type="text" />
+                <input type="text" />
+                <input type="text" />
+                <input type="text" />
+                <input type="text" />
+              </div>
+            )}
+            {/* ------------------------------------ */}
             <div className="form__inputbox">
               <input
                 className="form__file-input form__input"

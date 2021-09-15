@@ -28,6 +28,7 @@ function App() {
   const [labList, setLabList] = useState("");
   const [isLogin, setIsLogin] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
+  const [idLab, setIdLab] = useState("");
   // ------------------------------------------------
 
   return (
@@ -56,6 +57,8 @@ function App() {
           setSoftawreNameEditSection,
           isEdit,
           setIsEdit,
+          idLab,
+          setIdLab,
         }}
       >
         <BrowserRouter>

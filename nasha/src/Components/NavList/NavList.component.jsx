@@ -6,6 +6,7 @@ import "../NavBar/NavBar.style.css";
 import { useHistory } from "react-router";
 import { useContext } from "react/cjs/react.development";
 import { SubjectContext } from "../../store/SubjectContext";
+import { toast } from "react-toastify";
 
 // const isLogin = () => !!localStorage.getItem("token");
 
@@ -39,8 +40,8 @@ const NavList = (props) => {
   } else {
     return (
       <ul className="navbar__list">
-        <NavItem goto="/" text="خانه" />
-        <NavItem goto="/" text="درباره ما" />
+        {/* <NavItem goto="/" text="خانه" />
+        <NavItem goto="/" text="درباره ما" /> */}
         <NavItem goto="/search" text="افزودن" />
         {isLogin && (
           <button
@@ -49,8 +50,22 @@ const NavList = (props) => {
               setIsLogin(!isLogin);
               goto.push("/");
               console.log(localStorage);
+              toast.success("خارج شدید", {
+                position: toast.POSITION.BOTTOM_RIGHT,
+                autoClose: 1500,
+                className: "foo-bar",
+              });
             }}
-            style={{ width: 80, height: 35, borderRadius: "16px" }}
+            style={{
+              width: 80,
+              height: 35,
+              borderRadius: "10px",
+              backgroundColor: "#2f60ff",
+              color: "#fff",
+              fontSize: "20px",
+              border: 0,
+              cursor: "pointer",
+            }}
           >
             خروج
           </button>
@@ -60,9 +75,18 @@ const NavList = (props) => {
             onClick={() => {
               goto.push("/login");
             }}
-            style={{ width: 80, height: 35, borderRadius: "16px" }}
+            style={{
+              height: 35,
+              borderRadius: "10px",
+              backgroundColor: "#2f60ff",
+              color: "#fff",
+              fontSize: "20px",
+              border: 0,
+              cursor: "pointer",
+              padding: "5px 15px",
+            }}
           >
-            ورود/ثبت نام
+            ورود/ ثبت نام
           </button>
         )}
       </ul>
