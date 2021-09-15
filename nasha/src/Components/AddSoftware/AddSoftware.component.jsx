@@ -52,6 +52,8 @@ const AddSoftware = () => {
   const [snap4, setSnap4] = useState();
   const [snap5, setSnap5] = useState();
   const [description, setdescription] = useState("");
+  const [existingLicense, setExistingLicense] = useState([]);
+  const [existingPlatforms, setExistingPlatforms] = useState([]);
 
   const [newField1, setNewField1] = useState("");
   const [newField2, setNewField2] = useState("");
@@ -65,11 +67,11 @@ const AddSoftware = () => {
   const [newLicense4, setNewLicense4] = useState("");
   const [newLicense5, setNewLicense5] = useState("");
 
-  const [exlicense1, setExlicense1] = useState("");
-  const [exlicense2, setExlicense2] = useState("");
-  const [exlicense3, setExlicense3] = useState("");
-  const [exlicense4, setExlicense4] = useState("");
-  const [exlicense5, setExlicense5] = useState("");
+  // const [exlicense1, setExlicense1] = useState("");
+  // const [exlicense2, setExlicense2] = useState("");
+  // const [exlicense3, setExlicense3] = useState("");
+  // const [exlicense4, setExlicense4] = useState("");
+  // const [exlicense5, setExlicense5] = useState("");
 
   const [newPlat1, setNewPlat1] = useState("");
   const [newpalt2, setNewPlat2] = useState("");
@@ -83,12 +85,22 @@ const AddSoftware = () => {
   const [offline, setOffline] = useState(false);
   const [totalStatues, setTotalStatus] = useState();
 
-  const [exlicencesList, setExlicencesList] = useState([]);
-
   //---------------------------------------------
-  const ChangeHandler = (e, l) => {
-    if (e.target.checked)
-      setExlicencesList([...exlicencesList, { id: l.id, name: l.name }]);
+  const licenseChangeHandler = (e, l, state, setState) => {
+    const foundIndex = state.findIndex((item) => item.id === l.id);
+    console.log("checked item", state);
+    if (e.target.checked) {
+      return setState([...state, { id: l.id, name: l.name }]);
+    }
+
+    // return setExistingLicense([
+    //   ...existingLicense.slice(0, foundIndex),
+    //   ...existingLicense.slice(foundIndex + 1),
+    // ]);
+
+    return setExistingLicense(
+      existingLicense.filter((item) => item.id !== l.id)
+    );
   };
 
   //--------------------------------------------
@@ -123,11 +135,14 @@ const AddSoftware = () => {
     console.log("all licences data", data.results);
   };
 
+  const getStatus = () => {
+    if (online && offline) return 3;
+    if (online) return 2;
+    if (offline) return 1;
+    if (!offline && !online) return 0;
+  };
+
   const authorization = (e) => {
-    if (online && offline) setTotalStatus(3);
-    if (online) setTotalStatus(2);
-    if (offline) setTotalStatus(1);
-    if (!offline && !online) setTotalStatus(0);
     e.preventDefault();
 
     if (localStorage.getItem("token") == null) {
@@ -159,7 +174,34 @@ const AddSoftware = () => {
     if (snap3) formData.append("snapshot3", snap3);
     if (snap4) formData.append("snapshot4", snap4);
     if (snap5) formData.append("snapshot5", snap5);
-    if (totalStatues) formData.append("offline_or_online");
+    formData.append("offline_or_online", getStatus());
+    if (description) formData.append("description", description);
+    if (newLicense1 || newLicense2 || newLicense3 || newLicense4 || newLicense5)
+      formData.append(
+        "new_licenses",
+        `${newLicense1 ? newLicense1 + "," : ""} ${
+          newLicense2 ? newLicense2 + "," : ""
+        } ${newLicense3 ? newLicense3 + "," : ""} ${
+          newLicense4 ? newLicense4 + "," : ""
+        } ${newLicense5 ? newLicense5 : ""}`
+      );
+    if (newPlat1 || newpalt2 || newpalt3 || newpalt4 || newpalt5)
+      formData.append(
+        "new_licenses",
+        `${newPlat1 ? newPlat1 + "," : ""} ${newpalt2 ? newpalt2 + "," : ""} ${
+          newpalt3 ? newpalt3 + "," : ""
+        } ${newpalt4 ? newpalt4 + "," : ""} ${newpalt5 ? newpalt5 : ""}`
+      );
+    if (existingLicense) {
+      formData.append("existing_licenses", JSON.stringify(existingLicense));
+      console.log(JSON.stringify(existingLicense));
+    }
+
+    if (existingPlatforms) {
+      formData.append("existing_platforms", JSON.stringify(existingPlatforms));
+      console.log(JSON.stringify(existingPlatforms));
+    }
+
     // if (pdf) formData.append("icon_picture", pdf);
 
     // newTweetRequest(formData, (isOk, data) => {
@@ -173,6 +215,7 @@ const AddSoftware = () => {
     //   if (tweetText.includes("#")) updateHashTagList(tweetDispatch);
     // });
   };
+
   // --------------------------------------------
 
   const fetchFields = async () => {
@@ -460,7 +503,16 @@ const AddSoftware = () => {
                       <label htmlFor="">{l.name}</label>
                       <input
                         type="checkbox"
-                        onClick={(e) => ChangeHandler(e, l)}
+                        onClick={(e) =>
+                          console.log(
+                            licenseChangeHandler(
+                              e,
+                              l,
+                              existingLicense,
+                              setExistingLicense
+                            )
+                          )
+                        }
                       />
                     </div>
                   ))}
@@ -540,7 +592,17 @@ const AddSoftware = () => {
                 {platforms?.map((p) => (
                   <div>
                     <label htmlFor="">{p.name}</label>
-                    <input type="checkbox" />
+                    <input
+                      type="checkbox"
+                      onClick={(e) => {
+                        licenseChangeHandler(
+                          e,
+                          p,
+                          existingPlatforms,
+                          setExistingPlatforms
+                        );
+                      }}
+                    />
                   </div>
                 ))}
               </div>
@@ -551,11 +613,26 @@ const AddSoftware = () => {
             {/* ----------- platforms ---------------*/}
             {isPlatformOpenBox && (
               <div className="inputBoxes">
-                <input type="text" />
-                <input type="text" />
-                <input type="text" />
-                <input type="text" />
-                <input type="text" />
+                <input
+                  type="text"
+                  onChange={(e) => setNewPlat1(e.target.value)}
+                />
+                <input
+                  type="text"
+                  onChange={(e) => setNewPlat2(e.target.value)}
+                />
+                <input
+                  type="text"
+                  onChange={(e) => setNewPlat3(e.target.value)}
+                />
+                <input
+                  type="text"
+                  onChange={(e) => setNewPlat4(e.target.value)}
+                />
+                <input
+                  type="text"
+                  onChange={(e) => setNewPlat5(e.target.value)}
+                />
               </div>
             )}
             {/* ------------------------------------ */}
@@ -689,12 +766,13 @@ const AddSoftware = () => {
                 :توضیحات
               </label>
               <textarea
-                name=""
-                id=""
                 cols="30"
                 rows="10"
                 className="form__textarea"
                 placeholder="Your Text "
+                onChange={(e) => {
+                  setdescription(e.target.value);
+                }}
               ></textarea>
             </div>
           </div>

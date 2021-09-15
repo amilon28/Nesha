@@ -302,6 +302,7 @@ input[type="file"] + label:hover {
   font-size: 20px;
   width: 400px;
   background-color: #fd7777;
+  color: #e8e8e8;
   font-weight: bold;
 }
 
