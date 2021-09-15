@@ -6,7 +6,7 @@ const Submit = () => {
     <div>
       <Header type="3" className="type-3" />
       <AddSoftware />
-      <ToastContainer />
+      
     </div>
   );
 };

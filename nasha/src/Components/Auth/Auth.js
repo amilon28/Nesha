@@ -23,13 +23,32 @@ const Auth = () => {
     setTab(newValue);
   };
 
+  const validateLogin = (user) => {
+    if (!user.username) return "باید حتما نام کاربری را وارد کنید";
+    if (!user.password) return "باید حتما پسورد را وارد کنید";
+  };
+
+  const validateRegister = (user) => {
+    if (!user.username) return "باید حتما نام کاربری را وارد کنید";
+    if (!user.email) return "باید حتما ایمیل را وارد کنید";
+    if (!user.password) return "باید حتما پسورد را وارد کنید";
+    if (user.password !== user.confPassword) return "پسورد ها مشابه نیستند ";
+  };
+
   const regHandler = async (e) => {
     e.preventDefault(e);
-
-    if (!(passReg === confirmPass)) {
-      alert("passwords dont match");
-      return;
-    }
+    const user = {
+      username: usernameReg,
+      email: email,
+      password: passReg,
+      confPassword: confirmPass,
+    };
+    const error = await validateRegister(user);
+    if (error)
+      return toast.warn(error, {
+        className: "alert",
+      });
+    user.confPassword = undefined;
 
     try {
       const response = await fetch(
@@ -40,27 +59,39 @@ const Auth = () => {
             "Content-Type": "application/json",
             Accept: "application/json",
           },
-          body: JSON.stringify({
-            username: usernameReg,
-            email: email,
-            password: passReg,
-          }),
+          body: JSON.stringify(user),
         }
       );
-      const data = await response.json();
-      console.log("data", data);
-      localStorage.setItem("token", data.token);
-      toast.success("شما با موفقیت ثبت نام شدید", {
-        className: "alert",
-      });
-      goto.push("/");
+      if (response.ok) {
+        const data = await response.json();
+        console.log("sign up data", data);
+        localStorage.setItem("token", data.token);
+        toast.success("شما با موفقیت ثبت نام شدید", {
+          className: "alert",
+        });
+        goto.push("/");
+      } else {
+        toast.error("خطا در تایید اطلاعات", {
+          className: "alert",
+        });
+      }
     } catch (error) {
-      console.log(error.message);
+      // console.log(error.message);
     }
   };
 
   const loginHandler = async (e) => {
     e.preventDefault(e);
+
+    const user = {
+      username: usernameLogin,
+      password: passLogin,
+    };
+    const error = await validateLogin(user);
+    if (error)
+      return toast.warn(error, {
+        className: "alert",
+      });
 
     try {
       const response = await fetch(
@@ -71,23 +102,21 @@ const Auth = () => {
             "Content-Type": "application/json",
             Accept: "application/json",
           },
-          body: JSON.stringify({
-            username: usernameLogin,
-            password: passLogin,
-          }),
+          body: JSON.stringify(user),
         }
       );
-      const data = await response.json();
-      console.log(data);
-      localStorage.setItem("token", data.token);
-      // setToken(data.token);
-      toast.success("شما با موفقیت وارد شدید", {
-        className: "alert",
-      });
-      goto.push("/");
-    } catch (error) {
-      console.log(error.message);
-    }
+
+      if (response.ok) {
+        const data = await response.json();
+        toast.success("شما با موفقیت وارد شدید", { className: "alert" });
+        localStorage.setItem("token", data.token);
+        goto.push("/");
+      } else {
+        toast.error("خطای ارسال", {
+          className: "alert",
+        });
+      }
+    } catch (error) {}
   };
 
   return (
@@ -116,7 +145,6 @@ const Auth = () => {
           <div className="form-fields">
             <div className="log-in__input">
               <input
-                required
                 type="text"
                 placeholder="نام کاربری"
                 onChange={(e) => setUsernameLogin(e.target.value)}
@@ -124,7 +152,6 @@ const Auth = () => {
             </div>
             <div className="log-in__input">
               <input
-                required
                 type="password"
                 placeholder="رمز"
                 onChange={(e) => setPassLogin(e.target.value)}
@@ -142,7 +169,6 @@ const Auth = () => {
           <div className="form-fields">
             <div className="log-in__input">
               <input
-                required
                 type="text"
                 placeholder="نام کاربری"
                 onChange={(e) => setUsernameReg(e.target.value)}
@@ -150,7 +176,6 @@ const Auth = () => {
             </div>
             <div className="log-in__input">
               <input
-                required
                 type="email"
                 placeholder="ایمیل"
                 onChange={(e) => setEmail(e.target.value)}
@@ -158,7 +183,6 @@ const Auth = () => {
             </div>
             <div className="log-in__input">
               <input
-                required
                 type="password"
                 placeholder="رمز"
                 onChange={(e) => setPassReg(e.target.value)}
@@ -166,7 +190,6 @@ const Auth = () => {
             </div>
             <div className="log-in__input">
               <input
-                required
                 type="password"
                 placeholder=" تایید رمز"
                 onChange={(e) => setConfirmPass(e.target.value)}

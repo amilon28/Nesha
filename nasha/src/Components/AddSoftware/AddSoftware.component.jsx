@@ -11,6 +11,7 @@ import "./AddSoftware.style.css";
 
 const AddSoftware = () => {
   const token = localStorage.getItem("token");
+
   const {
     isLogin,
     setIsLogin,
@@ -21,7 +22,7 @@ const AddSoftware = () => {
   } = useContext(SubjectContext);
   const [allLabs, setAllLabs] = useState([]);
   const [platforms, setPlatforms] = useState([]);
-  const [licenses, setLicenses] = useState([]);
+  const [targetLicenses, setLicenses] = useState([]);
   const [targetFields, setTargetFields] = useState();
   const [labId, setLabId] = useState();
   const [isLoading, setIsLoading] = useState(false);
@@ -35,18 +36,63 @@ const AddSoftware = () => {
   const [stdNum, setStdNum] = useState("");
   const [softname, setSoftname] = useState("");
   const [softLink, setSoftLink] = useState("");
+
+  const [pIcon, setPIcon] = useState();
+
+  const [courseLink1, setCourseLink1] = useState("");
+  const [courseLink2, setCourseLink2] = useState("");
+  const [courseLink3, setCourseLink3] = useState("");
+
   const [softLicense, setSoftLicense] = useState("");
   const [softPlatform, setSoftPlatform] = useState("");
   const [pdf, setPdf] = useState("");
-  const [snap1, setSnap1] = useState("");
-  const [snap2, setSnap2] = useState("");
-  const [snap3, setSnap3] = useState("");
-  const [snap4, setSnap4] = useState("");
-  const [snap5, setSnap5] = useState("");
+  const [snap1, setSnap1] = useState();
+  const [snap2, setSnap2] = useState();
+  const [snap3, setSnap3] = useState();
+  const [snap4, setSnap4] = useState();
+  const [snap5, setSnap5] = useState();
   const [description, setdescription] = useState("");
 
-  //---------------------------------------------
+  const [newField1, setNewField1] = useState("");
+  const [newField2, setNewField2] = useState("");
+  const [newField3, setNewField3] = useState("");
+  const [newField4, setNewField4] = useState("");
+  const [newField5, setNewField5] = useState("");
 
+  const [newLicense1, setNewLicense1] = useState("");
+  const [newLicense2, setNewLicense2] = useState("");
+  const [newLicense3, setNewLicense3] = useState("");
+  const [newLicense4, setNewLicense4] = useState("");
+  const [newLicense5, setNewLicense5] = useState("");
+
+  const [exlicense1, setExlicense1] = useState("");
+  const [exlicense2, setExlicense2] = useState("");
+  const [exlicense3, setExlicense3] = useState("");
+  const [exlicense4, setExlicense4] = useState("");
+  const [exlicense5, setExlicense5] = useState("");
+
+  const [newPlat1, setNewPlat1] = useState("");
+  const [newpalt2, setNewPlat2] = useState("");
+  const [newpalt3, setNewPlat3] = useState("");
+  const [newpalt4, setNewPlat4] = useState("");
+  const [newpalt5, setNewPlat5] = useState("");
+
+  const [images, setImages] = useState([]);
+
+  const [online, setOnline] = useState(false);
+  const [offline, setOffline] = useState(false);
+  const [totalStatues, setTotalStatus] = useState();
+
+  const [exlicencesList, setExlicencesList] = useState([]);
+
+  //---------------------------------------------
+  const ChangeHandler = (e, l) => {
+    if (e.target.checked)
+      setExlicencesList([...exlicencesList, { id: l.id, name: l.name }]);
+  };
+
+  //--------------------------------------------
+  console.log("softDetaile.licenses", softDetaile?.licenses);
   const fetchAllLabs = async () => {
     const response = await fetch(
       "https://hassan1245.pythonanywhere.com/Nesha/v1/lab_search/"
@@ -74,10 +120,14 @@ const AddSoftware = () => {
 
     const data = await response.json();
     setLicenses(data.results);
-    console.log("all labs data", data);
+    console.log("all licences data", data.results);
   };
 
   const authorization = (e) => {
+    if (online && offline) setTotalStatus(3);
+    if (online) setTotalStatus(2);
+    if (offline) setTotalStatus(1);
+    if (!offline && !online) setTotalStatus(0);
     e.preventDefault();
 
     if (localStorage.getItem("token") == null) {
@@ -88,6 +138,40 @@ const AddSoftware = () => {
         className: "error-add",
       });
     }
+
+    const formData = new FormData();
+    formData.append("first_name", username);
+    formData.append("last_name", lastname);
+    formData.append("email", email);
+    formData.append("student_number", stdNum);
+    formData.append("url", softLink);
+    formData.append("software_name", softname);
+
+    if (newField1) formData.append();
+    if (newField2) formData.append();
+    if (newField3) formData.append();
+    if (newField4) formData.append();
+    if (newField5) formData.append();
+
+    if (snap1) formData.append("snapshot1", snap1);
+    if (snap1) formData.append("snapshot1", snap1);
+    if (snap2) formData.append("snapshot2", snap2);
+    if (snap3) formData.append("snapshot3", snap3);
+    if (snap4) formData.append("snapshot4", snap4);
+    if (snap5) formData.append("snapshot5", snap5);
+    if (totalStatues) formData.append("offline_or_online");
+    // if (pdf) formData.append("icon_picture", pdf);
+
+    // newTweetRequest(formData, (isOk, data) => {
+    //   if (!isOk) toast.error(data);
+    //   toast.success("توییت شما با موفقیت ارسال شد");
+    //   updateTweets();
+    //   // input.current.innerText = '';
+    //   setTweet(tweetDispatch, "");
+    //   setImageFile();
+    //   setImagePath();
+    //   if (tweetText.includes("#")) updateHashTagList(tweetDispatch);
+    // });
   };
   // --------------------------------------------
 
@@ -104,6 +188,13 @@ const AddSoftware = () => {
     console.log("targetFields", targetFields);
   };
 
+  const diff = () => {
+    const res = targetLicenses?.filter(
+      (x) => !softDetaile?.licenses?.includes(x)
+    );
+    console.log("result diff", res);
+    return res;
+  };
   // setIsLogin(!!localStorage.getItem("token"));
   // if (!isLogin) {
   //   alert("you must Signup/LogIn for using this page");
@@ -145,6 +236,9 @@ const AddSoftware = () => {
                   required
                   placeholder="Name"
                   className="form__input"
+                  onChange={(e) => {
+                    setUsername(e.target.value);
+                  }}
                 />
                 <label for="" className="form__label">
                   : نام
@@ -156,6 +250,9 @@ const AddSoftware = () => {
                   required
                   placeholder="Family"
                   className="form__input"
+                  onChange={(e) => {
+                    setLastname(e.target.value);
+                  }}
                 />
                 <label for="" className="form__label">
                   :نام خانوادگی
@@ -167,6 +264,9 @@ const AddSoftware = () => {
                   required
                   placeholder="Email"
                   className="form__input"
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                  }}
                 />
                 <label for="" className="form__label">
                   :ایمیل
@@ -178,6 +278,9 @@ const AddSoftware = () => {
                   required
                   placeholder="Student Number"
                   className="form__input"
+                  onChange={(e) => {
+                    setStdNum(e.target.value);
+                  }}
                 />
                 <label for="" className="form__label">
                   : شماره دانشجویی
@@ -201,6 +304,9 @@ const AddSoftware = () => {
                     required
                     placeholder="Software Name"
                     className="form__input"
+                    onChange={(e) => {
+                      setSoftname(e.target.value);
+                    }}
                   />
                 )}
 
@@ -215,6 +321,9 @@ const AddSoftware = () => {
                     required
                     placeholder="Software Link"
                     className="form__input"
+                    onChange={(e) => {
+                      setSoftLink(e.target.value);
+                    }}
                   />
                   <label for="" className="form__label">
                     : لینک مربوط به نرم افزار
@@ -239,6 +348,10 @@ const AddSoftware = () => {
                 type="file"
                 id="select-fire"
                 style={isEdit ? { display: "none" } : {}}
+                onChange={(e) => {
+                  if (e.target.files && e.target.files.length > 0)
+                    setPIcon(e.target.files[0]);
+                }}
               />
               <label
                 for="select-fire"
@@ -296,11 +409,36 @@ const AddSoftware = () => {
             {/* --------------------------------------------------------- */}
             {isOpenBox && !isLoading && (
               <div className="inputBoxes">
-                <input type="text" />
-                <input type="text" />
-                <input type="text" />
-                <input type="text" />
-                <input type="text" />
+                <input
+                  type="text"
+                  onChange={(e) => {
+                    setNewField1(e.target.value);
+                  }}
+                />
+                <input
+                  type="text"
+                  onChange={(e) => {
+                    setNewField2(e.target.value);
+                  }}
+                />
+                <input
+                  type="text"
+                  onChange={(e) => {
+                    setNewField3(e.target.value);
+                  }}
+                />
+                <input
+                  type="text"
+                  onChange={(e) => {
+                    setNewField4(e.target.value);
+                  }}
+                />
+                <input
+                  type="text"
+                  onChange={(e) => {
+                    setNewField5(e.target.value);
+                  }}
+                />
               </div>
             )}
             {/* --------------------------------------------------------- */}
@@ -316,12 +454,35 @@ const AddSoftware = () => {
                 <p>اگر لایسنس مورد نظر شما وجود ندارد آن را اضافه کنید</p>
               </div>
               <div className="paltforms__checboxes">
-                {licenses?.map((l) => (
-                  <div>
-                    <label htmlFor="">{l.name}</label>
-                    <input type="checkbox" />
-                  </div>
-                ))}
+                {!isEdit &&
+                  targetLicenses?.map((l) => (
+                    <div>
+                      <label htmlFor="">{l.name}</label>
+                      <input
+                        type="checkbox"
+                        onClick={(e) => ChangeHandler(e, l)}
+                      />
+                    </div>
+                  ))}
+                {isEdit &&
+                  targetLicenses?.map((l) =>
+                    softDetaile?.licenses?.map((el) => {
+                      if (el.name !== l.name) {
+                        <div>
+                          <label htmlFor="">{l.name}</label>
+                          <input type="checkbox" />
+                        </div>;
+                      }
+                    })
+                  )}
+
+                {/* {isEdit &&
+                  diff()?.map((l) => {
+                    <div>
+                      <label htmlFor="">{l.name}</label>
+                      <input type="checkbox" />
+                    </div>;
+                  })} */}
               </div>
               <label for="" className="form__label">
                 : لایسنس نرم افزار
@@ -330,11 +491,36 @@ const AddSoftware = () => {
             {/* ----------- Licenses ---------------*/}
             {isLicenseOpenBox && (
               <div className="inputBoxes">
-                <input type="text" />
-                <input type="text" />
-                <input type="text" />
-                <input type="text" />
-                <input type="text" />
+                <input
+                  type="text"
+                  onChange={(e) => {
+                    setNewLicense1(e.target.value);
+                  }}
+                />
+                <input
+                  type="text"
+                  onChange={(e) => {
+                    setNewLicense2(e.target.value);
+                  }}
+                />
+                <input
+                  type="text"
+                  onChange={(e) => {
+                    setNewLicense3(e.target.value);
+                  }}
+                />
+                <input
+                  type="text"
+                  onChange={(e) => {
+                    setNewLicense4(e.target.value);
+                  }}
+                />
+                <input
+                  type="text"
+                  onChange={(e) => {
+                    setNewLicense5(e.target.value);
+                  }}
+                />
               </div>
             )}
             {/* ------------------------------------ */}
@@ -362,7 +548,7 @@ const AddSoftware = () => {
                 : پلتفرم نرم افزار
               </label>
             </div>
-            {/* ----------- Licenses ---------------*/}
+            {/* ----------- platforms ---------------*/}
             {isPlatformOpenBox && (
               <div className="inputBoxes">
                 <input type="text" />
@@ -392,6 +578,10 @@ const AddSoftware = () => {
                   type="file"
                   placeholder="Name"
                   id="snapshot1"
+                  onChange={(e) => {
+                    if (e.target.files && e.target.files.length > 0)
+                      setSnap1(e.target.files[0]);
+                  }}
                 />
                 <label for="snapshot1">5 فایل</label>
 
@@ -400,6 +590,10 @@ const AddSoftware = () => {
                   type="file"
                   placeholder="Name"
                   id="snapshot2"
+                  onChange={(e) => {
+                    if (e.target.files && e.target.files.length > 0)
+                      setSnap2(e.target.files[0]);
+                  }}
                 />
                 <label for="snapshot2">4 فایل</label>
 
@@ -408,6 +602,10 @@ const AddSoftware = () => {
                   type="file"
                   placeholder="Name"
                   id="snapshot3"
+                  onChange={(e) => {
+                    if (e.target.files && e.target.files.length > 0)
+                      setSnap3(e.target.files[0]);
+                  }}
                 />
                 <label for="snapshot3">3 فایل</label>
 
@@ -416,6 +614,10 @@ const AddSoftware = () => {
                   type="file"
                   placeholder="Name"
                   id="snapshot4"
+                  onChange={(e) => {
+                    if (e.target.files && e.target.files.length > 0)
+                      setSnap4(e.target.files[0]);
+                  }}
                 />
                 <label for="snapshot4">2 فایل</label>
 
@@ -424,6 +626,10 @@ const AddSoftware = () => {
                   type="file"
                   placeholder="Name"
                   id="snapshot5"
+                  onChange={(e) => {
+                    if (e.target.files && e.target.files.length > 0)
+                      setSnap5(e.target.files[0]);
+                  }}
                 />
                 <label for="snapshot5">1 فایل</label>
 
@@ -435,9 +641,23 @@ const AddSoftware = () => {
 
             <div className="form__inputbox form__inputbox--check">
               <div className="checkbox-container">
-                <input type="radio" name="state" placeholder="Name" />
+                <input
+                  type="checkbox"
+                  name="state"
+                  placeholder="Name"
+                  onClick={(e) => {
+                    if (e.target.checked) setOnline(true);
+                  }}
+                />
                 آنلاین
-                <input type="radio" name="state" placeholder="Name" />
+                <input
+                  type="checkbox"
+                  name="state"
+                  placeholder="Name"
+                  onClick={(e) => {
+                    if (e.target.checked) setOffline(true);
+                  }}
+                />
                 آفلاین
               </div>
               <label for="" className="form__label">

@@ -72,6 +72,7 @@ function App() {
           <Route exact path="/field-search" component={FieldSearch} />
           <Route exact path="/lab-search" component={LabSearch} />
         </BrowserRouter>
+        <ToastContainer />
       </SubjectContext.Provider>
     </>
   );

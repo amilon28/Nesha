@@ -9,7 +9,7 @@ const Home = () => {
       <Header type="1" />
       <Main />
       <Footer />
-      <ToastContainer />
+      
     </div>
   );
 };
