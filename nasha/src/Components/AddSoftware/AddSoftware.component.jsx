@@ -15,7 +15,7 @@ const AddSoftware = () => {
     isEdit,
     softawreNameEditSection,
     idLab,
-    setIdLab,
+    softDetaile,
   } = useContext(SubjectContext);
   const [allLabs, setAllLabs] = useState([]);
   const [platforms, setPlatforms] = useState([]);
@@ -152,39 +152,68 @@ const AddSoftware = () => {
                 </label>
               </div>
               <div className="form__inputbox">
-                <input
-                  type="text"
-                  required
-                  placeholder="Software Name"
-                  className="form__input"
-                />
+                {isEdit && (
+                  <input
+                    type="text"
+                    required
+                    placeholder="Software Name"
+                    className="form__input"
+                    value={softawreNameEditSection}
+                    readOnly
+                    disabled
+                  />
+                )}
+                {!isEdit && (
+                  <input
+                    type="text"
+                    required
+                    placeholder="Software Name"
+                    className="form__input"
+                  />
+                )}
+
                 <label for="" className="form__label">
                   :نام نرم افزار
                 </label>
               </div>
-              <div className="form__inputbox">
-                <input
-                  type="text"
-                  required
-                  placeholder="Software Link"
-                  className="form__input"
-                />
-                <label for="" className="form__label">
-                  : لینک مربوط به نرم افزار
-                </label>
-              </div>
+              {!isEdit && (
+                <div className="form__inputbox">
+                  <input
+                    type="text"
+                    required
+                    placeholder="Software Link"
+                    className="form__input"
+                  />
+                  <label for="" className="form__label">
+                    : لینک مربوط به نرم افزار
+                  </label>
+                </div>
+              )}
             </div>
             <div className="form__programIcon">
-              <label for="" className="form__label">
-                آیکون برنامه
-              </label>
-              <img src={programIcon} alt="program icon" />
+              {!isEdit && (
+                <label for="" className="form__label">
+                  آیکون برنامه
+                </label>
+              )}
+
+              <img
+                src={isEdit ? softDetaile?.icon_picture : programIcon}
+                alt="program icon"
+              />
+
               <input
                 className="form__file-input"
                 type="file"
                 id="select-fire"
+                style={isEdit ? { display: "none" } : {}}
               />
-              <label for="select-fire">انتخاب فایل</label>
+              <label
+                for="select-fire"
+                style={isEdit ? { display: "none" } : {}}
+              >
+                انتخاب فایل
+              </label>
             </div>
           </div>
           <div className="form__softwar">
