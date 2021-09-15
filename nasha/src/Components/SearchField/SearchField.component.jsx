@@ -67,12 +67,12 @@ const SearchField = (props) => {
   const fetchDatasAboutSearchValue = async () => {
     try {
       const response = await fetch(
-        `https://hassan1245.pythonanywhere.com/Nesha/v1/search?search=${searchValue}`
+        `https://hassan1245.pythonanywhere.com/Nesha/v1/search/?search=${searchValue}`
       );
       if (!response.ok) throw Error("Something Went Wrong...");
       const data = await response.json();
+      console.log("Result in home page...........for search field", data);
       setResult(data.results);
-      console.log(result);
     } catch (err) {
       console.log(err.message);
     }
@@ -104,14 +104,16 @@ const SearchField = (props) => {
       {!isLoading && (
         <div>
           <ul className="listOfDatas">
-            {[...result.Software, ...result.Field, ...result.Lab].map((el) => (
-              <li
-                key={Math.random()}
-                onClick={(e) => clickOnItemHandler(e, el)}
-              >
-                {el.name}
-              </li>
-            ))}
+            {[...result?.Software, ...result?.Field, ...result?.Lab].map(
+              (el) => (
+                <li
+                  key={Math.random()}
+                  onClick={(e) => clickOnItemHandler(e, el)}
+                >
+                  {el.name}
+                </li>
+              )
+            )}
           </ul>
         </div>
       )}

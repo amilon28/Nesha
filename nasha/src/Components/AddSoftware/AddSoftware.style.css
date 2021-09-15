@@ -1,3 +1,8 @@
+.result__Fields input {
+  height: 100%;
+  margin-left: 10px;
+}
+
 .addSoftware__textbox {
   text-align: center;
   padding: 10px;
@@ -234,6 +239,26 @@ input[type="file"] + label:hover {
 .form__item:nth-child(2n + 1):before {
   /* content: url("../assets/plus-circle.svg"); */
   content: url("../../assets/img/plus-circle.svg");
+  cursor: pointer;
+}
+
+.form__result__container {
+  background-color: #df7c7c;
+  width: 100%;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+}
+
+.form__soft--lab {
+  position: relative;
+}
+
+.form__soft--lab::after {
+  content: url("../../assets//img/plus-circle.svg");
+  position: absolute;
+  top: 10%;
+  right: -10%;
   cursor: pointer;
 }
 /* ------------- */

@@ -17,7 +17,7 @@ const SoftwareStatics = (props) => {
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
-          Authorization: localStorage.getItem("token"),
+          Authorization: 'Token ' + localStorage.getItem("token"),
         },
       }
     );

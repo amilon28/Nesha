@@ -11,27 +11,10 @@ function FieldSearchForFieldPage(props) {
   const [isLoading, setIsLoading] = useState(true);
   const [err, setErr] = useState(false);
   const goto = useHistory();
-  //----------------
-  // Field search Functionality
-  // const fetchFields = async () => {
-  //   const response = await fetch(
-  //     `https://hassan1245.pythonanywhere.com/Nesha/v1/field_search?search=${searchValue}`
-  //   );
-
-  //   const data = await response.json();
-  //   setResult(data.results);
-  //   setIsLoading(false);
-  //   console.log(result);
-  // };
 
   const changeHandler = (e) => {
     setSearchValue(e.target.value);
   };
-
-  // const getData = () => {
-  //   setIsLoading(true);
-  //   fetchFields();
-  // };
 
   // get data about clicked item
   const clickOnItemHandler = async (item) => {
@@ -56,7 +39,7 @@ function FieldSearchForFieldPage(props) {
   const fetchAllFields = async () => {
     try {
       const response = await fetch(
-        "https://hassan1245.pythonanywhere.com/Nesha/v1/field_search"
+        "https://hassan1245.pythonanywhere.com/Nesha/v1/field_search/"
       );
       if (!response.ok) throw Error("SomeThing Is Not Right !");
       const data = await response.json();

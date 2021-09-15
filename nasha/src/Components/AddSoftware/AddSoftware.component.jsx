@@ -7,8 +7,9 @@ import { SubjectContext } from "../../store/SubjectContext";
 import "./AddSoftware.style.css";
 
 const AddSoftware = () => {
-  const { isLogin } = useContext(SubjectContext);
+  const { isLogin, setIsLogin } = useContext(SubjectContext);
   const [allLabs, setAllLabs] = useState([]);
+  const [res, setRes] = useState([]);
 
   const fetchAllLabs = async () => {
     const response = await fetch(
@@ -19,8 +20,17 @@ const AddSoftware = () => {
     setAllLabs(data);
     console.log("all labs data", data);
   };
+  const clickOnLabsHandler = async (lab) => {
+    const response = await fetch(
+      "https://hassan1245.pythonanywhere.com/Nesha/v1/lab_search"
+    );
+
+    const data = await response.json();
+    setAllLabs(data);
+  };
 
   useEffect(() => {
+    setIsLogin(!!localStorage.getItem("token"));
     if (!isLogin) {
       alert("you must Signup/LogIn for using this page");
       return;
@@ -130,21 +140,38 @@ const AddSoftware = () => {
               <div className="form__add-text">
                 اگر آزمایشگاه مورد نظر شما وجود ندارد آن را اضافه کنید
               </div>
-              <div className="form__item">
-                <label className="form__label"> آزمایشگاه نرم افزار:</label>
+            </div>
+            {/* ******************************************* */}
+            <div className="form__result__container">
+              <div className="form__soft--lab">
                 <select className="form__select">
                   <option value="" disabled selected hidden>
                     Select
                   </option>
-
                   {allLabs?.map((lab) => {
-                    return <option value={lab.name}>{lab.name}</option>;
+                    return (
+                      <option
+                        value={lab.name}
+                        onClick={(e) => clickOnLabsHandler(lab)}
+                      >
+                        {lab.name}
+                      </option>
+                    );
                   })}
                 </select>
+                <label className="form__label">: آزمایشگاه نرم افزار</label>
               </div>
-              <div className="form__result-items"></div>
+              {
+                <div className="result__Fields">
+                  {}
+                  <input type="text" />
+                  <input type="text" />
+                  <input type="text" />
+                  <input type="text" />
+                  <input type="text" />
+                </div>
+              }
             </div>
-
             {/* --------------------------------------------------------- */}
 
             <div className="form__inputbox form__inputbox--select">
@@ -202,7 +229,7 @@ const AddSoftware = () => {
                 placeholder="Name"
                 id="snapshot1"
               />
-              <label for="snapshot1">5   فایل</label>
+              <label for="snapshot1">5 فایل</label>
 
               <input
                 className="form__file-input form__input"

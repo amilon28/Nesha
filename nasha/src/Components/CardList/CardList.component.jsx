@@ -7,6 +7,7 @@ import "./CardList.style.css";
 
 const CardList = (props) => {
   console.log(props.softWareList);
+  console.log("www");
   const { setSoftDetaile } = useContext(SubjectContext);
   const goto = useHistory();
   const clickHandler = async (soft) => {

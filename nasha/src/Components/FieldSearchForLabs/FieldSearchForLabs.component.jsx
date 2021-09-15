@@ -12,43 +12,7 @@ function FieldSearchForLabs() {
   const [isLoading, setIsLoading] = useState(true);
   const goto = useHistory();
   //----------------
-  // const fetchFields = async () => {
-  //   const response = await fetch(
-  //     `https://hassan1245.pythonanywhere.com/Nesha/v1/lab_search?search=${searchValue}`
-  //   );
 
-  //   const data = await response.json();
-  //   setResult(data.results);
-  //   setIsLoading(false);
-  //   console.log("24", result);
-  // };
-
-  // const getData = () => {
-  //   setIsLoading(true);
-  //   fetchFields();
-  //   // setIsClick(true);
-  // };
-
-  // const changeHandler = (e) => {
-  //   setSearchValue(e.target.value);
-  //   // console.log("All labs", allLabs);
-
-  //   // console.log("Result array", result);
-  //   // console.log(searchValue);
-  //   // const filterLabs = result.filter((lab) => lab.name.includes(searchValue));
-  //   // setResult(filterLabs);
-  // };
-
-  // const getSoftwares = async (labId) => {
-  //   const response = await fetch(
-  //     `https://hassan1245.pythonanywhere.com/Nesha/v1/labs/${labId}`
-  //   );
-
-  //   const data = await response.json();
-
-  //   setSoftwareList(data.softwares);
-  //   goto.push("/search");
-  // };
   // ---------- get software for target lab --------------
   const clickOnItemHandler = async (item) => {
     console.log("item", item);
@@ -71,13 +35,13 @@ function FieldSearchForLabs() {
   const fetchAllLabs = async () => {
     try {
       const response = await fetch(
-        "https://hassan1245.pythonanywhere.com/Nesha/v1/lab_search"
+        "https://hassan1245.pythonanywhere.com/Nesha/v1/lab_search/"
       );
       if (!response.ok) throw Error("SomeThing Is Not Right !");
       const data = await response.json();
       console.log(data);
       setResult(data);
-      console.log(result);
+      console.log("Result of all labs: ", result);
     } catch (error) {
       // setErr(error.message);
     }
@@ -107,7 +71,7 @@ function FieldSearchForLabs() {
       {!isLoading && (
         <div className="field__cards">
           {result
-            .filter(function (val) {
+            ?.filter(function (val) {
               if (!searchValue) return val;
               else if (val.name.includes(searchValue)) {
                 return val;

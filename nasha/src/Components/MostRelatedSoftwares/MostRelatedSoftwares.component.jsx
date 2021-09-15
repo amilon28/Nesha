@@ -13,11 +13,13 @@ const MostRelatedSoftware = () => {
   const fetchFieldsHandler = async () => {
     try {
       const response = await fetch(
-        "https://hassan1245.pythonanywhere.com/Nesha/v1/fields"
+        "https://hassan1245.pythonanywhere.com/Nesha/v1/fields/"
       );
       if (!response.ok) throw Error("Something Went Wrong...");
       const data = await response.json();
+      console.log("fields in home ...", data);
       setFields(data.results);
+      console.log("Fields ----> ", fields);
     } catch (err) {
       setError(err.message);
     }
