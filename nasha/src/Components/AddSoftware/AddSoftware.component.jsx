@@ -4,11 +4,13 @@ import { useContext, useState } from "react/cjs/react.development";
 import plusCircle from "../../assets/img/plus-circle.svg";
 import programIcon from "../../assets/img/program-icon.svg";
 import { SubjectContext } from "../../store/SubjectContext";
+import { toast } from "react-toastify";
 import $ from "jquery";
 
 import "./AddSoftware.style.css";
 
 const AddSoftware = () => {
+  const token = localStorage.getItem("token");
   const {
     isLogin,
     setIsLogin,
@@ -27,7 +29,23 @@ const AddSoftware = () => {
   const [isLicenseOpenBox, setIsLicenseOpenBox] = useState(false);
   const [isPlatformOpenBox, setIsPlatformOpenBox] = useState(false);
   // Form inputs -----------------------------------------
-  // const []
+  const [username, setUsername] = useState("");
+  const [lastname, setLastname] = useState("");
+  const [email, setEmail] = useState("");
+  const [stdNum, setStdNum] = useState("");
+  const [softname, setSoftname] = useState("");
+  const [softLink, setSoftLink] = useState("");
+  const [softLicense, setSoftLicense] = useState("");
+  const [softPlatform, setSoftPlatform] = useState("");
+  const [pdf, setPdf] = useState("");
+  const [snap1, setSnap1] = useState("");
+  const [snap2, setSnap2] = useState("");
+  const [snap3, setSnap3] = useState("");
+  const [snap4, setSnap4] = useState("");
+  const [snap5, setSnap5] = useState("");
+  const [description, setdescription] = useState("");
+
+  //---------------------------------------------
 
   const fetchAllLabs = async () => {
     const response = await fetch(
@@ -59,6 +77,18 @@ const AddSoftware = () => {
     console.log("all labs data", data);
   };
 
+  const authorization = (e) => {
+    e.preventDefault();
+
+    if (localStorage.getItem("token") == null) {
+      console.log("abcdef");
+      toast.error("برای این کار نیاز به ثبت نام یا ورود دارید", {
+        autoClose: false,
+        position: toast.POSITION.TOP_CENTER,
+        className: "error-add",
+      });
+    }
+  };
   // --------------------------------------------
 
   const fetchFields = async () => {
@@ -106,7 +136,7 @@ const AddSoftware = () => {
         </p>
       </div>
       <div className="addSoftware__form">
-        <form action="" className="form">
+        <form action="" className="form" onSubmit={(e) => authorization(e)}>
           <div className="form__user">
             <div className="form__requiredInfos">
               <div className="form__inputbox">
@@ -219,14 +249,6 @@ const AddSoftware = () => {
             </div>
           </div>
           <div className="form__softwar">
-            {/* <div className="form-grid">
-              <div className="form__add-text ">
-                اگر رشته مورد نظر شما وجود ندارد آن را اضافه کنید
-              </div>
-              <div className="form__add-text">
-                اگر آزمایشگاه مورد نظر شما وجود ندارد آن را اضافه کنید
-              </div>
-            </div> */}
             {/* ******************************************* */}
             <div className="form__result__container">
               <div className="form__soft--lab">
@@ -360,7 +382,7 @@ const AddSoftware = () => {
               />
               <label for="select-fire">انتخاب فایل</label>
               <p for="pdf" className="form__label">
-                : انتخاب فایل pdf نرم افزار
+                :نرم افزار pdf انتخاب فایل
               </p>
             </div>
             {!isEdit && (

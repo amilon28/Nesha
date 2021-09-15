@@ -298,6 +298,13 @@ input[type="file"] + label:hover {
   font-weight: bold;
 }
 
+.error-add {
+  font-size: 20px;
+  width: 400px;
+  background-color: #fd7777;
+  font-weight: bold;
+}
+
 .form__result__container {
   width: 100%;
   display: flex;
