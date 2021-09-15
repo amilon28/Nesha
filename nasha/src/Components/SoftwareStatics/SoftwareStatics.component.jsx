@@ -6,7 +6,8 @@ import { SubjectContext } from "../../store/SubjectContext";
 
 const SoftwareStatics = (props) => {
   console.log("Props id", props.id);
-  const { numOfLikes, setNumOfLikes } = useContext(SubjectContext);
+  const { numOfLikes, setNumOfLikes, setSoftawreNameEditSection, setIsEdit } =
+    useContext(SubjectContext);
   const [softwareLikes, setSoftwareLikes] = useState(props.like);
   const [isLike, setIsLike] = useState(false);
   const handleLikes = async () => {
@@ -17,7 +18,7 @@ const SoftwareStatics = (props) => {
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
-          Authorization: 'Token ' + localStorage.getItem("token"),
+          Authorization: "Token " + localStorage.getItem("token"),
         },
       }
     );
@@ -43,8 +44,15 @@ const SoftwareStatics = (props) => {
           </div>
         </div>
         <div className="addSection">
-          <Link to="/submit">
-            <span>Edit section</span>
+          <Link to="/Add">
+            <span
+              onClick={() => {
+                setSoftawreNameEditSection(props.softwareName);
+                setIsEdit(true);
+              }}
+            >
+              Edit section
+            </span>
           </Link>
         </div>
       </div>

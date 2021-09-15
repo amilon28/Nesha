@@ -7,13 +7,14 @@ import { SubjectContext } from "../../store/SubjectContext";
 import "./AddSoftware.style.css";
 
 const AddSoftware = () => {
-  const { isLogin, setIsLogin } = useContext(SubjectContext);
+  const { isLogin, setIsLogin, isEdit, softawreNameEditSection } =
+    useContext(SubjectContext);
   const [allLabs, setAllLabs] = useState([]);
   const [res, setRes] = useState([]);
 
   const fetchAllLabs = async () => {
     const response = await fetch(
-      "https://hassan1245.pythonanywhere.com/Nesha/v1/lab_search"
+      "https://hassan1245.pythonanywhere.com/Nesha/v1/lab_search/"
     );
 
     const data = await response.json();
@@ -22,7 +23,7 @@ const AddSoftware = () => {
   };
   const clickOnLabsHandler = async (lab) => {
     const response = await fetch(
-      "https://hassan1245.pythonanywhere.com/Nesha/v1/lab_search"
+      "https://hassan1245.pythonanywhere.com/Nesha/v1/lab_search/"
     );
 
     const data = await response.json();
@@ -41,7 +42,10 @@ const AddSoftware = () => {
   return (
     <section className="addSoftware">
       <div className="addSoftware__textbox">
-        <h2 className="addSoftware__title">افزودن نرم افزار</h2>
+        <h2 className="addSoftware__title">
+          {isEdit ? "ویرایش" : "افزودن"}{" "}
+          {isEdit ? softawreNameEditSection : "نرم افزار"}{" "}
+        </h2>
         <p className="addSoftware__decription">
           .ابتدا نرم افزار مورد نظر خود را جستجو کنید تا مطمئن شوید که نرم افزار
           وجود ندارد سپس موارد لازم در فرم پایین را کامل کنید موارد ستاره دار
@@ -153,6 +157,7 @@ const AddSoftware = () => {
                       <option
                         value={lab.name}
                         onClick={(e) => clickOnLabsHandler(lab)}
+                        className="labs"
                       >
                         {lab.name}
                       </option>

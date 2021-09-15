@@ -24,9 +24,10 @@ function App() {
   const [softSearchTerm, setSoftSearchTerm] = useState("");
   const [softDetaile, setSoftDetaile] = useState();
   const [softwareList, setSoftwareList] = useState();
-  // const [token, setToken] = useState("");
+  const [softawreNameEditSection, setSoftawreNameEditSection] = useState("");
   const [labList, setLabList] = useState("");
   const [isLogin, setIsLogin] = useState(false);
+  const [isEdit, setIsEdit] = useState(false);
   // ------------------------------------------------
 
   return (
@@ -51,6 +52,10 @@ function App() {
           setNumOfLikes,
           isLogin,
           setIsLogin,
+          softawreNameEditSection,
+          setSoftawreNameEditSection,
+          isEdit,
+          setIsEdit,
         }}
       >
         <BrowserRouter>

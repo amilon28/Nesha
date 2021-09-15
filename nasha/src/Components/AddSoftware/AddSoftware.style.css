@@ -1,6 +1,16 @@
 .result__Fields input {
   height: 100%;
   margin-left: 10px;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.labs {
+  direction: rtl;
+}
+
+.result__Fields input:focus {
+  outline: none;
 }
 
 .addSoftware__textbox {
@@ -12,6 +22,7 @@
 .addSoftware__title {
   font-size: 35px;
   margin-bottom: 8px;
+  direction: rtl;
 }
 
 .addSoftware__decription {
@@ -237,17 +248,16 @@ input[type="file"] + label:hover {
 }
 
 .form__item:nth-child(2n + 1):before {
-  /* content: url("../assets/plus-circle.svg"); */
   content: url("../../assets/img/plus-circle.svg");
   cursor: pointer;
 }
 
 .form__result__container {
-  background-color: #df7c7c;
   width: 100%;
   display: flex;
   flex-direction: row-reverse;
   justify-content: space-between;
+  margin-bottom: 50px;
 }
 
 .form__soft--lab {
