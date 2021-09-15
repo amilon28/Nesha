@@ -26,6 +26,8 @@ const AddSoftware = () => {
   const [isOpenBox, setIsOpenBox] = useState(false);
   const [isLicenseOpenBox, setIsLicenseOpenBox] = useState(false);
   const [isPlatformOpenBox, setIsPlatformOpenBox] = useState(false);
+  // Form inputs -----------------------------------------
+  // const []
 
   const fetchAllLabs = async () => {
     const response = await fetch(
@@ -361,51 +363,54 @@ const AddSoftware = () => {
                 : انتخاب فایل pdf نرم افزار
               </p>
             </div>
-            <div className="form__inputbox form__inputbox--file">
-              <input
-                className="form__file-input form__input"
-                type="file"
-                placeholder="Name"
-                id="snapshot1"
-              />
-              <label for="snapshot1">5 فایل</label>
+            {!isEdit && (
+              <div className="form__inputbox form__inputbox--file">
+                <input
+                  className="form__file-input form__input"
+                  type="file"
+                  placeholder="Name"
+                  id="snapshot1"
+                />
+                <label for="snapshot1">5 فایل</label>
 
-              <input
-                className="form__file-input form__input"
-                type="file"
-                placeholder="Name"
-                id="snapshot2"
-              />
-              <label for="snapshot2">4 فایل</label>
+                <input
+                  className="form__file-input form__input"
+                  type="file"
+                  placeholder="Name"
+                  id="snapshot2"
+                />
+                <label for="snapshot2">4 فایل</label>
 
-              <input
-                className="form__file-input form__input"
-                type="file"
-                placeholder="Name"
-                id="snapshot3"
-              />
-              <label for="snapshot3">3 فایل</label>
+                <input
+                  className="form__file-input form__input"
+                  type="file"
+                  placeholder="Name"
+                  id="snapshot3"
+                />
+                <label for="snapshot3">3 فایل</label>
 
-              <input
-                className="form__file-input form__input"
-                type="file"
-                placeholder="Name"
-                id="snapshot4"
-              />
-              <label for="snapshot4">2 فایل</label>
+                <input
+                  className="form__file-input form__input"
+                  type="file"
+                  placeholder="Name"
+                  id="snapshot4"
+                />
+                <label for="snapshot4">2 فایل</label>
 
-              <input
-                className="form__file-input form__input"
-                type="file"
-                placeholder="Name"
-                id="snapshot5"
-              />
-              <label for="snapshot5">1 فایل</label>
+                <input
+                  className="form__file-input form__input"
+                  type="file"
+                  placeholder="Name"
+                  id="snapshot5"
+                />
+                <label for="snapshot5">1 فایل</label>
 
-              <p for="snapshot" className="form__label">
-                : انتخاب اسنپ شات های نرم افزار
-              </p>
-            </div>
+                <p for="snapshot" className="form__label">
+                  : انتخاب اسنپ شات های نرم افزار
+                </p>
+              </div>
+            )}
+
             <div className="form__inputbox form__inputbox--check">
               <div className="checkbox-container">
                 <input type="radio" name="state" placeholder="Name" />
