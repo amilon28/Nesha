@@ -4,7 +4,12 @@ import "../NavBar/NavBar.style.css";
 const NavItem = (props) => {
   const classes = "navbar__item";
   return (
-    <li className={classes}>
+    <li
+      className={classes}
+      onClick={() => {
+        if (props.text === "اضافه کردن") window.location.reload();
+      }}
+    >
       <Link to={props.goto}>{props.text}</Link>
     </li>
   );

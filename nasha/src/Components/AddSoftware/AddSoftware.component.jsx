@@ -19,6 +19,8 @@ const AddSoftware = () => {
     softawreNameEditSection,
     idLab,
     softDetaile,
+    refresh,
+    setRefresh,
   } = useContext(SubjectContext);
   const [allLabs, setAllLabs] = useState([]);
   const [platforms, setPlatforms] = useState([]);
@@ -29,6 +31,8 @@ const AddSoftware = () => {
   const [isOpenBox, setIsOpenBox] = useState(false);
   const [isLicenseOpenBox, setIsLicenseOpenBox] = useState(false);
   const [isPlatformOpenBox, setIsPlatformOpenBox] = useState(false);
+  const [allFields, setAllFields] = useState([]);
+
   // Form inputs -----------------------------------------
   const [username, setUsername] = useState("");
   const [lastname, setLastname] = useState("");
@@ -55,11 +59,11 @@ const AddSoftware = () => {
   const [existingLicense, setExistingLicense] = useState([]);
   const [existingPlatforms, setExistingPlatforms] = useState([]);
 
-  const [newField1, setNewField1] = useState("");
-  const [newField2, setNewField2] = useState("");
-  const [newField3, setNewField3] = useState("");
-  const [newField4, setNewField4] = useState("");
-  const [newField5, setNewField5] = useState("");
+  const [newField1, setNewField1] = useState([]);
+  const [newField2, setNewField2] = useState([]);
+  const [newField3, setNewField3] = useState([]);
+  const [newField4, setNewField4] = useState([]);
+  const [newField5, setNewField5] = useState([]);
 
   const [newLicense1, setNewLicense1] = useState("");
   const [newLicense2, setNewLicense2] = useState("");
@@ -83,7 +87,6 @@ const AddSoftware = () => {
 
   const [online, setOnline] = useState(false);
   const [offline, setOffline] = useState(false);
-  const [totalStatues, setTotalStatus] = useState();
 
   //---------------------------------------------
   const licenseChangeHandler = (e, l, state, setState) => {
@@ -98,13 +101,253 @@ const AddSoftware = () => {
     //   ...existingLicense.slice(foundIndex + 1),
     // ]);
 
-    return setExistingLicense(
-      existingLicense.filter((item) => item.id !== l.id)
-    );
+    return setState(state.filter((item) => item.id !== l.id));
   };
 
   //--------------------------------------------
   console.log("softDetaile.licenses", softDetaile?.licenses);
+
+  const fetchLabsForTargetField = async (id) => {
+    try {
+      const response = await fetch(
+        `https://hassan1245.pythonanywhere.com/Nesha/v1/fields/${id}`
+      );
+      if (!response.ok) return;
+      const data = await response.json();
+      return data.labs;
+    } catch (error) {}
+  };
+
+  const fetchAllFields = async () => {
+    try {
+      const response = await fetch(
+        `https://hassan1245.pythonanywhere.com/Nesha/v1/field_search/`
+      );
+      if (!response.ok) return;
+      const data = await response.json();
+      console.log("field Lists data ", data);
+      return data;
+    } catch (error) {}
+  };
+
+  let repdata = [];
+
+  const fetchlabName = async (id) => {
+    try {
+      const response = await fetch(
+        `https://hassan1245.pythonanywhere.com/Nesha/v1/labs/${id}`
+      );
+      if (!response.ok) return;
+      const data = await response.json();
+      return data.lab_name;
+    } catch (error) {}
+  };
+
+  const fieldsLabs = async () => {
+    if (!(newField1 && newField2 && newField3 && newField4 && newField5))
+      return;
+    const fieldsList = await fetchAllFields();
+
+    if (newField1) {
+      newField1?.forEach((i) => {
+        const res = fieldsList?.find((item) => item.name === i.field);
+        if (!res) {
+          (async () => {
+            const result = await fetchLabsForTargetField(res.id);
+            result?.map((l) =>
+              repdata.push({
+                field: { id: res.id, name: res.name },
+                lab: {
+                  name: l.name,
+                },
+              })
+            );
+
+            const labname = await fetchlabName(i.labId);
+            console.log("labn", labname);
+            repdata.push({
+              field: { id: res.id, name: res.name },
+              lab: {
+                id: i.labId,
+                name: labname,
+              },
+            });
+          })().catch(console.error);
+        }
+      });
+    }
+
+    if (newField2) {
+      newField2?.forEach((i) => {
+        const res = fieldsList?.find((item) => item.name === i.field);
+        if (res) {
+          const res2 = targetFields?.find((item) => item.name === i.field);
+          if (!res2) {
+            // if (
+            //   newField2.find(
+            //     (item) => item.field === i.field && item.labId !== i.labId
+            //   )
+            // )
+            //   return;
+            // if (newField1.find((item) => item.field === res.name)) return;
+            // if (newField3.find((item) => item.field === res.name)) return;
+            // if (newField4.find((item) => item.field === res.name)) return;
+            // if (newField5.find((item) => item.field === res.name)) return;
+            (async () => {
+              const result = await fetchLabsForTargetField(res.id);
+              result?.map((l) =>
+                repdata.push({
+                  field: { id: res.id, name: res.name },
+                  lab: {
+                    name: l.name,
+                  },
+                })
+              );
+
+              const labname = await fetchlabName(i.labId);
+              console.log("labn", labname);
+              repdata.push({
+                field: { id: res.id, name: res.name },
+                lab: {
+                  id: i.labId,
+                  name: labname,
+                },
+              });
+            })().catch(console.error);
+          }
+        }
+      });
+    }
+
+    if (newField3) {
+      newField3?.forEach((i) => {
+        const res = fieldsList?.find((item) => item.name === i.field);
+        if (res) {
+          const res2 = targetFields?.find((item) => item.name === i.field);
+          if (!res2) {
+            // if (
+            //   newField3.find(
+            //     (item) => item.field === i.field && item.labId !== i.labId
+            //   )
+            // )
+            //   return;
+            // if (newField2.find((item) => item.field === res.name)) return;
+            // if (newField1.find((item) => item.field === res.name)) return;
+            // if (newField4.find((item) => item.field === res.name)) return;
+            // if (newField5.find((item) => item.field === res.name)) return;
+            (async () => {
+              const result = await fetchLabsForTargetField(res.id);
+              result?.map((l) =>
+                repdata.push({
+                  field: { id: res.id, name: res.name },
+                  lab: {
+                    name: l.name,
+                  },
+                })
+              );
+
+              const labname = await fetchlabName(i.labId);
+              console.log("labn", labname);
+              repdata.push({
+                field: { id: res.id, name: res.name },
+                lab: {
+                  id: i.labId,
+                  name: labname,
+                },
+              });
+            })().catch(console.error);
+          }
+        }
+      });
+    }
+
+    if (newField4) {
+      newField4?.forEach((i) => {
+        const res = fieldsList?.find((item) => item.name === i.field);
+        if (res) {
+          const res2 = targetFields?.find((item) => item.name === i.field);
+          if (!res2) {
+            // if (
+            //   newField4.find(
+            //     (item) => item.field === i.field && item.labId !== i.labId
+            //   )
+            // )
+            //   return;
+            // if (newField2.find((item) => item.field === res.name)) return;
+            // if (newField3.find((item) => item.field === res.name)) return;
+            // if (newField1.find((item) => item.field === res.name)) return;
+            // if (newField5.find((item) => item.field === res.name)) return;
+            (async () => {
+              const result = await fetchLabsForTargetField(res.id);
+              result?.map((l) =>
+                repdata.push({
+                  field: { id: res.id, name: res.name },
+                  lab: {
+                    name: l.name,
+                  },
+                })
+              );
+
+              const labname = await fetchlabName(i.labId);
+              console.log("labn", labname);
+              repdata.push({
+                field: { id: res.id, name: res.name },
+                lab: {
+                  id: i.labId,
+                  name: labname,
+                },
+              });
+            })().catch(console.error);
+          }
+        }
+      });
+    }
+
+    if (newField5) {
+      newField5?.forEach((i) => {
+        const res = fieldsList?.find((item) => item.name === i.field);
+        if (res) {
+          const res2 = targetFields?.find((item) => item.name === i.field);
+          if (!res2) {
+            // if (
+            //   newField5.find(
+            //     (item) => item.field === i.field && item.labId !== i.labId
+            //   )
+            // )
+            //   return;
+            // if (newField2.find((item) => item.field === res.name)) return;
+            // if (newField3.find((item) => item.field === res.name)) return;
+            // if (newField4.find((item) => item.field === res.name)) return;
+            // if (newField1.find((item) => item.field === res.name)) return;
+            (async () => {
+              const result = await fetchLabsForTargetField(res.id);
+              result?.map((l) =>
+                repdata.push({
+                  field: { id: res.id, name: res.name },
+                  lab: {
+                    name: l.name,
+                  },
+                })
+              );
+
+              const labname = await fetchlabName(i.labId);
+              repdata.push({
+                field: { id: res.id, name: res.name },
+                lab: {
+                  id: i.labId,
+                  name: labname,
+                },
+              });
+            })().catch(console.error);
+          }
+        }
+      });
+    }
+
+    console.log("final repdate", repdata);
+    return repdata;
+  };
+
   const fetchAllLabs = async () => {
     const response = await fetch(
       "https://hassan1245.pythonanywhere.com/Nesha/v1/lab_search/"
@@ -142,6 +385,16 @@ const AddSoftware = () => {
     if (!offline && !online) return 0;
   };
 
+  const inputChanged = (state, value) => {
+    const foundIndex = state.findIndex((item) => item.labId === labId);
+    if (foundIndex === -1) return [...state, { field: value, labId: labId }];
+    return [
+      ...state.slice(0, foundIndex),
+      { ...state[foundIndex - 1], field: value, labId: labId },
+      ...state.slice(foundIndex + 1),
+    ];
+  };
+
   const authorization = (e) => {
     e.preventDefault();
 
@@ -162,11 +415,11 @@ const AddSoftware = () => {
     formData.append("url", softLink);
     formData.append("software_name", softname);
 
-    if (newField1) formData.append();
-    if (newField2) formData.append();
-    if (newField3) formData.append();
-    if (newField4) formData.append();
-    if (newField5) formData.append();
+    // if (newField1) formData.append();
+    // if (newField2) formData.append();
+    // if (newField3) formData.append();
+    // if (newField4) formData.append();
+    // if (newField5) formData.append();
 
     if (snap1) formData.append("snapshot1", snap1);
     if (snap1) formData.append("snapshot1", snap1);
@@ -202,7 +455,9 @@ const AddSoftware = () => {
       console.log(JSON.stringify(existingPlatforms));
     }
 
-    // if (pdf) formData.append("icon_picture", pdf);
+    if (pdf) formData.append("icon_picture", pdf);
+
+    fieldsLabs();
 
     // newTweetRequest(formData, (isOk, data) => {
     //   if (!isOk) toast.error(data);
@@ -214,8 +469,30 @@ const AddSoftware = () => {
     //   setImagePath();
     //   if (tweetText.includes("#")) updateHashTagList(tweetDispatch);
     // });
+    sendDate(formData);
   };
 
+  async function sendDate(formData) {
+    const response = await fetch(
+      `https://hassan1245.pythonanywhere.com/Nesha/v1/draft/`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: `Token ${localStorage.getItem("token")}`,
+        },
+        body: formData,
+      }
+    );
+
+    const data = await response.json();
+    console.log("Response", data);
+    toast.success("اطلاعات وارد شده با موفقیت ثبت گردید", {
+      className: "foo-bar",
+    });
+    // setTimeout(() => window.location.reload(), 1000);
+  }
   // --------------------------------------------
 
   const fetchFields = async () => {
@@ -238,11 +515,7 @@ const AddSoftware = () => {
     console.log("result diff", res);
     return res;
   };
-  // setIsLogin(!!localStorage.getItem("token"));
-  // if (!isLogin) {
-  //   alert("you must Signup/LogIn for using this page");
-  //   return;
-  // }
+
   useEffect(() => {
     fetchAllLabs();
     fetchAllPlatforms();
@@ -455,32 +728,37 @@ const AddSoftware = () => {
                 <input
                   type="text"
                   onChange={(e) => {
-                    setNewField1(e.target.value);
+                    setNewField1(inputChanged(newField1, e.target.value));
                   }}
+                  value={newField1.find((item) => item.labId === labId)?.field}
                 />
                 <input
                   type="text"
                   onChange={(e) => {
-                    setNewField2(e.target.value);
+                    setNewField2(inputChanged(newField2, e.target.value));
                   }}
+                  value={newField2.find((item) => item.labId === labId)?.field}
                 />
                 <input
                   type="text"
                   onChange={(e) => {
-                    setNewField3(e.target.value);
+                    setNewField3(inputChanged(newField3, e.target.value));
                   }}
+                  value={newField3.find((item) => item.labId === labId)?.field}
                 />
                 <input
                   type="text"
                   onChange={(e) => {
-                    setNewField4(e.target.value);
+                    setNewField4(inputChanged(newField4, e.target.value));
                   }}
+                  value={newField4.find((item) => item.labId === labId)?.field}
                 />
                 <input
                   type="text"
                   onChange={(e) => {
-                    setNewField5(e.target.value);
+                    setNewField5(inputChanged(newField5, e.target.value));
                   }}
+                  value={newField5.find((item) => item.labId === labId)?.field}
                 />
               </div>
             )}
@@ -517,24 +795,18 @@ const AddSoftware = () => {
                     </div>
                   ))}
                 {isEdit &&
-                  targetLicenses?.map((l) =>
-                    softDetaile?.licenses?.map((el) => {
-                      if (el.name !== l.name) {
-                        <div>
-                          <label htmlFor="">{l.name}</label>
-                          <input type="checkbox" />
-                        </div>;
-                      }
-                    })
+                  softDetaile.licenses?.map((sl) =>
+                    targetLicenses
+                      ?.filter((el) => el.name !== sl.name)
+                      ?.map((res) => {
+                        return (
+                          <div>
+                            <label htmlFor="">{res?.name}</label>
+                            <input type="checkbox" />
+                          </div>
+                        );
+                      })
                   )}
-
-                {/* {isEdit &&
-                  diff()?.map((l) => {
-                    <div>
-                      <label htmlFor="">{l.name}</label>
-                      <input type="checkbox" />
-                    </div>;
-                  })} */}
               </div>
               <label for="" className="form__label">
                 : لایسنس نرم افزار
@@ -589,22 +861,68 @@ const AddSoftware = () => {
                 <p>اگر پلتفرم مورد نظر شما وجود ندارد آن را اضافه کنید</p>
               </div>
               <div className="paltforms__checboxes">
-                {platforms?.map((p) => (
-                  <div>
-                    <label htmlFor="">{p.name}</label>
-                    <input
-                      type="checkbox"
-                      onClick={(e) => {
-                        licenseChangeHandler(
-                          e,
-                          p,
-                          existingPlatforms,
-                          setExistingPlatforms
+                {!isEdit &&
+                  platforms?.map((p) => (
+                    <div>
+                      <label htmlFor="">{p.name}</label>
+                      <input
+                        type="checkbox"
+                        onClick={(e) => {
+                          licenseChangeHandler(
+                            e,
+                            p,
+                            existingPlatforms,
+                            setExistingPlatforms
+                          );
+                        }}
+                      />
+                    </div>
+                  ))}
+
+                {/* {isEdit &&
+                  softDetaile.platforms?.map((sl) =>
+                    platforms
+                      ?.filter((el) => el.name !== sl.name)
+                      ?.map((res) => {
+                        return (
+                          <div>
+                            <label htmlFor="">{res?.name}</label>
+                            <input type="checkbox" />
+                          </div>
                         );
-                      }}
-                    />
-                  </div>
-                ))}
+                      })
+                  )} */}
+                {/* 
+                {isEdit &&
+                  platforms
+                    ?.map((ep) =>
+                      softDetaile?.platforms?.map((sp) => {
+                        if (sp.name !== ep.name) return ep;
+                      })
+                    )
+                    .map((res, i, arr) => {
+                      console.log("filterrrrrrr arr", arr);
+                      return (
+                        <div>
+                          <label htmlFor="">{res?.name}</label>
+                          <input type="checkbox" />
+                        </div>
+                      );
+                    })} */}
+                {isEdit &&
+                  platforms
+                    .filter((ep) =>
+                      softDetaile?.platforms?.some((sp) => sp.name !== ep.name)
+                    )
+                    .map((res, i, arr) => {
+                      console.log("wht....", arr);
+                      return (
+                        <div>
+                          <label htmlFor="">{res?.name}</label>
+                          <input type="checkbox" />
+                        </div>
+                      );
+                    })}
               </div>
               <label for="" className="form__label">
                 : پلتفرم نرم افزار

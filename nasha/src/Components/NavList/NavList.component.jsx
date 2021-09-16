@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import NavItem from "../NavItem/NavItem.component";
 import { Button } from "@material-ui/core";
 import hamburger from "../../assets/img/hamburger-menu.svg";
@@ -12,7 +12,7 @@ import { toast } from "react-toastify";
 
 const NavList = (props) => {
   const goto = useHistory();
-  const { isLogin, setIsLogin, setIsEdit } = useContext(SubjectContext);
+  const { isLogin, setIsLogin } = useContext(SubjectContext);
   // const [isLogin, setIsLogin] = useState(!!localStorage.getItem("token"));
   useEffect(() => {
     setIsLogin(!!localStorage.getItem("token"));
@@ -23,11 +23,8 @@ const NavList = (props) => {
         <ul className="navbar__list">
           <NavItem goto="/" text="خانه" />
           <NavItem goto="/search" text="جستجوی نرم افزار" />
-          <NavItem
-            goto="/Add"
-            text="اضافه کردن"
-            onClick={() => setIsEdit(false)}
-          />
+
+          <NavItem goto="/Add" text="اضافه کردن" />
           <NavItem goto="/field-search" text="رشته ها" />
           <NavItem goto="/lab-search" text="آزمایشگاه ها" />
           {/* <NavItem to="/fields"  text="رشته ها" /> */}
