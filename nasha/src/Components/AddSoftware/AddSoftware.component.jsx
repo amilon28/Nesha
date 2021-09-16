@@ -10,18 +10,8 @@ import $ from "jquery";
 import "./AddSoftware.style.css";
 
 const AddSoftware = () => {
-  const token = localStorage.getItem("token");
-
-  const {
-    isLogin,
-    setIsLogin,
-    isEdit,
-    softawreNameEditSection,
-    idLab,
-    softDetaile,
-    refresh,
-    setRefresh,
-  } = useContext(SubjectContext);
+  const { isEdit, softawreNameEditSection, softDetaile } =
+    useContext(SubjectContext);
   const [allLabs, setAllLabs] = useState([]);
   const [platforms, setPlatforms] = useState([]);
   const [targetLicenses, setLicenses] = useState([]);
@@ -31,7 +21,6 @@ const AddSoftware = () => {
   const [isOpenBox, setIsOpenBox] = useState(false);
   const [isLicenseOpenBox, setIsLicenseOpenBox] = useState(false);
   const [isPlatformOpenBox, setIsPlatformOpenBox] = useState(false);
-  const [allFields, setAllFields] = useState([]);
 
   // Form inputs -----------------------------------------
   const [username, setUsername] = useState("");
@@ -43,12 +32,6 @@ const AddSoftware = () => {
 
   const [pIcon, setPIcon] = useState();
 
-  const [courseLink1, setCourseLink1] = useState("");
-  const [courseLink2, setCourseLink2] = useState("");
-  const [courseLink3, setCourseLink3] = useState("");
-
-  const [softLicense, setSoftLicense] = useState("");
-  const [softPlatform, setSoftPlatform] = useState("");
   const [pdf, setPdf] = useState("");
   const [snap1, setSnap1] = useState();
   const [snap2, setSnap2] = useState();
@@ -83,29 +66,17 @@ const AddSoftware = () => {
   const [newpalt4, setNewPlat4] = useState("");
   const [newpalt5, setNewPlat5] = useState("");
 
-  const [images, setImages] = useState([]);
+  const [reviewLink1, setReviewLink1] = useState("");
+  const [reviewLink2, setReviewLink2] = useState("");
+
+  const [courseLink1, setCourseLink1] = useState("");
+  const [courseLink2, setCourseLink2] = useState("");
+  const [courseLink3, setCourseLink3] = useState("");
 
   const [online, setOnline] = useState(false);
   const [offline, setOffline] = useState(false);
 
-  //---------------------------------------------
-  const licenseChangeHandler = (e, l, state, setState) => {
-    const foundIndex = state.findIndex((item) => item.id === l.id);
-    console.log("checked item", state);
-    if (e.target.checked) {
-      return setState([...state, { id: l.id, name: l.name }]);
-    }
-
-    // return setExistingLicense([
-    //   ...existingLicense.slice(0, foundIndex),
-    //   ...existingLicense.slice(foundIndex + 1),
-    // ]);
-
-    return setState(state.filter((item) => item.id !== l.id));
-  };
-
-  //--------------------------------------------
-  console.log("softDetaile.licenses", softDetaile?.licenses);
+  //----------------FETCHs-------------------
 
   const fetchLabsForTargetField = async (id) => {
     try {
@@ -130,8 +101,6 @@ const AddSoftware = () => {
     } catch (error) {}
   };
 
-  let repdata = [];
-
   const fetchlabName = async (id) => {
     try {
       const response = await fetch(
@@ -143,6 +112,52 @@ const AddSoftware = () => {
     } catch (error) {}
   };
 
+  const fetchAllLabs = async () => {
+    const response = await fetch(
+      "https://hassan1245.pythonanywhere.com/Nesha/v1/lab_search/"
+    );
+
+    const data = await response.json();
+    setAllLabs(data);
+    console.log("all labs data", data);
+  };
+
+  const fetchAllPlatforms = async () => {
+    const response = await fetch(
+      "https://hassan1245.pythonanywhere.com/Nesha/v1/platform_search/"
+    );
+
+    const data = await response.json();
+    setPlatforms(data);
+    console.log("all labs data", data);
+  };
+
+  const fetchAllLicenses = async () => {
+    const response = await fetch(
+      "https://hassan1245.pythonanywhere.com/Nesha/v1/licenses/"
+    );
+
+    const data = await response.json();
+    setLicenses(data.results);
+    console.log("all licences data", data.results);
+  };
+
+  const fetchFields = async () => {
+    console.log("labID", labId);
+    const response = await fetch(
+      `https://hassan1245.pythonanywhere.com/Nesha/v1/labs/${labId}`
+    );
+
+    const data = await response.json();
+    console.log("response of fields", data.fields);
+    setTargetFields(data.fields);
+    setIsLoading(false);
+    console.log("targetFields", targetFields);
+  };
+
+  //--------------Helper Functions--------------------
+
+  let repdata = [];
   const fieldsLabs = async () => {
     if (!(newField1 && newField2 && newField3 && newField4 && newField5))
       return;
@@ -348,36 +363,6 @@ const AddSoftware = () => {
     return repdata;
   };
 
-  const fetchAllLabs = async () => {
-    const response = await fetch(
-      "https://hassan1245.pythonanywhere.com/Nesha/v1/lab_search/"
-    );
-
-    const data = await response.json();
-    setAllLabs(data);
-    console.log("all labs data", data);
-  };
-
-  const fetchAllPlatforms = async () => {
-    const response = await fetch(
-      "https://hassan1245.pythonanywhere.com/Nesha/v1/platform_search/"
-    );
-
-    const data = await response.json();
-    setPlatforms(data);
-    console.log("all labs data", data);
-  };
-
-  const fetchAllLicenses = async () => {
-    const response = await fetch(
-      "https://hassan1245.pythonanywhere.com/Nesha/v1/licenses/"
-    );
-
-    const data = await response.json();
-    setLicenses(data.results);
-    console.log("all licences data", data.results);
-  };
-
   const getStatus = () => {
     if (online && offline) return 3;
     if (online) return 2;
@@ -395,11 +380,27 @@ const AddSoftware = () => {
     ];
   };
 
+  const licenseChangeHandler = (e, l, state, setState) => {
+    const foundIndex = state.findIndex((item) => item.id === l.id);
+    console.log("checked item", state);
+    if (e.target.checked) {
+      return setState([...state, { id: l.id, name: l.name }]);
+    }
+
+    // return setExistingLicense([
+    //   ...existingLicense.slice(0, foundIndex),
+    //   ...existingLicense.slice(foundIndex + 1),
+    // ]);
+
+    return setState(state.filter((item) => item.id !== l.id));
+  };
+
+  //-------------------Sending Form Datas----------------------
+
   const authorization = (e) => {
     e.preventDefault();
 
     if (localStorage.getItem("token") == null) {
-      console.log("abcdef");
       toast.error("برای این کار نیاز به ثبت نام یا ورود دارید", {
         autoClose: false,
         position: toast.POSITION.TOP_CENTER,
@@ -415,6 +416,13 @@ const AddSoftware = () => {
     formData.append("url", softLink);
     formData.append("software_name", softname);
 
+    formData.append("course_links[0]", courseLink1);
+    formData.append("course_links[1]", courseLink2);
+    formData.append("course_links[2]", courseLink3);
+
+    formData.append("review_links[0]", reviewLink1);
+    formData.append("review_links[1]", reviewLink2);
+
     // if (newField1) formData.append();
     // if (newField2) formData.append();
     // if (newField3) formData.append();
@@ -422,13 +430,17 @@ const AddSoftware = () => {
     // if (newField5) formData.append();
 
     if (snap1) formData.append("snapshot1", snap1);
-    if (snap1) formData.append("snapshot1", snap1);
     if (snap2) formData.append("snapshot2", snap2);
     if (snap3) formData.append("snapshot3", snap3);
     if (snap4) formData.append("snapshot4", snap4);
     if (snap5) formData.append("snapshot5", snap5);
+
+    if (pIcon) formData.append("icon_picture", pIcon);
+
     formData.append("offline_or_online", getStatus());
+
     if (description) formData.append("description", description);
+
     if (newLicense1 || newLicense2 || newLicense3 || newLicense4 || newLicense5)
       formData.append(
         "new_licenses",
@@ -438,6 +450,7 @@ const AddSoftware = () => {
           newLicense4 ? newLicense4 + "," : ""
         } ${newLicense5 ? newLicense5 : ""}`
       );
+
     if (newPlat1 || newpalt2 || newpalt3 || newpalt4 || newpalt5)
       formData.append(
         "new_licenses",
@@ -445,6 +458,7 @@ const AddSoftware = () => {
           newpalt3 ? newpalt3 + "," : ""
         } ${newpalt4 ? newpalt4 + "," : ""} ${newpalt5 ? newpalt5 : ""}`
       );
+
     if (existingLicense) {
       formData.append("existing_licenses", JSON.stringify(existingLicense));
       console.log(JSON.stringify(existingLicense));
@@ -459,16 +473,7 @@ const AddSoftware = () => {
 
     fieldsLabs();
 
-    // newTweetRequest(formData, (isOk, data) => {
-    //   if (!isOk) toast.error(data);
-    //   toast.success("توییت شما با موفقیت ارسال شد");
-    //   updateTweets();
-    //   // input.current.innerText = '';
-    //   setTweet(tweetDispatch, "");
-    //   setImageFile();
-    //   setImagePath();
-    //   if (tweetText.includes("#")) updateHashTagList(tweetDispatch);
-    // });
+    //Telegram
     sendDate(formData);
   };
 
@@ -495,27 +500,6 @@ const AddSoftware = () => {
   }
   // --------------------------------------------
 
-  const fetchFields = async () => {
-    console.log("labID", labId);
-    const response = await fetch(
-      `https://hassan1245.pythonanywhere.com/Nesha/v1/labs/${labId}`
-    );
-
-    const data = await response.json();
-    console.log("response of fields", data.fields);
-    setTargetFields(data.fields);
-    setIsLoading(false);
-    console.log("targetFields", targetFields);
-  };
-
-  const diff = () => {
-    const res = targetLicenses?.filter(
-      (x) => !softDetaile?.licenses?.includes(x)
-    );
-    console.log("result diff", res);
-    return res;
-  };
-
   useEffect(() => {
     fetchAllLabs();
     fetchAllPlatforms();
@@ -529,6 +513,7 @@ const AddSoftware = () => {
     console.log("this");
   }, [labId]);
 
+  //--------------------------------------------------
   return (
     <section className="addSoftware">
       <div className="addSoftware__textbox">
@@ -879,6 +864,8 @@ const AddSoftware = () => {
                     </div>
                   ))}
 
+                {isEdit && console.log("let see", platforms)}
+
                 {/* {isEdit &&
                   softDetaile.platforms?.map((sl) =>
                     platforms
@@ -909,20 +896,20 @@ const AddSoftware = () => {
                         </div>
                       );
                     })} */}
-                {isEdit &&
+                {/* {isEdit &&
                   platforms
                     .filter((ep) =>
                       softDetaile?.platforms?.some((sp) => sp.name !== ep.name)
                     )
                     .map((res, i, arr) => {
-                      console.log("wht....", arr);
+                      console.log("wht....");
                       return (
                         <div>
                           <label htmlFor="">{res?.name}</label>
                           <input type="checkbox" />
                         </div>
                       );
-                    })}
+                    })} */}
               </div>
               <label for="" className="form__label">
                 : پلتفرم نرم افزار
@@ -960,6 +947,10 @@ const AddSoftware = () => {
                 type="file"
                 placeholder="Name"
                 id="pdf"
+                onChange={(e) => {
+                  if (e.target.files && e.target.files.length > 0)
+                    setPdf(e.target.files[0]);
+                }}
               />
               <label for="select-fire">انتخاب فایل</label>
               <p for="pdf" className="form__label">
@@ -1064,6 +1055,17 @@ const AddSoftware = () => {
                 type="text"
                 placeholder="Link"
                 className="form__input form__input--link"
+                onChange={(e) => {
+                  setReviewLink1(e.target.value);
+                }}
+              />
+              <input
+                type="text"
+                placeholder="Link"
+                className="form__input form__input--link"
+                onChange={(e) => {
+                  setReviewLink2(e.target.value);
+                }}
               />
               <label for="" className="form__label">
                 : لینک های نقد نرم افزار
@@ -1074,6 +1076,25 @@ const AddSoftware = () => {
                 type="text"
                 placeholder="Link"
                 className="form__input form__input--link"
+                onChange={(e) => {
+                  setCourseLink1(e.target.value);
+                }}
+              />
+              <input
+                type="text"
+                placeholder="Link"
+                className="form__input form__input--link"
+                onChange={(e) => {
+                  setCourseLink2(e.target.value);
+                }}
+              />
+              <input
+                type="text"
+                placeholder="Link"
+                className="form__input form__input--link"
+                onChange={(e) => {
+                  setCourseLink3(e.target.value);
+                }}
               />
               <label for="" className="form__label">
                 : لینک های آموزه نرم افزار
