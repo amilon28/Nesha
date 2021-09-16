@@ -395,6 +395,25 @@ const AddSoftware = () => {
     return setState(state.filter((item) => item.id !== l.id));
   };
 
+  const test = () => {
+    // let bool;
+    // for(let i=0;i<platforms.length;i++){
+    //   bool=true;
+    //   for(let j=0;j<softDetaile.platforms.length;j++)
+    //     if(softDetaile.platforms[j].id ===platforms[i].id)
+    //       bool=false
+
+    //     if(bool)
+    //       console.log("salam", platforms[i])
+
+    // }
+
+    let list = [];
+    platforms?.forEach((sd) => {
+      if (!softDetaile.platforms.find((p) => sd.id === p.id)) list.push(sd);
+    });
+    return list;
+  };
   //-------------------Sending Form Datas----------------------
 
   const authorization = (e) => {
@@ -864,7 +883,15 @@ const AddSoftware = () => {
                     </div>
                   ))}
 
-                {isEdit && console.log("let see", platforms)}
+                {isEdit &&
+                  test().map((res) => {
+                    return (
+                      <div>
+                        <label htmlFor="">{res?.name}</label>
+                        <input type="checkbox" />
+                      </div>
+                    );
+                  })}
 
                 {/* {isEdit &&
                   softDetaile.platforms?.map((sl) =>

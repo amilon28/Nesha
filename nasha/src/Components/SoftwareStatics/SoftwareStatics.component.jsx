@@ -3,13 +3,16 @@ import view from "../../assets/img/view.svg";
 import { Link } from "react-router-dom";
 import { useContext, useState } from "react/cjs/react.development";
 import { SubjectContext } from "../../store/SubjectContext";
+import { toast } from "react-toastify";
 
 const SoftwareStatics = (props) => {
-  console.log("Props id", props.id);
-  const { numOfLikes, setNumOfLikes, setSoftawreNameEditSection, setIsEdit } =
-    useContext(SubjectContext);
-  const [softwareLikes, setSoftwareLikes] = useState(props.like);
-  const [isLike, setIsLike] = useState(false);
+  console.log("Props soft id", props.id);
+  const { setSoftawreNameEditSection, setIsEdit } = useContext(SubjectContext);
+
+  const [numOfLike, setNumOfLike] = useState(props.like);
+
+  const [isLiked, setIsLiked] = useState(false);
+
   const handleLikes = async () => {
     const response = await fetch(
       `https://hassan1245.pythonanywhere.com/Nesha/v1/likes/?software=${props.id}`,
@@ -22,12 +25,26 @@ const SoftwareStatics = (props) => {
         },
       }
     );
-    const data = await response.json();
-    console.log("Like data", data);
-    if (!data) return;
-    if (!localStorage.getItem("token") && !isLike) {
-      setSoftwareLikes(numOfLikes + 1);
-      setIsLike(true);
+    const data = await response;
+    console.log("respinse Like data", data);
+
+    if (!(localStorage.getItem("token") === null) && !isLiked) {
+      setNumOfLike(numOfLike + 1);
+      setIsLiked(true);
+      console.log("liked");
+    }
+
+    if (!(localStorage.getItem("token") === null) && isLiked) {
+      setNumOfLike(numOfLike - 1);
+      setIsLiked(false);
+      console.log("disliked");
+    }
+
+    if (data.detail === "Invalid token.") {
+      toast.warn("ابتدا ثبت نام یا ورود کنید", {
+        className: "alert",
+      });
+      return;
     }
   };
   return (
@@ -36,7 +53,7 @@ const SoftwareStatics = (props) => {
         <div className="likes-views">
           <div onClick={() => handleLikes()}>
             <img className="software__icon" src={heart} alt="heart" />
-            <span className="score">{softwareLikes}</span>
+            <span className="score">{numOfLike}</span>
           </div>
           <div>
             <img className="software__icon" src={view} alt="heart" />

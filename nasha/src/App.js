@@ -17,7 +17,6 @@ import Auth from "./Components/Auth/Auth";
 import { BrowserRouter, Redirect, Switch } from "react-router-dom";
 
 function App() {
-  const [numOfLikes, setNumOfLikes] = useState(0);
   const [target, setTarget] = useState("");
   const [subject, setSubject] = useState("");
   const [labSubject, setLabSubject] = useState("");
@@ -50,8 +49,6 @@ function App() {
           setSoftwareList,
           labList,
           setLabList,
-          numOfLikes,
-          setNumOfLikes,
           isLogin,
           setIsLogin,
           softawreNameEditSection,

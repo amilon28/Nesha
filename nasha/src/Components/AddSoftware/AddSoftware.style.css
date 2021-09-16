@@ -309,6 +309,11 @@ input[type="file"] + label:hover {
   font-weight: bold;
 }
 
+.alert {
+  font-size: 20px;
+  font-weight: bold;
+}
+
 .form__result__container {
   width: 100%;
   display: flex;
