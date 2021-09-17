@@ -8,10 +8,10 @@ import { SubjectContext } from "./store/SubjectContext";
 import heart from "./assets/img/heart.svg";
 
 const Labs = () => {
-  const { target, setTarget, labSubject, setSoftDetaile } =
-    useContext(SubjectContext);
+  const { target, labSubject, setSoftDetaile } = useContext(SubjectContext);
   console.log("target im Lab:", target);
   const goto = useHistory();
+
   const fetchSoftwareInfo = async (software) => {
     console.log("passed Soft:", software);
     const response = await fetch(

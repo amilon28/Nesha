@@ -77,8 +77,6 @@ const AddSoftware = () => {
   const [online, setOnline] = useState(false);
   const [offline, setOffline] = useState(false);
 
-  const [serverResponse, setServerResponse] = useState("");
-
   //--------------Helper Functions--------------------
 
   const lab_fields_result = [];
@@ -242,9 +240,14 @@ const AddSoftware = () => {
       );
     }
 
+    if (!response.ok) {
+      toast.error("خطای ارسال", {
+        className: "foo-bar",
+      });
+    }
     const data = await response.json();
+    
 
-    setServerResponse(data);
     console.log("Response", data);
   }
 
@@ -344,19 +347,6 @@ const AddSoftware = () => {
   useEffect(() => {
     createLab_Fields_object();
   }, [targetFields]);
-
-  useEffect(() => {
-    if (!serverResponse)
-      toast.error("خطای ارسال", {
-        className: "foo-bar",
-      });
-    else {
-      toast.success("اطلاعات وارد شده با موفقیت ثبت گردید", {
-        className: "foo-bar",
-      });
-      setTimeout(() => window.location.reload(), 1000);
-    }
-  }, [serverResponse]);
 
   //--------------------------------------------------
   return (
