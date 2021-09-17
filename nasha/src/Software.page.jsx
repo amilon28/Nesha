@@ -4,21 +4,27 @@ import SoftwareDescription from "./Components/SoftwareDescription/SoftwareDescri
 import Header from "./Components/Header/Header.component";
 import Snapshot from "./Components/Snapshot/Snapshot.component";
 import Reviews from "./Components/Reviews/Reviews.component";
-import { useContext } from "react/cjs/react.development";
-import { SubjectContext } from "./store/SubjectContext";
-
 import Title from "./Components/Title/Title.component";
 
 import "./software.css";
 
-const Software = () => {
-  const { softDetaile } = useContext(SubjectContext);
-  const [softwareDetaile, setsoftwareDetaile] = useState(softDetaile);
+const Software = (props) => {
+  const [softwareDetaile, setsoftwareDetaile] = useState({});
   const [comments, setComments] = useState([]);
+
+  const fetchSoftwareInfo = async (software) => {
+    const response = await fetch(
+      `https://hassan1245.pythonanywhere.com/Nesha/v1/softwares/${props.match.params.id}`
+    );
+
+    const data = await response.json();
+
+    setsoftwareDetaile(data);
+  };
 
   const fetchComments = async () => {
     const response = await fetch(
-      `https://hassan1245.pythonanywhere.com/Nesha/v1/${softDetaile?.id}/children/?page=1`
+      `https://hassan1245.pythonanywhere.com/Nesha/v1/${softwareDetaile?.id}/children/?page=1`
     );
 
     const data = await response.json();
@@ -26,9 +32,10 @@ const Software = () => {
   };
 
   useEffect(() => {
+    fetchSoftwareInfo();
     fetchComments();
   }, []);
-  console.log(softwareDetaile);
+
   return (
     <div className="software">
       <Header type="3" className="type-3" />

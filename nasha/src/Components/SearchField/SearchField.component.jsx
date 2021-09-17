@@ -1,12 +1,9 @@
 import React, { useState, useContext, useEffects } from "react";
 import { useHistory } from "react-router-dom";
 import searchIcon from "../../assets/img/search-icon.svg";
-import { SubjectContext } from "../../store/SubjectContext";
 import "../Header/Header.style.css";
 
 const SearchField = (props) => {
-  const { setTarget, setSubject, setLabSubject, setSoftDetaile, setLabList } =
-    useContext(SubjectContext);
   const [searchValue, setSearchValue] = useState("");
   const [result, setResult] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -18,7 +15,7 @@ const SearchField = (props) => {
   };
 
   const keyDownHandler = (e) => {
-    if (!(e.key === "Enter") || !searchValue) return;
+    if (e.key === "Enter" && searchValue);
     goto.push("/search");
   };
 
@@ -28,39 +25,15 @@ const SearchField = (props) => {
 
     // Fields in home page
     if ("number_of_labs" in obj && "number_of_softwares" in obj) {
-      const response = await fetch(
-        `https://hassan1245.pythonanywhere.com/Nesha/v1/fields/${obj.id}`
-      );
-      if (!response.ok) throw Error("Something Went Wrong...");
-      const data = await response.json();
-      // setTarget(data.labs);
-      setLabList(data.labs);
-      setSubject(obj.name);
-
-      goto.push("/Field");
+      goto.push(`/Field/${obj.id}`);
     }
     // Labs in home page
     else if ("number_of_softwares" in obj) {
-      const response = await fetch(
-        `https://hassan1245.pythonanywhere.com/Nesha/v1/labs/${obj.id}`
-      );
-      if (!response.ok) throw Error("Something Went Wrong...");
-      const data = await response.json();
-      setTarget(data.softwares);
-      setLabSubject(obj.name);
-      goto.push("/Lab");
+      goto.push(`/Lab/${obj.id}`);
     }
     // software in home page
     else {
-      const response = await fetch(
-        `https://hassan1245.pythonanywhere.com/Nesha/v1/softwares/${obj.id}`
-      );
-      if (!response.ok) throw Error("Something Went Wrong...");
-      const data = await response.json();
-      console.log("data for software push", data);
-      setSoftDetaile(data);
-
-      goto.push("/software");
+      goto.push(`/software/${obj.id}`);
     }
   };
 
@@ -77,7 +50,6 @@ const SearchField = (props) => {
       console.log(err.message);
     }
     setIsLoading(false);
-    // setIsListOpen(false);
   };
 
   const changeHandler = (e) => {

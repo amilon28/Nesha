@@ -64,10 +64,10 @@ function App() {
         <BrowserRouter>
           <Route exact path="/" component={Home} />
           <Route path={"/login"} component={Auth} />
-          <Route exact path="/Lab" component={Labs} />
-          <Route exact path="/Field" component={Fields} />
+          <Route exact path="/Lab/:id" component={Labs} />
+          <Route exact path="/Field/:id" component={Fields} />
           <Route exact path="/search" component={Search} />
-          <Route exact path="/software" component={Software} />
+          <Route exact path="/software/:id" component={Software} />
           <Route exact path="/Add" component={Submit} />
           <Route exact path="/field-search" component={FieldSearch} />
           <Route exact path="/lab-search" component={LabSearch} />

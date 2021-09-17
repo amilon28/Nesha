@@ -1,24 +1,11 @@
-import { useContext } from "react";
 import { useHistory } from "react-router";
-import { SubjectContext } from "../../store/SubjectContext";
 import "../MostRelatedSoftwares/MostRelatedSoftwares.style.css";
 
 const MostRelatedSoftwareList = (props) => {
-  const { setSubject, setLabList } = useContext(SubjectContext);
   const goto = useHistory();
+
   const clickHandler = async (field) => {
-    try {
-      const response = await fetch(
-        `https://hassan1245.pythonanywhere.com/Nesha/v1/fields/${field.id}`
-      );
-      if (!response.ok) throw Error("Opps. sth is wrong!");
-      const data = await response.json();
-      setLabList(data.labs);
-      setSubject(field.name);
-      goto.push("/Field");
-    } catch (err) {
-      console.log("In line 20 of MostrealtedSoftlist", err.message);
-    }
+    goto.push(`/Field/${field.id}`);
   };
   return (
     <div className="MostRelatedSoftware__list">
