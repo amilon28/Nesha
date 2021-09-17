@@ -246,7 +246,6 @@ const AddSoftware = () => {
       });
     }
     const data = await response.json();
-    
 
     console.log("Response", data);
   }
@@ -282,7 +281,7 @@ const AddSoftware = () => {
     formData.append("review_links[1]", reviewLink2);
 
     console.log("final labs_and_fields obj", lab_fields_result);
-    formData.append("labs_and_fields", lab_fields_result);
+    formData.append("labs_and_fields", JSON.stringify(lab_fields_result));
 
     if (snap1) formData.append("snapshot1", snap1);
     if (snap2) formData.append("snapshot2", snap2);
