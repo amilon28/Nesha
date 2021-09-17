@@ -24,6 +24,10 @@
   width: 5rem;
 }
 
+.services__description {
+  user-select: none;
+}
+
 .services__description h4 {
   font-size: 2rem;
   font-weight: bold;
@@ -37,7 +41,7 @@
 }
 
 .services__description p {
-  font-size: 1.4rem;
+  font-size: 1.5rem;
 }
 
 @media (min-width: 768px) and (max-width: 1024px) {

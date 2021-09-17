@@ -101,9 +101,9 @@
 
 .form__input {
   width: 200px;
-  padding: 8px;
+  padding: 12px;
   border-radius: 8px;
-  border: 1px solid #000;
+  border: 2px solid #000;
   direction: rtl;
 }
 
@@ -359,6 +359,10 @@ input[type="email"]:focus,
 textarea:focus {
   border-color: #017dcf;
   border-width: 3px;
+}
+
+textarea {
+  border: 2px solid #000;
 }
 
 textarea:focus {
