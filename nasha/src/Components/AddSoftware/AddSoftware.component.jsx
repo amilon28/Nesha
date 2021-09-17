@@ -90,16 +90,6 @@ const AddSoftware = () => {
     if (!offline && !online) return 0;
   };
 
-  const inputChanged = (state, value) => {
-    const foundIndex = state.findIndex((item) => item.labId === labId);
-    if (foundIndex === -1) return [...state, { field: value, labId: labId }];
-    return [
-      ...state.slice(0, foundIndex),
-      { ...state[foundIndex - 1], field: value, labId: labId },
-      ...state.slice(foundIndex + 1),
-    ];
-  };
-
   const licenseChangeHandler = (e, l, state, setState) => {
     const foundIndex = state.findIndex((item) => item.id === l.id);
     console.log("checked item", state);
@@ -178,40 +168,6 @@ const AddSoftware = () => {
 
   //----------------FETCHs-------------------
 
-  const fetchLabsForTargetField = async (id) => {
-    try {
-      const response = await fetch(
-        `https://hassan1245.pythonanywhere.com/Nesha/v1/fields/${id}`
-      );
-      if (!response.ok) return;
-      const data = await response.json();
-      return data.labs;
-    } catch (error) {}
-  };
-
-  const fetchAllFields = async () => {
-    try {
-      const response = await fetch(
-        `https://hassan1245.pythonanywhere.com/Nesha/v1/field_search/`
-      );
-      if (!response.ok) return;
-      const data = await response.json();
-      console.log("field Lists data ", data);
-      return data;
-    } catch (error) {}
-  };
-
-  const fetchlabName = async (id) => {
-    try {
-      const response = await fetch(
-        `https://hassan1245.pythonanywhere.com/Nesha/v1/labs/${id}`
-      );
-      if (!response.ok) return;
-      const data = await response.json();
-      return data.lab_name;
-    } catch (error) {}
-  };
-
   const fetchAllLabs = async () => {
     const response = await fetch(
       "https://hassan1245.pythonanywhere.com/Nesha/v1/lab_search/"
@@ -257,20 +213,37 @@ const AddSoftware = () => {
   };
 
   async function sendDate(formData) {
-    const response = await fetch(
-      `https://hassan1245.pythonanywhere.com/Nesha/v1/draft/`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          Authorization: `Token ${localStorage.getItem("token")}`,
-        },
-        body: formData,
-      }
-    );
+    let response;
+    if (!isEdit) {
+      response = await fetch(
+        `https://hassan1245.pythonanywhere.com/Nesha/v1/draft/`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Token ${localStorage.getItem("token")}`,
+          },
+          body: formData,
+        }
+      );
+    } else if (isEdit) {
+      response = await fetch(
+        `https://hassan1245.pythonanywhere.com/Nesha/v1/edit-draft/`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Token ${localStorage.getItem("token")}`,
+          },
+          body: formData,
+        }
+      );
+    }
 
     const data = await response.json();
+
     setServerResponse(data);
     console.log("Response", data);
   }
@@ -373,7 +346,10 @@ const AddSoftware = () => {
   }, [targetFields]);
 
   useEffect(() => {
-    if (!serverResponse) console.log("wtf");
+    if (!serverResponse)
+      toast.error("خطای ارسال", {
+        className: "foo-bar",
+      });
     else {
       toast.success("اطلاعات وارد شده با موفقیت ثبت گردید", {
         className: "foo-bar",
@@ -656,19 +632,7 @@ const AddSoftware = () => {
                       />
                     </div>
                   ))}
-                {/* {isEdit &&
-                  softDetaile.licenses?.map((sl) =>
-                    targetLicenses
-                      ?.filter((el) => el.name !== sl.name)
-                      ?.map((res) => {
-                        return (
-                          <div>
-                            <label htmlFor="">{res?.name}</label>
-                            <input type="checkbox" />
-                          </div>
-                        );
-                      })
-                  )} */}
+
                 {isEdit &&
                   filterExistingItems(
                     targetLicenses,
@@ -764,51 +728,6 @@ const AddSoftware = () => {
                       );
                     }
                   )}
-
-                {/* {isEdit &&
-                  softDetaile.platforms?.map((sl) =>
-                    platforms
-                      ?.filter((el) => el.name !== sl.name)
-                      ?.map((res) => {
-                        return (
-                          <div>
-                            <label htmlFor="">{res?.name}</label>
-                            <input type="checkbox" />
-                          </div>
-                        );
-                      })
-                  )} */}
-                {/* 
-                {isEdit &&
-                  platforms
-                    ?.map((ep) =>
-                      softDetaile?.platforms?.map((sp) => {
-                        if (sp.name !== ep.name) return ep;
-                      })
-                    )
-                    .map((res, i, arr) => {
-                      console.log("filterrrrrrr arr", arr);
-                      return (
-                        <div>
-                          <label htmlFor="">{res?.name}</label>
-                          <input type="checkbox" />
-                        </div>
-                      );
-                    })} */}
-                {/* {isEdit &&
-                  platforms
-                    .filter((ep) =>
-                      softDetaile?.platforms?.some((sp) => sp.name !== ep.name)
-                    )
-                    .map((res, i, arr) => {
-                      console.log("wht....");
-                      return (
-                        <div>
-                          <label htmlFor="">{res?.name}</label>
-                          <input type="checkbox" />
-                        </div>
-                      );
-                    })} */}
               </div>
               <label for="" className="form__label">
                 : پلتفرم نرم افزار
