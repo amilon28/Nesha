@@ -65,31 +65,13 @@
 /* ---------------------------------- */
 
 .middle {
-  width: 50%;
+  width: 100%;
   padding-top: 10px;
   border-left: 2px solid #000;
   border-right: 2px solid #000;
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-.middle-card {
-  width: 50rem;
-  height: 20rem;
-  padding: 25px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-
-  background: rgba(255, 255, 255, 0.1);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-  backdrop-filter: blur(3.5px);
-  -webkit-backdrop-filter: blur(3.5px);
-  border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  /* box-shadow: 4px 2px 10px #d6d6d6; */
 }
 
 .middle-card__icon {
@@ -213,7 +195,99 @@
   flex-direction: column;
   justify-content: space-evenly;
 }
+/* ----------------------------------------------------- */
 
+.middle-card {
+  width: 80rem;
+  min-height: 30rem;
+  display: flex;
+  padding: 20px;
+
+  align-items: center;
+  margin-bottom: 20px;
+  background: rgba(255, 255, 255, 0.1);
+
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(3.5px);
+  -webkit-backdrop-filter: blur(3.5px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 4px 2px 10px #d6d6d6;
+}
+
+.middle-card:hover {
+  cursor: pointer;
+}
+
+.rigtPart {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.software__statistics__item {
+  font-size: 14px;
+}
+
+.software__statistics__item img {
+  width: 30px;
+}
+
+.leftPart img {
+  width: 20rem;
+}
+
+.software__statistics {
+  height: 28rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  user-select: none;
+}
+
+.software__description {
+  width: 100%;
+  margin-top: 20px;
+  font-weight: bold;
+  line-height: 1.8;
+  border-top: 2px dashed #424242;
+  padding-top: 8px;
+}
+
+.software__description p {
+  font-size: 15px;
+}
+
+.title {
+  font-weight: bold;
+}
+
+.software__url {
+  font-size: 18px;
+  text-transform: uppercase;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.leftPart {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.software__url {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.software__url a {
+  color: #168bce;
+  text-decoration: underline;
+}
+
+/* ------------------------------ */
 /* Media Queri */
 @media (min-width: 768px) and (max-width: 1024px) {
   .searchcontainer {

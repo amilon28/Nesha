@@ -1,14 +1,17 @@
 import { useContext, useEffect, useState } from "react";
 import { SubjectContext } from "../../store/SubjectContext";
 
+
 const RightBar = () => {
-  const { softSearchTerm } = useContext(SubjectContext);
+  const { softSearchTerm, setSoftwaresInformation } =
+    useContext(SubjectContext);
   const [license, setLicense] = useState("");
   const [platform, setPlatform] = useState("");
   const [reviewLink, setReviewLink] = useState("");
   const [courseLink, setCourseLink] = useState("");
   const [status, setStatus] = useState("");
-  const [labID, setLabID] = useState("");
+  const [on, setOn] = useState(false);
+  const [off, setOff] = useState(false);
   const [like, setLike] = useState("");
   const [view, setView] = useState("");
   const [date, setDate] = useState("");
@@ -18,26 +21,25 @@ const RightBar = () => {
   const searchAboutSoftware = async (e) => {
     e.preventDefault();
     const response = await fetch(
-      `https://hassan1245.pythonanywhere.com/Nesha/v1/software_search/?licenses_name=${
+      `https://hassan1245.pythonanywhere.com/Nesha/v1/software_search/?licenses__name=${
         license ? license : ""
-      }&platforms_name=${platform ? platform : ""}&review_links_url=${
+      }&platforms__name=${platform ? platform : ""}&review_links__url=${
         reviewLink ? reviewLink : ""
-      }&course_links_url=${courseLink ? courseLink : ""}&offline_or_online=${
+      }&course_links__url=${courseLink ? courseLink : ""}&offline_or_online=${
         status ? status : ""
-      }&lab_id=${labID ? labID : ""}&search=${
-        softSearchTerm ? softSearchTerm : ""
-      }&ordering=-${like ? like : ""}&ordering=-${view ? view : ""}&ordering=-${
-        date ? date : ""
-      }&page=1`
+      }&search=${softSearchTerm ? softSearchTerm : ""}&ordering=${
+        like ? like : ""
+      }&ordering=${view ? view : ""}&ordering=${date ? date : ""}&page=1`
     );
 
     const data = await response.json();
-    console.log("Soft Details Info:", data);
+    setSoftwaresInformation(data);
+    console.log("Soft Details Infooo:", data);
   };
 
   const fetchPlatforms = async () => {
     const response = await fetch(
-      `https://hassan1245.pythonanywhere.com/Nesha/v1/platforms`
+      `https://hassan1245.pythonanywhere.com/Nesha/v1/platforms/`
     );
 
     const data = await response.json();
@@ -46,7 +48,7 @@ const RightBar = () => {
 
   const fetchLicenses = async () => {
     const response = await fetch(
-      `https://hassan1245.pythonanywhere.com/Nesha/v1/licenses`
+      `https://hassan1245.pythonanywhere.com/Nesha/v1/licenses/`
     );
 
     const data = await response.json();
@@ -56,7 +58,8 @@ const RightBar = () => {
   useEffect(() => {
     fetchPlatforms();
     fetchLicenses();
-  });
+  }, []);
+
   return (
     <div className="right">
       <form
@@ -64,18 +67,17 @@ const RightBar = () => {
         className="form-right"
         onSubmit={(e) => searchAboutSoftware(e)}
       >
-        {/*  */}
         <div className="selectbox">
           <div className="selectbox__title">:نوع پلتفرم</div>
-          <select className="selectbox__input">
+          <select
+            className="selectbox__input"
+            onChange={(e) => setPlatform(e.target.value)}
+          >
             <option value="" disabled selected hidden>
-              Select
+              Platform
             </option>
             {paltforms?.map((p) => (
-              <option
-                value={p.name}
-                onClick={(e) => setPlatform(e.target.value)}
-              >
+              <option value={p.name} plat-id={p.id}>
                 {p.name}
               </option>
             ))}
@@ -83,15 +85,15 @@ const RightBar = () => {
         </div>
         <div className="selectbox">
           <div className="selectbox__title">:نوع لایسنس</div>
-          <select className="selectbox__input">
+          <select
+            className="selectbox__input"
+            onChange={(e) => setLicense(e.target.value)}
+          >
             <option value="" disabled selected hidden>
-              Select
+              License
             </option>
             {licenses?.map((l) => (
-              <option
-                value={l.name}
-                onClick={(e) => setLicenses(e.target.value)}
-              >
+              <option value={l.name} lic-id={l.id}>
                 {l.name}
               </option>
             ))}
@@ -105,7 +107,7 @@ const RightBar = () => {
                 type="checkbox"
                 id="item"
                 className="checkitem__input"
-                onClick={(e) => setStatus(2)}
+                onClick={(e) => setOn(true)}
               />
               <label htmlFor="item">آنلاین</label>
             </div>
@@ -114,7 +116,7 @@ const RightBar = () => {
                 type="checkbox"
                 id="item"
                 className="checkitem__input"
-                onClick={(e) => setStatus(1)}
+                onClick={(e) => setOff(true)}
               />
               <label htmlFor="item">آفلاین</label>
             </div>
@@ -124,7 +126,7 @@ const RightBar = () => {
               type="checkbox"
               id="item"
               className="checkitem__input"
-              onClick={(e) => setCourseLink(".")}
+              onClick={() => setCourseLink(".")}
             />
             <label htmlFor="item">آموزه برای آن موجود باشد</label>
           </div>
@@ -133,7 +135,7 @@ const RightBar = () => {
               type="checkbox"
               id="item"
               className="checkitem__input"
-              onClick={(e) => setReviewLink(".")}
+              onClick={() => setReviewLink(".")}
             />
             <label htmlFor="item">نقد برای آن موجود باشد</label>
           </div>
@@ -145,7 +147,7 @@ const RightBar = () => {
               type="checkbox"
               name="statics"
               className="radio__item"
-              onClick={(e) => setLike("-likes")}
+              onClick={() => setLike("-likes")}
             />
             <label>تعداد لایک ها</label>
           </div>
@@ -154,7 +156,7 @@ const RightBar = () => {
               type="checkbox"
               name="statics"
               className="radio__item"
-              onClick={(e) => setView("-views")}
+              onClick={() => setView("-views")}
             />
             <label>تعداد بازدید ها</label>
           </div>
@@ -163,7 +165,7 @@ const RightBar = () => {
               type="checkbox"
               name="statics"
               className="radio__item"
-              onClick={(e) => setDate("-date_submitted")}
+              onClick={() => setDate("-date_submitted")}
             />
             <label>تاریخ افزودن</label>
           </div>

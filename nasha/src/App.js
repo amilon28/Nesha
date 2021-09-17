@@ -28,7 +28,7 @@ function App() {
   const [isLogin, setIsLogin] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const [idLab, setIdLab] = useState("");
-  const [refresh, setRefresh] = useState(false);
+  const [softwaresInformation, setSoftwaresInformation] = useState();
   // ------------------------------------------------
 
   return (
@@ -57,8 +57,8 @@ function App() {
           setIsEdit,
           idLab,
           setIdLab,
-          refresh,
-          setRefresh,
+          softwaresInformation,
+          setSoftwaresInformation,
         }}
       >
         <BrowserRouter>

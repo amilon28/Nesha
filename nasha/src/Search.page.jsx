@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import Header from "./Components/Header/Header.component";
 import SearchResult from "./Components/SearchResult/SearchResult.component";
 import { SubjectContext } from "./store/SubjectContext";

@@ -1,13 +1,11 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import searchIcon from "../../assets/img/search-icon.svg";
 import { SubjectContext } from "../../store/SubjectContext";
 import "../Header/Header.style.css";
 
 const SoftWareSearchField = () => {
   const { softSearchTerm, setSoftSearchTerm } = useContext(SubjectContext);
-  //   const [searchValue, setSearchValue] = useState("");
-
-  //   ------------------------------------------------
+  
 
   return (
     <div className="header__searchbar">
