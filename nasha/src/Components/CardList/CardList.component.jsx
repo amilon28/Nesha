@@ -1,27 +1,13 @@
-import { useContext } from "react";
 import { useHistory } from "react-router";
-import { SubjectContext } from "../../store/SubjectContext";
 import heart from "../../assets/img/heart.svg";
 import view from "../../assets/img/view.svg";
 import "./CardList.style.css";
 
 const CardList = (props) => {
-  console.log(props.softWareList);
-  console.log("www");
-  const { setSoftDetaile } = useContext(SubjectContext);
   const goto = useHistory();
+
   const clickHandler = async (soft) => {
-    try {
-      const response = await fetch(
-        `https://hassan1245.pythonanywhere.com/Nesha/v1/softwares/${soft.id}`
-      );
-      if (!response.ok) throw Error("Opps. sth is wrong!");
-      const data = await response.json();
-      setSoftDetaile(data);
-      goto.push("/software");
-    } catch (err) {
-      console.log("In line 20 of MostrealtedSoftlist", err.message);
-    }
+    goto.push(`/software/${soft.id}`);
   };
   return (
     <div className="cards">
