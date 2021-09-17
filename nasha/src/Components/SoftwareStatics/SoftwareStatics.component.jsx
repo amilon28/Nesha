@@ -4,14 +4,19 @@ import { Link } from "react-router-dom";
 import { useContext, useState } from "react/cjs/react.development";
 import { SubjectContext } from "../../store/SubjectContext";
 import { toast } from "react-toastify";
+import { useEffect } from "react";
 
 const SoftwareStatics = (props) => {
   console.log("Props soft id", props.id);
   const { setSoftawreNameEditSection, setIsEdit } = useContext(SubjectContext);
 
-  const [numOfLike, setNumOfLike] = useState(props.like);
+  const [numOfLike, setNumOfLike] = useState();
 
   const [isLiked, setIsLiked] = useState(false);
+
+  useEffect(() => {
+    setNumOfLike(props.like);
+  }, []);
 
   const handleLikes = async () => {
     const response = await fetch(

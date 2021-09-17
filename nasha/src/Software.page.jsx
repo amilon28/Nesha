@@ -9,10 +9,10 @@ import Title from "./Components/Title/Title.component";
 import "./software.css";
 
 const Software = (props) => {
-  const [softwareDetaile, setsoftwareDetaile] = useState({});
+  const [softwareDetaile, setsoftwareDetaile] = useState();
   const [comments, setComments] = useState([]);
 
-  const fetchSoftwareInfo = async (software) => {
+  const fetchSoftwareInfo = async () => {
     const response = await fetch(
       `https://hassan1245.pythonanywhere.com/Nesha/v1/softwares/${props.match.params.id}`
     );
@@ -20,6 +20,7 @@ const Software = (props) => {
     const data = await response.json();
 
     setsoftwareDetaile(data);
+    console.log("setsoftwareDetaile in 23", softwareDetaile);
   };
 
   const fetchComments = async () => {
