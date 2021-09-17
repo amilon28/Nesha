@@ -115,10 +115,10 @@ const AddSoftware = () => {
     return setState(state.filter((item) => item.id !== l.id));
   };
 
-  const test = () => {
+  const filterExistingItems = (existingItems, softwareItems) => {
     let list = [];
-    platforms?.forEach((sd) => {
-      if (!softDetaile.platforms.find((p) => sd.id === p.id)) list.push(sd);
+    existingItems?.forEach((sd) => {
+      if (!softwareItems?.find((p) => sd.id === p.id)) list.push(sd);
     });
     return list;
   };
@@ -656,7 +656,7 @@ const AddSoftware = () => {
                       />
                     </div>
                   ))}
-                {isEdit &&
+                {/* {isEdit &&
                   softDetaile.licenses?.map((sl) =>
                     targetLicenses
                       ?.filter((el) => el.name !== sl.name)
@@ -668,7 +668,19 @@ const AddSoftware = () => {
                           </div>
                         );
                       })
-                  )}
+                  )} */}
+                {isEdit &&
+                  filterExistingItems(
+                    targetLicenses,
+                    softDetaile?.licenses
+                  ).map((res) => {
+                    return (
+                      <div>
+                        <label htmlFor="">{res?.name}</label>
+                        <input type="checkbox" />
+                      </div>
+                    );
+                  })}
               </div>
               <label for="" className="form__label">
                 : لایسنس نرم افزار
@@ -742,14 +754,16 @@ const AddSoftware = () => {
                   ))}
 
                 {isEdit &&
-                  test().map((res) => {
-                    return (
-                      <div>
-                        <label htmlFor="">{res?.name}</label>
-                        <input type="checkbox" />
-                      </div>
-                    );
-                  })}
+                  filterExistingItems(platforms, softDetaile?.platforms).map(
+                    (res) => {
+                      return (
+                        <div>
+                          <label htmlFor="">{res?.name}</label>
+                          <input type="checkbox" />
+                        </div>
+                      );
+                    }
+                  )}
 
                 {/* {isEdit &&
                   softDetaile.platforms?.map((sl) =>

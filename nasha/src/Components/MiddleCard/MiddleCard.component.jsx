@@ -1,13 +1,15 @@
+import loader from "../../assets/img/loader.gif";
 import like from "../../assets/img/heart.svg";
 import view from "../../assets/img/view.svg";
 import calendar from "../../assets/img/calendar.svg";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { SubjectContext } from "../../store/SubjectContext";
 import { useHistory } from "react-router";
 
 const MiddleCard = (props) => {
   const { softwaresInformation, setSoftDetaile } = useContext(SubjectContext);
-
+  // const [isLoading, setIsLoading] = useState(true);
+  // --------------------------------
   const goto = useHistory();
   const getDate = (date) => {
     const time = new Date(date);
@@ -16,6 +18,11 @@ const MiddleCard = (props) => {
     const day = time.getDate();
     return `${year}/${month}/${day}`;
   };
+  // --------------------------------
+
+  // useEffect(() => {
+  //   setIsLoading(false);
+  // }, [softwaresInformation]);
 
   console.log("softwaresInformation in middle card", softwaresInformation);
   const gotoSoftwareDetailsPage = (targetSoftware) => {
@@ -24,6 +31,7 @@ const MiddleCard = (props) => {
   };
   return (
     <div>
+      {/* {isLoading && <p className="loading-text">Loading.....</p>} */}
       {softwaresInformation?.map((software) => {
         return (
           <div
