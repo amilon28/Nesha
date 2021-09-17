@@ -7,6 +7,7 @@ import { useHistory } from "react-router";
 
 const MiddleCard = (props) => {
   const { softwaresInformation, setSoftDetaile } = useContext(SubjectContext);
+
   const goto = useHistory();
   const getDate = (date) => {
     const time = new Date(date);
@@ -15,6 +16,7 @@ const MiddleCard = (props) => {
     const day = time.getDate();
     return `${year}/${month}/${day}`;
   };
+
   console.log("softwaresInformation in middle card", softwaresInformation);
   const gotoSoftwareDetailsPage = (targetSoftware) => {
     setSoftDetaile(targetSoftware);
@@ -22,7 +24,6 @@ const MiddleCard = (props) => {
   };
   return (
     <div>
-      {/* --- */}
       {softwaresInformation?.map((software) => {
         return (
           <div

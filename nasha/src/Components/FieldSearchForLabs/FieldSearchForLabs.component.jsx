@@ -3,6 +3,7 @@ import { SubjectContext } from "../../store/SubjectContext";
 import { useHistory } from "react-router";
 import searchIcon from "../../assets/img/search-icon.svg";
 import "../Header/Header.style.css";
+import loader from "../../assets/img/loader.gif";
 
 function FieldSearchForLabs() {
   const { setSoftDetaile, setSubject, setTarget, setLabSubject } =
@@ -95,11 +96,13 @@ function FieldSearchForLabs() {
         </div>
       )}
 
-      {isLoading && (
+      {/* {isLoading && (
         <div>
           <p className="loading-text">Loading...</p>
         </div>
-      )}
+      )} */}
+
+      {isLoading && <img src={loader} alt="Loading" />}
 
       {/* {!isLoading && result?.res && isClick && (
         <p className="error-text">No Labs Find!</p>

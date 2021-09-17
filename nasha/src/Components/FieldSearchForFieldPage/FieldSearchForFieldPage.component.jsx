@@ -3,6 +3,7 @@ import { useHistory } from "react-router";
 import searchIcon from "../../assets/img/search-icon.svg";
 import { SubjectContext } from "../../store/SubjectContext";
 import "../Header/Header.style.css";
+import loader from "../../assets/img/loader.gif";
 
 function FieldSearchForFieldPage(props) {
   const { setLabList, labList, setSubject } = useContext(SubjectContext);
@@ -91,7 +92,8 @@ function FieldSearchForFieldPage(props) {
             })}
         </div>
       } */}
-      {isLoading && <p className="loading-text">Loading...</p>}
+      {/* {isLoading && <p className="loading-text">Loading...</p>} */}
+      {isLoading && <img src={loader} alt="Loading" />}
       {!isLoading && !err && (
         <div className="field__cards">
           {result &&

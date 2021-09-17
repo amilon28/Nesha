@@ -2,6 +2,7 @@ import Container from "../Container/Container.component";
 import Title from "../Title/Title.component";
 import CardList from "../CardList/CardList.component";
 import { useEffect, useState } from "react";
+import loader from "../../assets/img/loader.gif";
 
 const FavoriteSoftwares = () => {
   const [softwares, setSoftwares] = useState([]);
@@ -32,7 +33,8 @@ const FavoriteSoftwares = () => {
   return (
     <Container className="big-height">
       <Title>نرم افزار های محبوب</Title>
-      {isLoading && <p className="loading-text">Loading...</p>}
+      {/* {isLoading && <p className="loading-text">Loading...</p>} */}
+      {isLoading && <img src={loader} alt="Loading" />}
       {!isLoading && error && <p className="error-text">{error}</p>}
       {!isLoading && !error && softwares.length > 0 && (
         <CardList softWareList={softwares} />

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import MostRelatedSoftwareList from "../MostRelatedSoftwareList/MostRelatedSoftwareList.component";
 import Container from "../Container/Container.component";
 import Title from "../Title/Title.component";
+import loader from "../../assets/img/loader.gif";
 
 import "./MostRelatedSoftwares.style.css";
 
@@ -34,7 +35,8 @@ const MostRelatedSoftware = () => {
     <Container className="mostSoftWares">
       <Title>بیشترین نرم افزار ها مربوط به کدام رشته ها هستند ؟</Title>
 
-      {isLoading && <p className="loading-text">Loading...</p>}
+      {/* {isLoading && <p className="loading-text">Loading...</p>} */}
+      {isLoading && <img src={loader} alt="Loading" />}
       {!isLoading && error && <p className="error-text">{error}</p>}
       {!isLoading && !error && fields.length > 0 && (
         <MostRelatedSoftwareList fieldsList={fields} />

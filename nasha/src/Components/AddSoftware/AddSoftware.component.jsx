@@ -378,7 +378,7 @@ const AddSoftware = () => {
       toast.success("اطلاعات وارد شده با موفقیت ثبت گردید", {
         className: "foo-bar",
       });
-      // setTimeout(() => window.location.reload(), 1000);
+      setTimeout(() => window.location.reload(), 1000);
     }
   }, [serverResponse]);
 
