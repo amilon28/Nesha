@@ -22,13 +22,14 @@ const RightBar = () => {
     if (on && off) setStatus(3);
     else if (on && !off) setStatus(2);
     else if (off && !on) setStatus(1);
+
     const response = await fetch(
       `https://hassan1245.pythonanywhere.com/Nesha/v1/software_search/?licenses__name=${
         license ? license : ""
       }&platforms__name=${platform ? platform : ""}&review_links__url=${
         reviewLink ? reviewLink : ""
       }&course_links__url=${courseLink ? courseLink : ""}&offline_or_online=${
-        status ? status : 0
+        status !== 0 ? status : 0
       }&search=${softSearchTerm ? softSearchTerm : ""}&ordering=${
         like ? like : ""
       }&ordering=${view ? view : ""}&ordering=${date ? date : ""}&page=1`
