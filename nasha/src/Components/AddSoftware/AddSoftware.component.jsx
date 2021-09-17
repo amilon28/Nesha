@@ -77,6 +77,8 @@ const AddSoftware = () => {
   const [online, setOnline] = useState(false);
   const [offline, setOffline] = useState(false);
 
+  const [serverResponse, setServerResponse] = useState("");
+
   //--------------Helper Functions--------------------
 
   const lab_fields_result = [];
@@ -169,7 +171,7 @@ const AddSoftware = () => {
 
   const handleImgFileInput = (e) => {
     const img = e.target.files[0];
-    if (img.size > 10240) return false;
+    if (img?.size > 1e7) return false;
 
     return img;
   };
@@ -269,11 +271,8 @@ const AddSoftware = () => {
     );
 
     const data = await response.json();
+    setServerResponse(data);
     console.log("Response", data);
-    toast.success("اطلاعات وارد شده با موفقیت ثبت گردید", {
-      className: "foo-bar",
-    });
-    // setTimeout(() => window.location.reload(), 1000);
   }
 
   //-------------------Sending Form Datas----------------------
@@ -306,6 +305,7 @@ const AddSoftware = () => {
     formData.append("review_links[0]", reviewLink1);
     formData.append("review_links[1]", reviewLink2);
 
+    console.log("final labs_and_fields obj", lab_fields_result);
     formData.append("labs_and_fields", lab_fields_result);
 
     if (snap1) formData.append("snapshot1", snap1);
@@ -371,6 +371,16 @@ const AddSoftware = () => {
   useEffect(() => {
     createLab_Fields_object();
   }, [targetFields]);
+
+  useEffect(() => {
+    if (!serverResponse) console.log("wtf");
+    else {
+      toast.success("اطلاعات وارد شده با موفقیت ثبت گردید", {
+        className: "foo-bar",
+      });
+      // setTimeout(() => window.location.reload(), 1000);
+    }
+  }, [serverResponse]);
 
   //--------------------------------------------------
   return (
@@ -824,14 +834,14 @@ const AddSoftware = () => {
                 placeholder="Name"
                 id="pdf"
                 onChange={(e) => {
-                  e.target.files[0].size > 102400
+                  e.target.files[0]?.size > 1e8
                     ? toast.error("سایز عکس حداکثر می تواند 10 مگابایت باشد", {
                         className: "foo-bar",
                       })
                     : setPdf(e.target.files[0]);
                 }}
               />
-              <label for="select-fire">انتخاب فایل</label>
+              <label for="pdf">انتخاب فایل</label>
               <p for="pdf" className="form__label">
                 :نرم افزار pdf انتخاب فایل
               </p>
@@ -843,7 +853,7 @@ const AddSoftware = () => {
                   className="form__file-input form__input"
                   type="file"
                   placeholder="Name"
-                  id="snapshot1"
+                  id="snapshot5"
                   onChange={(e) => {
                     handleImgFileInput(e)
                       ? setSnap1(handleImgFileInput(e))
@@ -855,14 +865,14 @@ const AddSoftware = () => {
                         );
                   }}
                 />
-                <label for="snapshot1">5 فایل</label>
+                <label for="snapshot5">5 فایل</label>
 
                 <input
                   accept="image/*"
                   className="form__file-input form__input"
                   type="file"
                   placeholder="Name"
-                  id="snapshot2"
+                  id="snapshot4"
                   onChange={(e) => {
                     handleImgFileInput(e)
                       ? setSnap2(handleImgFileInput(e))
@@ -874,7 +884,7 @@ const AddSoftware = () => {
                         );
                   }}
                 />
-                <label for="snapshot2">4 فایل</label>
+                <label for="snapshot4">4 فایل</label>
 
                 <input
                   accept="image/*"
@@ -900,7 +910,7 @@ const AddSoftware = () => {
                   className="form__file-input form__input"
                   type="file"
                   placeholder="Name"
-                  id="snapshot4"
+                  id="snapshot2"
                   onChange={(e) => {
                     handleImgFileInput(e)
                       ? setSnap4(handleImgFileInput(e))
@@ -912,14 +922,14 @@ const AddSoftware = () => {
                         );
                   }}
                 />
-                <label for="snapshot4">2 فایل</label>
+                <label for="snapshot2">2 فایل</label>
 
                 <input
                   accept="image/*"
                   className="form__file-input form__input"
                   type="file"
                   placeholder="Name"
-                  id="snapshot5"
+                  id="snapshot1"
                   onChange={(e) => {
                     handleImgFileInput(e)
                       ? setSnap5(handleImgFileInput(e))
@@ -931,7 +941,7 @@ const AddSoftware = () => {
                         );
                   }}
                 />
-                <label for="snapshot5">1 فایل</label>
+                <label for="snapshot1">1 فایل</label>
 
                 <p for="snapshot" className="form__label">
                   : انتخاب اسنپ شات های نرم افزار
