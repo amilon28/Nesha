@@ -8,7 +8,7 @@ import { useContext } from "react/cjs/react.development";
 import { SubjectContext } from "../../store/SubjectContext";
 import { toast } from "react-toastify";
 
-// const isLogin = () => !!localStorage.getItem("token");
+
 
 const NavList = (props) => {
   const goto = useHistory();

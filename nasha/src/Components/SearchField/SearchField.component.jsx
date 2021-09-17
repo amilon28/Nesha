@@ -15,8 +15,7 @@ const SearchField = (props) => {
   };
 
   const keyDownHandler = (e) => {
-    if (e.key === "Enter" && searchValue);
-    goto.push("/search");
+    if (e.key === "Enter" && searchValue) goto.push("/search");
   };
 
   const clickOnItemHandler = async (e, obj) => {

@@ -8,15 +8,12 @@ import { useEffect } from "react";
 
 const SoftwareStatics = (props) => {
   console.log("Props soft id", props.id);
+  console.log("Props like ", props.like);
   const { setSoftawreNameEditSection, setIsEdit } = useContext(SubjectContext);
 
-  const [numOfLike, setNumOfLike] = useState();
+  const [numOfLike, setNumOfLike] = useState(props.like);
 
   const [isLiked, setIsLiked] = useState(false);
-
-  useEffect(() => {
-    setNumOfLike(props.like);
-  }, []);
 
   const handleLikes = async () => {
     const response = await fetch(
@@ -43,6 +40,8 @@ const SoftwareStatics = (props) => {
     if (!(localStorage.getItem("token") === null) && !isLiked) {
       setNumOfLike(numOfLike + 1);
       setIsLiked(true);
+      console.log("numoflike kazemi", numOfLike);
+      console.log("Props.like", numOfLike);
       console.log("liked");
     }
 
