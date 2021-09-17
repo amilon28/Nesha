@@ -21,6 +21,7 @@ const AddSoftware = () => {
   const [isOpenBox, setIsOpenBox] = useState(false);
   const [isLicenseOpenBox, setIsLicenseOpenBox] = useState(false);
   const [isPlatformOpenBox, setIsPlatformOpenBox] = useState(false);
+  const [selectedLabName, setSelectedLabName] = useState("");
 
   // Form inputs -----------------------------------------
   const [username, setUsername] = useState("");
@@ -75,6 +76,103 @@ const AddSoftware = () => {
 
   const [online, setOnline] = useState(false);
   const [offline, setOffline] = useState(false);
+
+  //--------------Helper Functions--------------------
+
+  const lab_fields_result = [];
+
+  const getStatus = () => {
+    if (online && offline) return 3;
+    if (online) return 2;
+    if (offline) return 1;
+    if (!offline && !online) return 0;
+  };
+
+  const inputChanged = (state, value) => {
+    const foundIndex = state.findIndex((item) => item.labId === labId);
+    if (foundIndex === -1) return [...state, { field: value, labId: labId }];
+    return [
+      ...state.slice(0, foundIndex),
+      { ...state[foundIndex - 1], field: value, labId: labId },
+      ...state.slice(foundIndex + 1),
+    ];
+  };
+
+  const licenseChangeHandler = (e, l, state, setState) => {
+    const foundIndex = state.findIndex((item) => item.id === l.id);
+    console.log("checked item", state);
+    if (e.target.checked) {
+      return setState([...state, { id: l.id, name: l.name }]);
+    }
+
+    // return setExistingLicense([
+    //   ...existingLicense.slice(0, foundIndex),
+    //   ...existingLicense.slice(foundIndex + 1),
+    // ]);
+
+    return setState(state.filter((item) => item.id !== l.id));
+  };
+
+  const test = () => {
+    let list = [];
+    platforms?.forEach((sd) => {
+      if (!softDetaile.platforms.find((p) => sd.id === p.id)) list.push(sd);
+    });
+    return list;
+  };
+
+  const createLab_Fields_object = () => {
+    console.log("selected lab id", labId);
+    console.log("selected lab name", selectedLabName);
+    console.log("all fields for selected lab", targetFields);
+    targetFields?.forEach((f) => {
+      lab_fields_result.push({
+        field: {
+          id: f.id,
+          name: f.name,
+        },
+        lab: {
+          id: labId,
+          name: selectedLabName,
+        },
+      });
+    });
+
+    // for new inpute fields
+
+    console.log("lab_fields_result", lab_fields_result);
+    console.log("lab_fields_result json", JSON.stringify(lab_fields_result));
+    return lab_fields_result;
+  };
+
+  const newPushInLab_Field_object = (fieldName) => {
+    lab_fields_result.push({
+      field: {
+        name: fieldName,
+      },
+      lab: {
+        id: labId,
+        name: selectedLabName,
+      },
+    });
+  };
+
+  const checkForNewInputFields = () => {
+    if (newField1 || newField2 || newField3 || newField4 || newField5) {
+      if (newField1) newPushInLab_Field_object(newField1);
+      if (newField2) newPushInLab_Field_object(newField2);
+      if (newField3) newPushInLab_Field_object(newField3);
+      if (newField4) newPushInLab_Field_object(newField4);
+      if (newField5) newPushInLab_Field_object(newField5);
+    }
+  };
+
+  const handleImgFileInput = (e) => {
+    const img = e.target.files[0];
+    if (img.size > 10240) return false;
+
+    return img;
+  };
 
   //----------------FETCHs-------------------
 
@@ -152,268 +250,32 @@ const AddSoftware = () => {
     console.log("response of fields", data.fields);
     setTargetFields(data.fields);
     setIsLoading(false);
+
     console.log("targetFields", targetFields);
   };
 
-  //--------------Helper Functions--------------------
+  async function sendDate(formData) {
+    const response = await fetch(
+      `https://hassan1245.pythonanywhere.com/Nesha/v1/draft/`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: `Token ${localStorage.getItem("token")}`,
+        },
+        body: formData,
+      }
+    );
 
-  let repdata = [];
-  const fieldsLabs = async () => {
-    if (!(newField1 && newField2 && newField3 && newField4 && newField5))
-      return;
-    const fieldsList = await fetchAllFields();
-
-    if (newField1) {
-      newField1?.forEach((i) => {
-        const res = fieldsList?.find((item) => item.name === i.field);
-        if (!res) {
-          (async () => {
-            const result = await fetchLabsForTargetField(res.id);
-            result?.map((l) =>
-              repdata.push({
-                field: { id: res.id, name: res.name },
-                lab: {
-                  name: l.name,
-                },
-              })
-            );
-
-            const labname = await fetchlabName(i.labId);
-            console.log("labn", labname);
-            repdata.push({
-              field: { id: res.id, name: res.name },
-              lab: {
-                id: i.labId,
-                name: labname,
-              },
-            });
-          })().catch(console.error);
-        }
-      });
-    }
-
-    if (newField2) {
-      newField2?.forEach((i) => {
-        const res = fieldsList?.find((item) => item.name === i.field);
-        if (res) {
-          const res2 = targetFields?.find((item) => item.name === i.field);
-          if (!res2) {
-            // if (
-            //   newField2.find(
-            //     (item) => item.field === i.field && item.labId !== i.labId
-            //   )
-            // )
-            //   return;
-            // if (newField1.find((item) => item.field === res.name)) return;
-            // if (newField3.find((item) => item.field === res.name)) return;
-            // if (newField4.find((item) => item.field === res.name)) return;
-            // if (newField5.find((item) => item.field === res.name)) return;
-            (async () => {
-              const result = await fetchLabsForTargetField(res.id);
-              result?.map((l) =>
-                repdata.push({
-                  field: { id: res.id, name: res.name },
-                  lab: {
-                    name: l.name,
-                  },
-                })
-              );
-
-              const labname = await fetchlabName(i.labId);
-              console.log("labn", labname);
-              repdata.push({
-                field: { id: res.id, name: res.name },
-                lab: {
-                  id: i.labId,
-                  name: labname,
-                },
-              });
-            })().catch(console.error);
-          }
-        }
-      });
-    }
-
-    if (newField3) {
-      newField3?.forEach((i) => {
-        const res = fieldsList?.find((item) => item.name === i.field);
-        if (res) {
-          const res2 = targetFields?.find((item) => item.name === i.field);
-          if (!res2) {
-            // if (
-            //   newField3.find(
-            //     (item) => item.field === i.field && item.labId !== i.labId
-            //   )
-            // )
-            //   return;
-            // if (newField2.find((item) => item.field === res.name)) return;
-            // if (newField1.find((item) => item.field === res.name)) return;
-            // if (newField4.find((item) => item.field === res.name)) return;
-            // if (newField5.find((item) => item.field === res.name)) return;
-            (async () => {
-              const result = await fetchLabsForTargetField(res.id);
-              result?.map((l) =>
-                repdata.push({
-                  field: { id: res.id, name: res.name },
-                  lab: {
-                    name: l.name,
-                  },
-                })
-              );
-
-              const labname = await fetchlabName(i.labId);
-              console.log("labn", labname);
-              repdata.push({
-                field: { id: res.id, name: res.name },
-                lab: {
-                  id: i.labId,
-                  name: labname,
-                },
-              });
-            })().catch(console.error);
-          }
-        }
-      });
-    }
-
-    if (newField4) {
-      newField4?.forEach((i) => {
-        const res = fieldsList?.find((item) => item.name === i.field);
-        if (res) {
-          const res2 = targetFields?.find((item) => item.name === i.field);
-          if (!res2) {
-            // if (
-            //   newField4.find(
-            //     (item) => item.field === i.field && item.labId !== i.labId
-            //   )
-            // )
-            //   return;
-            // if (newField2.find((item) => item.field === res.name)) return;
-            // if (newField3.find((item) => item.field === res.name)) return;
-            // if (newField1.find((item) => item.field === res.name)) return;
-            // if (newField5.find((item) => item.field === res.name)) return;
-            (async () => {
-              const result = await fetchLabsForTargetField(res.id);
-              result?.map((l) =>
-                repdata.push({
-                  field: { id: res.id, name: res.name },
-                  lab: {
-                    name: l.name,
-                  },
-                })
-              );
-
-              const labname = await fetchlabName(i.labId);
-              console.log("labn", labname);
-              repdata.push({
-                field: { id: res.id, name: res.name },
-                lab: {
-                  id: i.labId,
-                  name: labname,
-                },
-              });
-            })().catch(console.error);
-          }
-        }
-      });
-    }
-
-    if (newField5) {
-      newField5?.forEach((i) => {
-        const res = fieldsList?.find((item) => item.name === i.field);
-        if (res) {
-          const res2 = targetFields?.find((item) => item.name === i.field);
-          if (!res2) {
-            // if (
-            //   newField5.find(
-            //     (item) => item.field === i.field && item.labId !== i.labId
-            //   )
-            // )
-            //   return;
-            // if (newField2.find((item) => item.field === res.name)) return;
-            // if (newField3.find((item) => item.field === res.name)) return;
-            // if (newField4.find((item) => item.field === res.name)) return;
-            // if (newField1.find((item) => item.field === res.name)) return;
-            (async () => {
-              const result = await fetchLabsForTargetField(res.id);
-              result?.map((l) =>
-                repdata.push({
-                  field: { id: res.id, name: res.name },
-                  lab: {
-                    name: l.name,
-                  },
-                })
-              );
-
-              const labname = await fetchlabName(i.labId);
-              repdata.push({
-                field: { id: res.id, name: res.name },
-                lab: {
-                  id: i.labId,
-                  name: labname,
-                },
-              });
-            })().catch(console.error);
-          }
-        }
-      });
-    }
-
-    console.log("final repdate", repdata);
-    return repdata;
-  };
-
-  const getStatus = () => {
-    if (online && offline) return 3;
-    if (online) return 2;
-    if (offline) return 1;
-    if (!offline && !online) return 0;
-  };
-
-  const inputChanged = (state, value) => {
-    const foundIndex = state.findIndex((item) => item.labId === labId);
-    if (foundIndex === -1) return [...state, { field: value, labId: labId }];
-    return [
-      ...state.slice(0, foundIndex),
-      { ...state[foundIndex - 1], field: value, labId: labId },
-      ...state.slice(foundIndex + 1),
-    ];
-  };
-
-  const licenseChangeHandler = (e, l, state, setState) => {
-    const foundIndex = state.findIndex((item) => item.id === l.id);
-    console.log("checked item", state);
-    if (e.target.checked) {
-      return setState([...state, { id: l.id, name: l.name }]);
-    }
-
-    // return setExistingLicense([
-    //   ...existingLicense.slice(0, foundIndex),
-    //   ...existingLicense.slice(foundIndex + 1),
-    // ]);
-
-    return setState(state.filter((item) => item.id !== l.id));
-  };
-
-  const test = () => {
-    // let bool;
-    // for(let i=0;i<platforms.length;i++){
-    //   bool=true;
-    //   for(let j=0;j<softDetaile.platforms.length;j++)
-    //     if(softDetaile.platforms[j].id ===platforms[i].id)
-    //       bool=false
-
-    //     if(bool)
-    //       console.log("salam", platforms[i])
-
-    // }
-
-    let list = [];
-    platforms?.forEach((sd) => {
-      if (!softDetaile.platforms.find((p) => sd.id === p.id)) list.push(sd);
+    const data = await response.json();
+    console.log("Response", data);
+    toast.success("اطلاعات وارد شده با موفقیت ثبت گردید", {
+      className: "foo-bar",
     });
-    return list;
-  };
+    // setTimeout(() => window.location.reload(), 1000);
+  }
+
   //-------------------Sending Form Datas----------------------
 
   const authorization = (e) => {
@@ -426,6 +288,8 @@ const AddSoftware = () => {
         className: "error-add",
       });
     }
+
+    checkForNewInputFields();
 
     const formData = new FormData();
     formData.append("first_name", username);
@@ -442,11 +306,7 @@ const AddSoftware = () => {
     formData.append("review_links[0]", reviewLink1);
     formData.append("review_links[1]", reviewLink2);
 
-    // if (newField1) formData.append();
-    // if (newField2) formData.append();
-    // if (newField3) formData.append();
-    // if (newField4) formData.append();
-    // if (newField5) formData.append();
+    formData.append("labs_and_fields", lab_fields_result);
 
     if (snap1) formData.append("snapshot1", snap1);
     if (snap2) formData.append("snapshot2", snap2);
@@ -490,33 +350,10 @@ const AddSoftware = () => {
 
     if (pdf) formData.append("icon_picture", pdf);
 
-    fieldsLabs();
-
     //Telegram
     sendDate(formData);
   };
 
-  async function sendDate(formData) {
-    const response = await fetch(
-      `https://hassan1245.pythonanywhere.com/Nesha/v1/draft/`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          Authorization: `Token ${localStorage.getItem("token")}`,
-        },
-        body: formData,
-      }
-    );
-
-    const data = await response.json();
-    console.log("Response", data);
-    toast.success("اطلاعات وارد شده با موفقیت ثبت گردید", {
-      className: "foo-bar",
-    });
-    // setTimeout(() => window.location.reload(), 1000);
-  }
   // --------------------------------------------
 
   useEffect(() => {
@@ -529,8 +366,11 @@ const AddSoftware = () => {
     fetchFields();
     setIsLoading(true);
     setIsOpenBox(false);
-    console.log("this");
   }, [labId]);
+
+  useEffect(() => {
+    createLab_Fields_object();
+  }, [targetFields]);
 
   //--------------------------------------------------
   return (
@@ -664,13 +504,17 @@ const AddSoftware = () => {
               />
 
               <input
+                accept="image/*"
                 className="form__file-input"
                 type="file"
                 id="select-fire"
                 style={isEdit ? { display: "none" } : {}}
                 onChange={(e) => {
-                  if (e.target.files && e.target.files.length > 0)
-                    setPIcon(e.target.files[0]);
+                  handleImgFileInput(e)
+                    ? setPIcon(handleImgFileInput(e))
+                    : toast.error("سایز عکس حداکثر می تواند 10 مگابایت باشد", {
+                        className: "foo-bar",
+                      });
                 }}
               />
               <label
@@ -687,9 +531,10 @@ const AddSoftware = () => {
               <div className="form__soft--lab">
                 <select
                   className="form__select"
-                  onChange={(e) =>
-                    setLabId($("select option:checked").attr("data-id"))
-                  }
+                  onChange={(e) => {
+                    setSelectedLabName(e.target.value);
+                    setLabId($("select option:checked").attr("data-id"));
+                  }}
                 >
                   <option value="" disabled selected hidden>
                     Select
@@ -732,37 +577,40 @@ const AddSoftware = () => {
                 <input
                   type="text"
                   onChange={(e) => {
-                    setNewField1(inputChanged(newField1, e.target.value));
+                    setNewField1(e.target.value);
                   }}
-                  value={newField1.find((item) => item.labId === labId)?.field}
+                  // value={newField1.find((item) => item.labId === labId)?.field}
                 />
                 <input
                   type="text"
                   onChange={(e) => {
-                    setNewField2(inputChanged(newField2, e.target.value));
+                    setNewField2(e.target.value);
                   }}
-                  value={newField2.find((item) => item.labId === labId)?.field}
+                  // onChange={(e) => {
+                  //   setNewField2(inputChanged(newField2, e.target.value));
+                  // }}
+                  // value={newField2.find((item) => item.labId === labId)?.field}
                 />
                 <input
                   type="text"
                   onChange={(e) => {
-                    setNewField3(inputChanged(newField3, e.target.value));
+                    setNewField3(e.target.value);
                   }}
-                  value={newField3.find((item) => item.labId === labId)?.field}
+                  // value={newField3.find((item) => item.labId === labId)?.field}
                 />
                 <input
                   type="text"
                   onChange={(e) => {
-                    setNewField4(inputChanged(newField4, e.target.value));
+                    setNewField4(e.target.value);
                   }}
-                  value={newField4.find((item) => item.labId === labId)?.field}
+                  // value={newField4.find((item) => item.labId === labId)?.field}
                 />
                 <input
                   type="text"
                   onChange={(e) => {
-                    setNewField5(inputChanged(newField5, e.target.value));
+                    setNewField5(e.target.value);
                   }}
-                  value={newField5.find((item) => item.labId === labId)?.field}
+                  // value={newField5.find((item) => item.labId === labId)?.field}
                 />
               </div>
             )}
@@ -970,13 +818,17 @@ const AddSoftware = () => {
             {/* ------------------------------------ */}
             <div className="form__inputbox">
               <input
+                accept=".pdf"
                 className="form__file-input form__input"
                 type="file"
                 placeholder="Name"
                 id="pdf"
                 onChange={(e) => {
-                  if (e.target.files && e.target.files.length > 0)
-                    setPdf(e.target.files[0]);
+                  e.target.files[0].size > 102400
+                    ? toast.error("سایز عکس حداکثر می تواند 10 مگابایت باشد", {
+                        className: "foo-bar",
+                      })
+                    : setPdf(e.target.files[0]);
                 }}
               />
               <label for="select-fire">انتخاب فایل</label>
@@ -987,61 +839,96 @@ const AddSoftware = () => {
             {!isEdit && (
               <div className="form__inputbox form__inputbox--file">
                 <input
+                  accept="image/*"
                   className="form__file-input form__input"
                   type="file"
                   placeholder="Name"
                   id="snapshot1"
                   onChange={(e) => {
-                    if (e.target.files && e.target.files.length > 0)
-                      setSnap1(e.target.files[0]);
+                    handleImgFileInput(e)
+                      ? setSnap1(handleImgFileInput(e))
+                      : toast.error(
+                          "سایز عکس حداکثر می تواند 10 مگابایت باشد",
+                          {
+                            className: "foo-bar",
+                          }
+                        );
                   }}
                 />
                 <label for="snapshot1">5 فایل</label>
 
                 <input
+                  accept="image/*"
                   className="form__file-input form__input"
                   type="file"
                   placeholder="Name"
                   id="snapshot2"
                   onChange={(e) => {
-                    if (e.target.files && e.target.files.length > 0)
-                      setSnap2(e.target.files[0]);
+                    handleImgFileInput(e)
+                      ? setSnap2(handleImgFileInput(e))
+                      : toast.error(
+                          "سایز عکس حداکثر می تواند 10 مگابایت باشد",
+                          {
+                            className: "foo-bar",
+                          }
+                        );
                   }}
                 />
                 <label for="snapshot2">4 فایل</label>
 
                 <input
+                  accept="image/*"
                   className="form__file-input form__input"
                   type="file"
                   placeholder="Name"
                   id="snapshot3"
                   onChange={(e) => {
-                    if (e.target.files && e.target.files.length > 0)
-                      setSnap3(e.target.files[0]);
+                    handleImgFileInput(e)
+                      ? setSnap3(handleImgFileInput(e))
+                      : toast.error(
+                          "سایز عکس حداکثر می تواند 10 مگابایت باشد",
+                          {
+                            className: "foo-bar",
+                          }
+                        );
                   }}
                 />
                 <label for="snapshot3">3 فایل</label>
 
                 <input
+                  accept="image/*"
                   className="form__file-input form__input"
                   type="file"
                   placeholder="Name"
                   id="snapshot4"
                   onChange={(e) => {
-                    if (e.target.files && e.target.files.length > 0)
-                      setSnap4(e.target.files[0]);
+                    handleImgFileInput(e)
+                      ? setSnap4(handleImgFileInput(e))
+                      : toast.error(
+                          "سایز عکس حداکثر می تواند 10 مگابایت باشد",
+                          {
+                            className: "foo-bar",
+                          }
+                        );
                   }}
                 />
                 <label for="snapshot4">2 فایل</label>
 
                 <input
+                  accept="image/*"
                   className="form__file-input form__input"
                   type="file"
                   placeholder="Name"
                   id="snapshot5"
                   onChange={(e) => {
-                    if (e.target.files && e.target.files.length > 0)
-                      setSnap5(e.target.files[0]);
+                    handleImgFileInput(e)
+                      ? setSnap5(handleImgFileInput(e))
+                      : toast.error(
+                          "سایز عکس حداکثر می تواند 10 مگابایت باشد",
+                          {
+                            className: "foo-bar",
+                          }
+                        );
                   }}
                 />
                 <label for="snapshot5">1 فایل</label>
