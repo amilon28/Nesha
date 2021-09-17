@@ -13,10 +13,37 @@ import { toast } from "react-toastify";
 const NavList = (props) => {
   const goto = useHistory();
   const { isLogin, setIsLogin } = useContext(SubjectContext);
-  // const [isLogin, setIsLogin] = useState(!!localStorage.getItem("token"));
+
+  const logoutHandler = async () => {
+    localStorage.clear();
+    setIsLogin(!isLogin);
+    console.log(localStorage);
+    toast.success("خارج شدید", {
+      position: toast.POSITION.BOTTOM_RIGHT,
+      autoClose: 2000,
+      className: "foo-bar",
+    });
+    const response = await fetch(
+      "https://hassan1245.pythonanywhere.com/accounts/logout/",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: `Token ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+
+    const data = await response.json();
+    console.log("Logout data", data);
+    goto.push("/");
+  };
+
   useEffect(() => {
     setIsLogin(!!localStorage.getItem("token"));
   }, []);
+
   if (props.type === "head") {
     return (
       <>
@@ -46,17 +73,6 @@ const NavList = (props) => {
         <NavItem goto="/search" text="افزودن" />
         {isLogin && (
           <button
-            onClick={() => {
-              localStorage.clear();
-              setIsLogin(!isLogin);
-              goto.push("/");
-              console.log(localStorage);
-              toast.success("خارج شدید", {
-                position: toast.POSITION.BOTTOM_RIGHT,
-                autoClose: 1500,
-                className: "foo-bar",
-              });
-            }}
             style={{
               width: 80,
               height: 35,
@@ -66,7 +82,9 @@ const NavList = (props) => {
               fontSize: "20px",
               border: 0,
               cursor: "pointer",
+              fontFamily: "Parstoo",
             }}
+            onClick={logoutHandler}
           >
             خروج
           </button>
@@ -85,6 +103,7 @@ const NavList = (props) => {
               border: 0,
               cursor: "pointer",
               padding: "5px 15px",
+              fontFamily: "Parstoo",
             }}
           >
             ورود/ ثبت نام

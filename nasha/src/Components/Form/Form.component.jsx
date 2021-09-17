@@ -27,7 +27,7 @@ const Form = () => {
         }
       );
       const data = await response;
-      console.log(data);
+      console.log("suggestion data", data);
       setTitle("");
       setEmail("");
       setFullName("");

@@ -28,6 +28,13 @@ const SoftwareStatics = (props) => {
     const data = await response;
     console.log("respinse Like data", data);
 
+    if (!data.ok || data.detail === "Invalid token.") {
+      toast.warn("ابتدا ثبت نام یا ورود کنید", {
+        className: "alert",
+      });
+      return;
+    }
+
     if (!(localStorage.getItem("token") === null) && !isLiked) {
       setNumOfLike(numOfLike + 1);
       setIsLiked(true);
@@ -35,16 +42,10 @@ const SoftwareStatics = (props) => {
     }
 
     if (!(localStorage.getItem("token") === null) && isLiked) {
+      // dislike()
       setNumOfLike(numOfLike - 1);
       setIsLiked(false);
       console.log("disliked");
-    }
-
-    if (data.detail === "Invalid token.") {
-      toast.warn("ابتدا ثبت نام یا ورود کنید", {
-        className: "alert",
-      });
-      return;
     }
   };
   return (
@@ -61,7 +62,7 @@ const SoftwareStatics = (props) => {
           </div>
         </div>
         <div className="addSection">
-          <Link to="/Add">
+          <Link to={localStorage.getItem("token") !== null ? "/Add" : "/login"}>
             <span
               onClick={() => {
                 setSoftawreNameEditSection(props.softwareName);

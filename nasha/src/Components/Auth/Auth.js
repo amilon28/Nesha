@@ -71,7 +71,7 @@ const Auth = () => {
         });
         goto.push("/");
       } else {
-        toast.error("خطا در تایید اطلاعات", {
+        toast.error("خطای ارسال", {
           className: "alert",
         });
       }
@@ -112,7 +112,7 @@ const Auth = () => {
         localStorage.setItem("token", data.token);
         goto.push("/");
       } else {
-        toast.error("خطای ارسال", {
+        toast.error("خطا در تایید اطلاعات", {
           className: "alert",
         });
       }
