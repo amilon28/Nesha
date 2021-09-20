@@ -10,14 +10,14 @@ const SnapshotInfo = (props) => {
       </SnapshotInfoItem>
       <SnapshotInfoItem title="Course URLs">
         {props.courseLinks &&
-          props.courseLinks.map((el) => {
-            return <a href={el.url}>{el.url}</a>;
+          props.courseLinks.map((el, i) => {
+            return <a href={el.url}>{`URL${i + 1}`}</a>;
           })}
       </SnapshotInfoItem>
       <SnapshotInfoItem title="Review URLs">
         {props.reviewlinks &&
-          props.reviewlinks.map((el) => {
-            return <a href={el.url}>{el.url}</a>;
+          props.reviewlinks.map((el, i) => {
+            return <a href={el.url}>{`URL${i + 1}`}</a>;
           })}
       </SnapshotInfoItem>
       <SnapshotInfoItem title="Platforms">

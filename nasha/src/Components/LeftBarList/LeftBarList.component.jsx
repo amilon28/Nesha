@@ -3,7 +3,6 @@ import { useEffect, useState, useContext } from "react";
 import { SubjectContext } from "../../store/SubjectContext";
 import { useHistory } from "react-router";
 const LeftBarList = () => {
-  const { setTarget, setLabSubject } = useContext(SubjectContext);
   const [computerLabs, setComputerLabs] = useState();
   const [elecLabs, setElecLabs] = useState();
   const [isComputerClick, setIsComputerClick] = useState(false);

@@ -13,7 +13,6 @@ const AddSoftware = () => {
   const {
     isEdit,
     softawreNameEditSection,
-    softDetaile,
     softwareLicensesEdit,
     softwarePlatformsEdit,
     softwareIconEditSection,

@@ -69,6 +69,7 @@
   margin-top: 40px;
   border-bottom: 2px solid #000;
   padding-bottom: 30px;
+  user-select: none;
 }
 
 .softwareDescription h3 {
@@ -112,13 +113,6 @@ snapshotItem > :nth-child(2) {
   min-height: 300px;
   width: 50%;
 }
-
-/* .snapshot__links a:nth-child(2),
-.snapshot__links p:nth-child(2) {
-  border-left: 1px solid #000;
-  border-right: 1px solid #000;
-  padding: 0 10px;
-} */
 
 .status {
   font-size: 18px;
@@ -206,12 +200,14 @@ snapshotItem > :nth-child(2) {
   font-size: 15px;
   min-height: 10rem;
   text-align: center;
+  user-select: none;
 }
 
 .snapshot__links a {
   font-weight: bold;
   transition: 0.3s;
   color: #0c59cf;
+  text-decoration: underline;
 }
 
 .snapshot__links a:hover {
@@ -222,6 +218,8 @@ snapshotItem > :nth-child(2) {
   font-size: 18px;
   width: auto;
   text-align: center;
+  font-weight: bold;
+  user-select: none;
 }
 
 .snapshotInfo {

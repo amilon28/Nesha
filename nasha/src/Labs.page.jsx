@@ -41,11 +41,15 @@ const Labs = (props) => {
 
         {isLoading && <img src={loader} alt="Loading" />}
 
+        {!isLoading && softwares?.length === 0 && (
+          <p className="data-no-found">{`No Software found :(`}</p>
+        )}
+
         <div className="soft__cards">
-          {softwares?.map((soft) => {
+          {softwares?.map((soft, index) => {
             return (
               <div
-                key={Math.random()}
+                key={index}
                 className="soft__card"
                 onClick={() => fetchSoftwareInfo(soft)}
               >
