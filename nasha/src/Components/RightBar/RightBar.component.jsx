@@ -84,6 +84,7 @@ const RightBar = () => {
                 {p.name}
               </option>
             ))}
+            <option value="">none</option>
           </select>
         </div>
         <div className="selectbox">
@@ -100,6 +101,7 @@ const RightBar = () => {
                 {l.name}
               </option>
             ))}
+            <option value="">none</option>
           </select>
         </div>
         {/*  */}

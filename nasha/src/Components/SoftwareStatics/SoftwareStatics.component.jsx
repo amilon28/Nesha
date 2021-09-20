@@ -9,7 +9,13 @@ import { useEffect } from "react";
 const SoftwareStatics = (props) => {
   console.log("Props soft id", props.id);
   console.log("Props like ", props.like);
-  const { setSoftawreNameEditSection, setIsEdit } = useContext(SubjectContext);
+  const {
+    setSoftawreNameEditSection,
+    setSoftwareIconEditSection,
+    setSoftwarePlatformsEdit,
+    setSoftwareLicensesEdit,
+    setIsEdit,
+  } = useContext(SubjectContext);
 
   const [numOfLike, setNumOfLike] = useState(props.like);
 
@@ -70,6 +76,9 @@ const SoftwareStatics = (props) => {
             <span
               onClick={() => {
                 setSoftawreNameEditSection(props.softwareName);
+                setSoftwareIconEditSection(props.softwareIcon);
+                setSoftwarePlatformsEdit(props.plats);
+                setSoftwareLicensesEdit(props.lice);
                 setIsEdit(true);
               }}
             >

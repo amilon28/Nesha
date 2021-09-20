@@ -21,6 +21,9 @@ function App() {
   const [isLogin, setIsLogin] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const [softwaresInformation, setSoftwaresInformation] = useState();
+  const [softwareIconEditSection, setSoftwareIconEditSection] = useState("");
+  const [softwarePlatformsEdit, setSoftwarePlatformsEdit] = useState([]);
+  const [softwareLicensesEdit, setSoftwareLicensesEdit] = useState([]);
   // ------------------------------------------------
 
   return (
@@ -39,6 +42,12 @@ function App() {
           setIsEdit,
           softwaresInformation,
           setSoftwaresInformation,
+          softwareIconEditSection,
+          setSoftwareIconEditSection,
+          softwarePlatformsEdit,
+          setSoftwarePlatformsEdit,
+          softwareLicensesEdit,
+          setSoftwareLicensesEdit,
         }}
       >
         <BrowserRouter>

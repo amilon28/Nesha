@@ -12,7 +12,7 @@ const LeftBarList = () => {
 
   const fetchComputerData = async () => {
     const response = await fetch(
-      `https://hassan1245.pythonanywhere.com/Nesha/v1/lab_search/?field_id=1/`
+      `https://hassan1245.pythonanywhere.com/Nesha/v1/lab_search/?field_id=12`
     );
     const data = await response.json();
     console.log("data in comlab", data);
@@ -21,7 +21,7 @@ const LeftBarList = () => {
 
   const fetchElecData = async () => {
     const response = await fetch(
-      "https://hassan1245.pythonanywhere.com/Nesha/v1/lab_search/?field_id=2/"
+      "https://hassan1245.pythonanywhere.com/Nesha/v1/lab_search/?field_id=13"
     );
 
     const data = await response.json();
@@ -29,16 +29,8 @@ const LeftBarList = () => {
     setElecLabs(data);
   };
 
-  const fetchcorrespondingSoftwareHandler = async (lab) => {
-    const response = await fetch(
-      `https://hassan1245.pythonanywhere.com/Nesha/v1/labs/${lab.id}`
-    );
-
-    const data = await response.json();
-    console.log("response of data in Field", data);
-    setTarget(data.softwares);
-    setLabSubject(lab.name);
-    goto.push("/Lab");
+  const fetchcorrespondingSoftwareHandler = (lab) => {
+    goto.push(`/Lab/${lab.id}`);
   };
 
   useEffect(() => {

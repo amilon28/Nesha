@@ -1,3 +1,8 @@
+.form_software_name {
+  text-transform: uppercase;
+  direction: ltr;
+}
+
 .result__Fields input {
   height: 100%;
   margin-left: 10px;

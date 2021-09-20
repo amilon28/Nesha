@@ -10,8 +10,14 @@ import $ from "jquery";
 import "./AddSoftware.style.css";
 
 const AddSoftware = () => {
-  const { isEdit, softawreNameEditSection, softDetaile } =
-    useContext(SubjectContext);
+  const {
+    isEdit,
+    softawreNameEditSection,
+    softDetaile,
+    softwareLicensesEdit,
+    softwarePlatformsEdit,
+    softwareIconEditSection,
+  } = useContext(SubjectContext);
   const [allLabs, setAllLabs] = useState([]);
   const [platforms, setPlatforms] = useState([]);
   const [targetLicenses, setLicenses] = useState([]);
@@ -54,12 +60,6 @@ const AddSoftware = () => {
   const [newLicense3, setNewLicense3] = useState("");
   const [newLicense4, setNewLicense4] = useState("");
   const [newLicense5, setNewLicense5] = useState("");
-
-  // const [exlicense1, setExlicense1] = useState("");
-  // const [exlicense2, setExlicense2] = useState("");
-  // const [exlicense3, setExlicense3] = useState("");
-  // const [exlicense4, setExlicense4] = useState("");
-  // const [exlicense5, setExlicense5] = useState("");
 
   const [newPlat1, setNewPlat1] = useState("");
   const [newpalt2, setNewPlat2] = useState("");
@@ -197,7 +197,6 @@ const AddSoftware = () => {
   };
 
   const fetchFields = async () => {
-    console.log("labID", labId);
     const response = await fetch(
       `https://hassan1245.pythonanywhere.com/Nesha/v1/labs/${labId}`
     );
@@ -206,8 +205,6 @@ const AddSoftware = () => {
     console.log("response of fields", data.fields);
     setTargetFields(data.fields);
     setIsLoading(false);
-
-    console.log("targetFields", targetFields);
   };
 
   async function sendDate(formData) {
@@ -353,7 +350,7 @@ const AddSoftware = () => {
       <div className="addSoftware__textbox">
         <h2 className="addSoftware__title">
           {isEdit ? "ویرایش" : "افزودن"}{" "}
-          {isEdit ? softawreNameEditSection : "نرم افزار"}{" "}
+          {isEdit ? softawreNameEditSection.toUpperCase() : "نرم افزار"}{" "}
         </h2>
         <p className="addSoftware__decription">
           .ابتدا نرم افزار مورد نظر خود را جستجو کنید تا مطمئن شوید که نرم افزار
@@ -428,7 +425,7 @@ const AddSoftware = () => {
                     required
                     placeholder="Software Name"
                     className="form__input"
-                    value={softawreNameEditSection}
+                    value={softawreNameEditSection.toUpperCase()}
                     readOnly
                     disabled
                   />
@@ -473,10 +470,15 @@ const AddSoftware = () => {
                 </label>
               )}
 
-              <img
-                src={isEdit ? softDetaile?.icon_picture : programIcon}
-                alt="program icon"
-              />
+              {isEdit && (
+                <img
+                  src={softwareIconEditSection}
+                  alt="program icon"
+                  style={{ width: "160px" }}
+                />
+              )}
+
+              {!isEdit && <img src={programIcon} alt="program icon" />}
 
               <input
                 accept="image/*"
@@ -623,17 +625,16 @@ const AddSoftware = () => {
                   ))}
 
                 {isEdit &&
-                  filterExistingItems(
-                    targetLicenses,
-                    softDetaile?.licenses
-                  ).map((res) => {
-                    return (
-                      <div>
-                        <label htmlFor="">{res?.name}</label>
-                        <input type="checkbox" />
-                      </div>
-                    );
-                  })}
+                  filterExistingItems(targetLicenses, softwareLicensesEdit).map(
+                    (res) => {
+                      return (
+                        <div>
+                          <label htmlFor="">{res?.name}</label>
+                          <input type="checkbox" />
+                        </div>
+                      );
+                    }
+                  )}
               </div>
               <label for="" className="form__label">
                 : لایسنس نرم افزار
@@ -707,7 +708,7 @@ const AddSoftware = () => {
                   ))}
 
                 {isEdit &&
-                  filterExistingItems(platforms, softDetaile?.platforms).map(
+                  filterExistingItems(platforms, softwarePlatformsEdit).map(
                     (res) => {
                       return (
                         <div>

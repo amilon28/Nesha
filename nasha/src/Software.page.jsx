@@ -46,6 +46,8 @@ const Software = (props) => {
         like={softwareDetaile?.likes}
         view={softwareDetaile?.views}
         id={softwareDetaile?.id}
+        plats={softwareDetaile?.platforms}
+        lice={softwareDetaile?.licenses}
       />
       <SoftwareDescription description={softwareDetaile?.description} />
       <Snapshot

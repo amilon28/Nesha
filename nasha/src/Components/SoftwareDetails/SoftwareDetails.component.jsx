@@ -9,10 +9,13 @@ const SoftwareDetails = (props) => {
         softwareIcon={props.softwareIcon}
       />
       <SoftwareStatics
+        softwareIcon={props.softwareIcon}
         softwareName={props.softwareName}
         like={props.like}
         view={props.view}
         id={props.id}
+        plats={props.plats}
+        lice={props.lice}
       />
     </div>
   );
