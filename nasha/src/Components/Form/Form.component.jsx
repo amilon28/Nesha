@@ -7,7 +7,7 @@ const Form = () => {
   const [title, setTitle] = useState("");
   const [email, setEmail] = useState("");
   const [fullName, setFullName] = useState("");
-  console.log("Toast", toast);
+
   const addUserCommentHandler = async (e) => {
     e.preventDefault();
     try {

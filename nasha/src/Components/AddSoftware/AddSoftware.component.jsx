@@ -1,11 +1,10 @@
-import React from "react";
-import { useEffect } from "react";
-import { useContext, useState } from "react/cjs/react.development";
+import React, { useEffect, useContext, useState } from "react";
 import plusCircle from "../../assets/img/plus-circle.svg";
 import programIcon from "../../assets/img/program-icon.svg";
 import { SubjectContext } from "../../store/SubjectContext";
 import { toast } from "react-toastify";
 import $ from "jquery";
+import loader from "../../assets/img/loader.gif";
 
 import "./AddSoftware.style.css";
 
@@ -88,16 +87,9 @@ const AddSoftware = () => {
   };
 
   const licenseChangeHandler = (e, l, state, setState) => {
-    const foundIndex = state.findIndex((item) => item.id === l.id);
-    console.log("checked item", state);
     if (e.target.checked) {
       return setState([...state, { id: l.id, name: l.name }]);
     }
-
-    // return setExistingLicense([
-    //   ...existingLicense.slice(0, foundIndex),
-    //   ...existingLicense.slice(foundIndex + 1),
-    // ]);
 
     return setState(state.filter((item) => item.id !== l.id));
   };
@@ -111,9 +103,6 @@ const AddSoftware = () => {
   };
 
   const createLab_Fields_object = () => {
-    console.log("selected lab id", labId);
-    console.log("selected lab name", selectedLabName);
-    console.log("all fields for selected lab", targetFields);
     targetFields?.forEach((f) => {
       lab_fields_result.push({
         field: {
@@ -129,8 +118,6 @@ const AddSoftware = () => {
 
     // for new inpute fields
 
-    console.log("lab_fields_result", lab_fields_result);
-    console.log("lab_fields_result json", JSON.stringify(lab_fields_result));
     return lab_fields_result;
   };
 
@@ -172,7 +159,6 @@ const AddSoftware = () => {
 
     const data = await response.json();
     setAllLabs(data);
-    console.log("all labs data", data);
   };
 
   const fetchAllPlatforms = async () => {
@@ -182,7 +168,6 @@ const AddSoftware = () => {
 
     const data = await response.json();
     setPlatforms(data);
-    console.log("all labs data", data);
   };
 
   const fetchAllLicenses = async () => {
@@ -192,16 +177,15 @@ const AddSoftware = () => {
 
     const data = await response.json();
     setLicenses(data.results);
-    console.log("all licences data", data.results);
   };
 
   const fetchFields = async () => {
+    if (!labId) return;
     const response = await fetch(
       `https://hassan1245.pythonanywhere.com/Nesha/v1/labs/${labId}`
     );
 
     const data = await response.json();
-    console.log("response of fields", data.fields);
     setTargetFields(data.fields);
     setIsLoading(false);
   };
@@ -363,6 +347,7 @@ const AddSoftware = () => {
             <div className="form__requiredInfos">
               <div className="form__inputbox">
                 <input
+                  id="name"
                   type="text"
                   required
                   placeholder="Name"
@@ -371,12 +356,13 @@ const AddSoftware = () => {
                     setUsername(e.target.value);
                   }}
                 />
-                <label for="" className="form__label">
+                <label htmlFor="name" className="form__label">
                   : نام
                 </label>
               </div>
               <div className="form__inputbox">
                 <input
+                  id="lastname"
                   type="text"
                   required
                   placeholder="Family"
@@ -385,12 +371,13 @@ const AddSoftware = () => {
                     setLastname(e.target.value);
                   }}
                 />
-                <label for="" className="form__label">
+                <label htmlFor="lastname" className="form__label">
                   :نام خانوادگی
                 </label>
               </div>
               <div className="form__inputbox">
                 <input
+                  id="email"
                   type="email"
                   required
                   placeholder="Email"
@@ -399,12 +386,13 @@ const AddSoftware = () => {
                     setEmail(e.target.value);
                   }}
                 />
-                <label for="" className="form__label">
+                <label htmlFor="email" className="form__label">
                   :ایمیل
                 </label>
               </div>
               <div className="form__inputbox">
                 <input
+                  id="std"
                   type="text"
                   required
                   placeholder="Student Number"
@@ -413,7 +401,7 @@ const AddSoftware = () => {
                     setStdNum(e.target.value);
                   }}
                 />
-                <label for="" className="form__label">
+                <label htmlFor="std" className="form__label">
                   : شماره دانشجویی
                 </label>
               </div>
@@ -431,6 +419,7 @@ const AddSoftware = () => {
                 )}
                 {!isEdit && (
                   <input
+                    id="softname"
                     type="text"
                     required
                     placeholder="Software Name"
@@ -441,13 +430,14 @@ const AddSoftware = () => {
                   />
                 )}
 
-                <label for="" className="form__label">
+                <label htmlFor="softname" className="form__label">
                   :نام نرم افزار
                 </label>
               </div>
               {!isEdit && (
                 <div className="form__inputbox">
                   <input
+                    id="softlink"
                     type="text"
                     required
                     placeholder="Software Link"
@@ -456,18 +446,14 @@ const AddSoftware = () => {
                       setSoftLink(e.target.value);
                     }}
                   />
-                  <label for="" className="form__label">
+                  <label htmlFor="softlink" className="form__label">
                     : لینک مربوط به نرم افزار
                   </label>
                 </div>
               )}
             </div>
             <div className="form__programIcon">
-              {!isEdit && (
-                <label for="" className="form__label">
-                  آیکون برنامه
-                </label>
-              )}
+              {!isEdit && <label className="form__label">آیکون برنامه</label>}
 
               {isEdit && (
                 <img
@@ -494,7 +480,7 @@ const AddSoftware = () => {
                 }}
               />
               <label
-                for="select-fire"
+                htmlFor="select-fire"
                 style={isEdit ? { display: "none" } : {}}
               >
                 انتخاب فایل
@@ -512,7 +498,7 @@ const AddSoftware = () => {
                     setLabId($("select option:checked").attr("data-id"));
                   }}
                 >
-                  <option value="" disabled selected hidden>
+                  <option value="" disabled defaultValue hidden>
                     Select
                   </option>
                   {allLabs?.map((lab, index) => {
@@ -532,7 +518,14 @@ const AddSoftware = () => {
               </div>
               <div className="helper">
                 <div className="result__Fields">
-                  {isLoading && <p className="searching">....در حال جستجو</p>}
+                  {/* {isLoading && <p className="searching">....در حال جستجو</p>} */}
+                  {isLoading && (
+                    <img
+                      src={loader}
+                      alt="Searching"
+                      style={{ width: "35px" }}
+                    />
+                  )}
                   {!isLoading &&
                     targetFields?.map((field, index) => (
                       <span key={index} className="field__result">
@@ -604,8 +597,8 @@ const AddSoftware = () => {
               </div>
               <div className="paltforms__checboxes">
                 {!isEdit &&
-                  targetLicenses?.map((l) => (
-                    <div>
+                  targetLicenses?.map((l, i) => (
+                    <div key={i}>
                       <label htmlFor="">{l.name}</label>
                       <input
                         type="checkbox"
@@ -625,9 +618,9 @@ const AddSoftware = () => {
 
                 {isEdit &&
                   filterExistingItems(targetLicenses, softwareLicensesEdit).map(
-                    (res) => {
+                    (res, i) => {
                       return (
-                        <div>
+                        <div key={i}>
                           <label htmlFor="">{res?.name}</label>
                           <input type="checkbox" />
                         </div>
@@ -635,9 +628,7 @@ const AddSoftware = () => {
                     }
                   )}
               </div>
-              <label for="" className="form__label">
-                : لایسنس نرم افزار
-              </label>
+              <label className="form__label">: لایسنس نرم افزار</label>
             </div>
             {/* ----------- Licenses ---------------*/}
             {isLicenseOpenBox && (
@@ -689,8 +680,8 @@ const AddSoftware = () => {
               </div>
               <div className="paltforms__checboxes">
                 {!isEdit &&
-                  platforms?.map((p) => (
-                    <div>
+                  platforms?.map((p, i) => (
+                    <div key={i}>
                       <label htmlFor="">{p.name}</label>
                       <input
                         type="checkbox"
@@ -708,9 +699,9 @@ const AddSoftware = () => {
 
                 {isEdit &&
                   filterExistingItems(platforms, softwarePlatformsEdit).map(
-                    (res) => {
+                    (res, i) => {
                       return (
-                        <div>
+                        <div key={i}>
                           <label htmlFor="">{res?.name}</label>
                           <input type="checkbox" />
                         </div>
@@ -718,9 +709,7 @@ const AddSoftware = () => {
                     }
                   )}
               </div>
-              <label for="" className="form__label">
-                : پلتفرم نرم افزار
-              </label>
+              <label className="form__label">: پلتفرم نرم افزار</label>
             </div>
             {/* ----------- platforms ---------------*/}
             {isPlatformOpenBox && (
@@ -763,10 +752,8 @@ const AddSoftware = () => {
                     : setPdf(e.target.files[0]);
                 }}
               />
-              <label for="pdf">انتخاب فایل</label>
-              <p for="pdf" className="form__label">
-                :نرم افزار pdf انتخاب فایل
-              </p>
+              <label htmlFor="pdf">انتخاب فایل</label>
+              <p className="form__label">:نرم افزار pdf انتخاب فایل</p>
             </div>
             {!isEdit && (
               <div className="form__inputbox form__inputbox--file">
@@ -787,7 +774,7 @@ const AddSoftware = () => {
                         );
                   }}
                 />
-                <label for="snapshot5">5 فایل</label>
+                <label htmlFor="snapshot5">5 فایل</label>
 
                 <input
                   accept="image/*"
@@ -806,7 +793,7 @@ const AddSoftware = () => {
                         );
                   }}
                 />
-                <label for="snapshot4">4 فایل</label>
+                <label htmlFor="snapshot4">4 فایل</label>
 
                 <input
                   accept="image/*"
@@ -825,7 +812,7 @@ const AddSoftware = () => {
                         );
                   }}
                 />
-                <label for="snapshot3">3 فایل</label>
+                <label htmlFor="snapshot3">3 فایل</label>
 
                 <input
                   accept="image/*"
@@ -844,7 +831,7 @@ const AddSoftware = () => {
                         );
                   }}
                 />
-                <label for="snapshot2">2 فایل</label>
+                <label htmlFor="snapshot2">2 فایل</label>
 
                 <input
                   accept="image/*"
@@ -863,11 +850,9 @@ const AddSoftware = () => {
                         );
                   }}
                 />
-                <label for="snapshot1">1 فایل</label>
+                <label htmlFor="snapshot1">1 فایل</label>
 
-                <p for="snapshot" className="form__label">
-                  : انتخاب اسنپ شات های نرم افزار
-                </p>
+                <p className="form__label">: انتخاب اسنپ شات های نرم افزار</p>
               </div>
             )}
 
@@ -892,7 +877,7 @@ const AddSoftware = () => {
                 />
                 آفلاین
               </div>
-              <label for="" className="form__label">
+              <label className="form__label">
                 :آیا نرم‌افزار به صورت آنلاین یا آفلاین موجود است
               </label>
             </div>
@@ -913,9 +898,7 @@ const AddSoftware = () => {
                   setReviewLink2(e.target.value);
                 }}
               />
-              <label for="" className="form__label">
-                : لینک های نقد نرم افزار
-              </label>
+              <label className="form__label">: لینک های نقد نرم افزار</label>
             </div>
             <div className="form__inputbox form__inputbox--link">
               <input
@@ -942,14 +925,10 @@ const AddSoftware = () => {
                   setCourseLink3(e.target.value);
                 }}
               />
-              <label for="" className="form__label">
-                : لینک های آموزه نرم افزار
-              </label>
+              <label className="form__label">: لینک های آموزه نرم افزار</label>
             </div>
             <div className="form__inputbox form__inputbox--description">
-              <label for="" className="form__label">
-                :توضیحات
-              </label>
+              <label className="form__label">:توضیحات</label>
               <textarea
                 cols="30"
                 rows="10"

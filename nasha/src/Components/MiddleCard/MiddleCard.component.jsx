@@ -1,8 +1,7 @@
-import loader from "../../assets/img/loader.gif";
 import like from "../../assets/img/heart.svg";
 import view from "../../assets/img/view.svg";
 import calendar from "../../assets/img/calendar.svg";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { SubjectContext } from "../../store/SubjectContext";
 import { useHistory } from "react-router";
 

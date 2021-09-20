@@ -5,7 +5,6 @@ import Header from "./Components/Header/Header.component";
 import Title from "./Components/Title/Title.component";
 
 const Fields = (props) => {
-  const [isLoading, setIsLoading] = useState(true);
   const [response, setResponse] = useState();
   const [fieldName, setFieldName] = useState("");
   const goto = useHistory();

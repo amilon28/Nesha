@@ -1,6 +1,5 @@
 import plusCircle from "../../assets/img/plus-circle.svg";
-import { useEffect, useState, useContext } from "react";
-import { SubjectContext } from "../../store/SubjectContext";
+import { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 const LeftBarList = () => {
   const [computerLabs, setComputerLabs] = useState();

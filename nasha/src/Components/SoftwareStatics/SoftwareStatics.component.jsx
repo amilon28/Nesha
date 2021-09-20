@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { useContext, useState } from "react/cjs/react.development";
 import { SubjectContext } from "../../store/SubjectContext";
 import { toast } from "react-toastify";
-import { useEffect } from "react";
 
 const SoftwareStatics = (props) => {
   console.log("Props soft id", props.id);

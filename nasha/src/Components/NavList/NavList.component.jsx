@@ -1,14 +1,11 @@
 import { useEffect } from "react";
 import NavItem from "../NavItem/NavItem.component";
-import { Button } from "@material-ui/core";
 import hamburger from "../../assets/img/hamburger-menu.svg";
-import "../NavBar/NavBar.style.css";
 import { useHistory } from "react-router";
 import { useContext } from "react/cjs/react.development";
 import { SubjectContext } from "../../store/SubjectContext";
 import { toast } from "react-toastify";
-
-
+import "../NavBar/NavBar.style.css";
 
 const NavList = (props) => {
   const goto = useHistory();
@@ -68,8 +65,6 @@ const NavList = (props) => {
   } else {
     return (
       <ul className="navbar__list">
-        {/* <NavItem goto="/" text="خانه" />
-        <NavItem goto="/" text="درباره ما" /> */}
         <NavItem goto="/search" text="افزودن" />
         {isLogin && (
           <button

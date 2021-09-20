@@ -1,6 +1,5 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router";
-import { SubjectContext } from "../../store/SubjectContext";
 import { toast } from "react-toastify";
 import { Tabs, Tab } from "@material-ui/core";
 import "./Auth.css";
@@ -9,7 +8,6 @@ const REG_TAB_VALUE = 2;
 
 const Auth = () => {
   const [tab, setTab] = useState(LOGIN_TAB_VALUE);
-  const { setToken } = useContext(SubjectContext);
   const [usernameLogin, setUsernameLogin] = useState("");
   const [usernameReg, setUsernameReg] = useState("");
   const [email, setEmail] = useState("");

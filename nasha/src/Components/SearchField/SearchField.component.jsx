@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffects } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import searchIcon from "../../assets/img/search-icon.svg";
 import "../Header/Header.style.css";

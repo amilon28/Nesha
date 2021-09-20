@@ -4,7 +4,6 @@ import SnapshotInfo from "../SnapshotInfo/SnapshotInfo.component";
 const SnapshotDetails = (props) => {
   return (
     <div className="snapshotDetails">
-      {/* <SimpleSlider snapShots={props.snapShots} /> */}
       <Gallery snapShots={props.snapShots} />
       <SnapshotInfo
         date={props.date}
