@@ -23,7 +23,6 @@ const MiddleCard = (props) => {
   //   setIsLoading(false);
   // }, [softwaresInformation]);
 
-  console.log("softwaresInformation in middle card", softwaresInformation);
   const gotoSoftwareDetailsPage = (targetSoftware) => {
     setSoftDetaile(targetSoftware);
     goto.push("/software");

@@ -18,9 +18,7 @@ const Fields = (props) => {
       const data = await response.json();
       setResponse(data.labs);
       setFieldName(data.field_name);
-    } catch (err) {
-      console.log(err.message);
-    }
+    } catch (err) {}
   };
 
   const fetchcorrespondingSoftwareHandler = async (lab) => {

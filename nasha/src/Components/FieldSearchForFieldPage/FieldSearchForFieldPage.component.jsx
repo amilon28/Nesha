@@ -28,9 +28,7 @@ function FieldSearchForFieldPage(props) {
       if (!response.ok) throw Error("SomeThing Is Not Right !");
       const data = await response.json();
       setResult(data);
-    } catch (error) {
-      console.log(error.message);
-    }
+    } catch (error) {}
     setIsLoading(false);
   };
 

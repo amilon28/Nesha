@@ -13,7 +13,7 @@ const LeftBarList = () => {
       `https://hassan1245.pythonanywhere.com/Nesha/v1/lab_search/?field_id=12`
     );
     const data = await response.json();
-    console.log("data in comlab", data);
+
     setComputerLabs(data);
   };
 
@@ -23,7 +23,7 @@ const LeftBarList = () => {
     );
 
     const data = await response.json();
-    console.log("data in elecLab", data);
+
     setElecLabs(data);
   };
 

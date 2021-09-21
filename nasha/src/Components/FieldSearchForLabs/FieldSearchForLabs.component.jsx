@@ -23,12 +23,9 @@ function FieldSearchForLabs() {
       );
       if (!response.ok) throw Error("SomeThing Is Not Right !");
       const data = await response.json();
-      console.log(data);
+
       setResult(data);
-      console.log("Result of all labs: ", result);
-    } catch (error) {
-      console.log(error.message);
-    }
+    } catch (error) {}
     setIsLoading(false);
   };
 

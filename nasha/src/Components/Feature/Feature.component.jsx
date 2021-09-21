@@ -4,7 +4,6 @@ import calendar from "../../assets/img/calendar.svg";
 import { useState, useEffect } from "react";
 
 const Feature = (props) => {
-  console.log("Data in Feature", new Date(props.date));
   const [time, setTime] = useState(new Date(props.date));
   const [year, setYear] = useState("");
   const [month, setMonth] = useState("");

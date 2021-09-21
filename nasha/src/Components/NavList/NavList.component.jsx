@@ -14,7 +14,7 @@ const NavList = (props) => {
   const logoutHandler = async () => {
     localStorage.clear();
     setIsLogin(!isLogin);
-    console.log(localStorage);
+
     toast.success("خارج شدید", {
       position: toast.POSITION.BOTTOM_RIGHT,
       autoClose: 2000,
@@ -33,7 +33,7 @@ const NavList = (props) => {
     );
 
     const data = await response.json();
-    console.log("Logout data", data);
+
     goto.push("/");
   };
 

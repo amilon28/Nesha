@@ -603,13 +603,11 @@ const AddSoftware = () => {
                       <input
                         type="checkbox"
                         onClick={(e) =>
-                          console.log(
-                            licenseChangeHandler(
-                              e,
-                              l,
-                              existingLicense,
-                              setExistingLicense
-                            )
+                          licenseChangeHandler(
+                            e,
+                            l,
+                            existingLicense,
+                            setExistingLicense
                           )
                         }
                       />

@@ -27,7 +27,7 @@ const Form = () => {
         }
       );
       const data = await response;
-      console.log("suggestion data", data);
+
       setTitle("");
       setEmail("");
       setFullName("");
@@ -37,7 +37,6 @@ const Form = () => {
         className: "foo-bar",
       });
     } catch (error) {
-      console.log(error.message);
       toast.error("خطایی رخ داده است");
     }
   };

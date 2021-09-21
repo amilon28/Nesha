@@ -62,7 +62,7 @@ const Auth = () => {
       );
       if (response.ok) {
         const data = await response.json();
-        console.log("sign up data", data);
+
         localStorage.setItem("token", data.token);
         toast.success("شما با موفقیت ثبت نام شدید", {
           className: "alert",
@@ -74,7 +74,7 @@ const Auth = () => {
         });
       }
     } catch (error) {
-      // console.log(error.message);
+      //
     }
   };
 

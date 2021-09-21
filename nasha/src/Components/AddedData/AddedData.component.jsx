@@ -1,5 +1,4 @@
 const AddedData = (props) => {
-  console.log("props.date --->", props.date);
   const getDate = () => {
     const time = new Date(props.date);
     const year = time.getFullYear();

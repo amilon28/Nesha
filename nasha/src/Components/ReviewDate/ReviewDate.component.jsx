@@ -9,13 +9,12 @@ const ReviewDate = (props) => {
   const getDate = () => {
     // setTime(new Date(temp));
     setTime(new Date(props.date));
-    console.log("Time -->", time);
+
     setYear(time.getFullYear());
-    console.log("Year -->", year);
+
     setMonth(time.getMonth() + 1);
-    console.log("Month -->", month);
+
     setDay(time.getDate());
-    console.log("Day -->", day);
   };
 
   useEffect(() => {

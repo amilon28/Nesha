@@ -18,9 +18,8 @@ const MostRelatedSoftware = () => {
       );
       if (!response.ok) throw Error("Something Went Wrong...");
       const data = await response.json();
-      console.log("fields in home ...", data);
+
       setFields(data.results);
-      console.log("Fields ----> ", fields);
     } catch (err) {
       setError(err.message);
     }

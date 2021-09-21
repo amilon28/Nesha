@@ -6,8 +6,6 @@ import { SubjectContext } from "../../store/SubjectContext";
 import { toast } from "react-toastify";
 
 const SoftwareStatics = (props) => {
-  console.log("Props soft id", props.id);
-  console.log("Props like ", props.like);
   const {
     setSoftawreNameEditSection,
     setSoftwareIconEditSection,
@@ -33,7 +31,6 @@ const SoftwareStatics = (props) => {
       }
     );
     const data = await response;
-    console.log("respinse Like data", data);
 
     if (!data.ok || data.detail === "Invalid token.") {
       toast.warn("ابتدا ثبت نام یا ورود کنید", {
@@ -45,16 +42,12 @@ const SoftwareStatics = (props) => {
     if (!(localStorage.getItem("token") === null) && !isLiked) {
       setNumOfLike(numOfLike + 1);
       setIsLiked(true);
-      console.log("numoflike kazemi", numOfLike);
-      console.log("Props.like", numOfLike);
-      console.log("liked");
     }
 
     if (!(localStorage.getItem("token") === null) && isLiked) {
       // dislike()
       setNumOfLike(numOfLike - 1);
       setIsLiked(false);
-      console.log("disliked");
     }
   };
   return (

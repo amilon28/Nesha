@@ -18,7 +18,6 @@ const Labs = (props) => {
   };
 
   const fetchSoftwares = async () => {
-    console.log("are you in");
     const response = await fetch(
       `https://hassan1245.pythonanywhere.com/Nesha/v1/labs/${props.match.params.id}`
     );

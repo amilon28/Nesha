@@ -20,7 +20,6 @@ const Software = (props) => {
     const data = await response.json();
 
     setsoftwareDetaile(data);
-    console.log("setsoftwareDetaile in 23", softwareDetaile);
   };
 
   const fetchComments = async () => {

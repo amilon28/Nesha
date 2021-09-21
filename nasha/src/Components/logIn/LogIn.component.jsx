@@ -30,18 +30,16 @@ const LogIn = () => {
         }
       );
       const data = await response;
-      console.log(data);
+
       const userToken = await data.json();
-      console.log(userToken);
+
       localStorage.setItem("userToken", userToken.token);
       // setToken(data.token);
       toast.success("شما با موفقیت وارد شدید", {
         className: "alert",
       });
       goto.push("/");
-    } catch (error) {
-      console.log(error.message);
-    }
+    } catch (error) {}
   };
 
   return (

@@ -43,11 +43,9 @@ const SearchField = (props) => {
       );
       if (!response.ok) throw Error("Something Went Wrong...");
       const data = await response.json();
-      console.log("Result in home page...........for search field", data);
+
       setResult(data.results);
-    } catch (err) {
-      console.log(err.message);
-    }
+    } catch (err) {}
     setIsLoading(false);
   };
 

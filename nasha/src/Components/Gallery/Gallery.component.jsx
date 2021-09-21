@@ -9,7 +9,6 @@ const Gallery = (props) => {
   let [counter, setCounter] = useState(0);
   let t = 0;
   const pictuers = [...props.snapShots];
-  console.log(pictuers);
 
   const goPrev = function () {
     t--;

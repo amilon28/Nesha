@@ -38,18 +38,15 @@ const Signup = () => {
         }
       );
       const data = await response.json();
-      console.log("data in sign up", data);
 
       const userToken = data.token;
-      console.log("userToken signup", userToken);
+
       localStorage.setItem("signupToken", userToken);
       toast.success("شما با موفقیت ثبت نام شدید", {
         className: "alert",
       });
       goto.push("/");
-    } catch (error) {
-      console.log(error.message);
-    }
+    } catch (error) {}
   };
 
   return (

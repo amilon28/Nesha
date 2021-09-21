@@ -2,7 +2,6 @@ import Line from "../Line/Line.component";
 import Review from "./Review.component";
 
 const Reviews = (props) => {
-  console.log("List of comments", props.comments);
   const classes = "review " + props.className;
   return (
     <div className={classes}>

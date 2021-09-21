@@ -37,7 +37,6 @@ const RightBar = () => {
 
     const data = await response.json();
     setSoftwaresInformation(data);
-    console.log("Soft Details Infooo:", data);
   };
 
   const fetchPlatforms = async () => {
