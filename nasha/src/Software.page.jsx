@@ -9,7 +9,7 @@ import Title from "./Components/Title/Title.component";
 import "./software.css";
 
 const Software = (props) => {
-  const [softwareDetaile, setsoftwareDetaile] = useState();
+  const [softwareDetails, setsoftwareDetails] = useState();
   const [comments, setComments] = useState([]);
 
   const fetchSoftwareInfo = async () => {
@@ -19,12 +19,12 @@ const Software = (props) => {
 
     const data = await response.json();
 
-    setsoftwareDetaile(data);
+    setsoftwareDetails(data);
   };
 
   const fetchComments = async () => {
     const response = await fetch(
-      `https://hassan1245.pythonanywhere.com/Nesha/v1/${softwareDetaile?.id}/children/?page=1`
+      `https://hassan1245.pythonanywhere.com/Nesha/v1/${softwareDetails?.id}/children/?page=1`
     );
 
     const data = await response.json();
@@ -40,35 +40,35 @@ const Software = (props) => {
     <div className="software">
       <Header type="3" className="type-3" />
       <SoftwareDetails
-        softwareName={softwareDetaile?.name}
-        softwareIcon={softwareDetaile?.icon_picture}
-        like={softwareDetaile?.likes}
-        view={softwareDetaile?.views}
-        id={softwareDetaile?.id}
-        plats={softwareDetaile?.platforms}
-        lice={softwareDetaile?.licenses}
+        softwareName={softwareDetails?.name}
+        softwareIcon={softwareDetails?.icon_picture}
+        like={softwareDetails?.likes}
+        view={softwareDetails?.views}
+        id={softwareDetails?.id}
+        plats={softwareDetails?.platforms}
+        lice={softwareDetails?.licenses}
       />
-      <SoftwareDescription description={softwareDetaile?.description} />
+      <SoftwareDescription description={softwareDetails?.description} />
       <Snapshot
-        url={softwareDetaile?.url}
-        licenses={softwareDetaile?.licenses}
-        date={softwareDetaile?.date_submitted}
-        courseLinks={softwareDetaile?.course_links}
-        reviewlinks={softwareDetaile?.review_links}
-        platforms={softwareDetaile?.platforms}
-        labs={softwareDetaile?.labs}
+        url={softwareDetails?.url}
+        licenses={softwareDetails?.licenses}
+        date={softwareDetails?.date_submitted}
+        courseLinks={softwareDetails?.course_links}
+        reviewlinks={softwareDetails?.review_links}
+        platforms={softwareDetails?.platforms}
+        labs={softwareDetails?.labs}
         snapShots={[
-          softwareDetaile?.snapshot1,
-          softwareDetaile?.snapshot2,
-          softwareDetaile?.snapshot3,
-          softwareDetaile?.snapshot4,
-          softwareDetaile?.snapshot5,
+          softwareDetails?.snapshot1,
+          softwareDetails?.snapshot2,
+          softwareDetails?.snapshot3,
+          softwareDetails?.snapshot4,
+          softwareDetails?.snapshot5,
         ]}
-        pdf={softwareDetaile?.pdf_file}
+        pdf={softwareDetails?.pdf_file}
       />
       <>
         <Title className="reviews-title">Reviews</Title>
-        <Reviews soft_id={softwareDetaile?.id} comments={comments} />
+        <Reviews soft_id={softwareDetails?.id} comments={comments} />
       </>
     </div>
   );
